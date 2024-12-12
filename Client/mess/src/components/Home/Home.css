@@ -6,7 +6,7 @@
     box-sizing: border-box;
   }
   
-  .header {
+  .header-home {
     background-color: #4CAF50;
     color: white;
     text-align: center;
@@ -86,15 +86,15 @@
   }
   
   @media (max-width: 480px) {
-    .header {
+    .header-home {
       padding: 15px;
     }
   
-    .header h1 {
+    .header-home h1 {
       font-size: 1.8rem;
     }
   
-    .header p {
+    .header-home p {
       font-size: 1rem;
     }
   

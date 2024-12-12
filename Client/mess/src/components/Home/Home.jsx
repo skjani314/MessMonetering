@@ -1,11 +1,14 @@
 import React from 'react';
 import './Home.css';
+import Header from '../Header/Header';
 
 const Home = () => {
   return (
+    <>
+    <Header/>
     <div className="home-container">
       {/* Header Section */}
-      <header className="header">
+      <header className="header-home">
         <h1>College Mess Feedback System</h1>
         <p>Your voice matters! Share your thoughts to improve our services.</p>
       </header>
@@ -45,6 +48,7 @@ const Home = () => {
         <p>© 2024 College Mess Feedback System. All rights reserved.</p>
       </footer>
     </div>
+    </>
   );
 };
 

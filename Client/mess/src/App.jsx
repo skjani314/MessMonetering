@@ -1,45 +1,60 @@
-import React from "react";
-import { Card, Avatar, Descriptions } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { useState } from 'react'
+import './App.css'
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import Context from './context/Context';
+import { message } from 'antd';
+import Home from './components/Home/Home';
+import Coordinator from './pages/Coordinator';
+import Header from './components/Header/Header';
 
-const StudentProfile = ({ student }) => {
+function App() {
+
+
+
+
+  const [activeTab, setActiveTab] = useState('DASHBOARD');
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = (msg) => {
+    messageApi.open({
+      type: 'success',
+      content: msg,
+    });
+  };
+  const error = (msg) => {
+    messageApi.open({
+      type: 'error',
+      content: msg,
+    });
+  };
+
+
+  const changeActiveTab = (tabId) => {
+    setActiveTab(tabId);
+  }
+  const context_data = {
+    activeTab,
+    changeActiveTab: changeActiveTab,
+    success,
+    error,
+    contextHolder,
+    user,
+    setUser,
+    loading,
+    setLoading,
+
+  }
   return (
-    <Card
-      bordered={true}
-      style={{ width: 400, margin: "0 auto", textAlign: "center" }}
-    >
-      {/* Profile Icon */}
-      <Avatar size={100} icon={<UserOutlined />} style={{ marginBottom: 20 }} />
-
-      {/* Profile Details */}
-      <Descriptions column={1}>
-        <Descriptions.Item label="Name">{student.name}</Descriptions.Item>
-        <Descriptions.Item label="Age">{student.age}</Descriptions.Item>
-        <Descriptions.Item label="ID">{student.id}</Descriptions.Item>
-        <Descriptions.Item label="Branch">{student.branch}</Descriptions.Item>
-        <Descriptions.Item label="Email">{student.email}</Descriptions.Item>
-        <Descriptions.Item label="Phone No">{student.phone}</Descriptions.Item>
-      </Descriptions>
-    </Card>
-  );
-};
-
-// Example usage
-const studentData = {
-  name: "John Doe",
-  age: 20,
-  id: "123456",
-  branch: "Computer Science",
-  email: "johndoe@example.com",
-  phone: "123-456-7890",
-};
-
-const App = () => {
-  return (
-    <div style={{ padding: "50px" }}>
-      <StudentProfile student={studentData} />
-    </div>
-  );
-};
+    <Context.Provider value={context_data}>
+      <Routes>
+        <Route  path='/' element={<Home/>} />
+        <Route path='/coordinator' element={<Coordinator/>} />
+</Routes>
+  </Context.Provider>
+  )
+}
 
 export default App;

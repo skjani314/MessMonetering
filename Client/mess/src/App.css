@@ -1,42 +1,88 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+.dashboard-container{
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+  background-color: whitesmoke;
+  padding-bottom: 30%;
+
+}
+@media screen and (min-width:768px){
+  .dashboard-container{
+      display: block;
+      min-height:80vh;
+      background-color: white;
+      padding: 10px;
+      padding-left: 0px;
+      background-color: whitesmoke;
+
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.main-content{
+    
+  padding: 10px;
+   background-color: whitesmoke;
+   width:100%;
 }
 
-.card {
-  padding: 2em;
+.header-down{
+   display: block;
+   margin-bottom: 90px;
+   background-color: whitesmoke;
+   border-radius: 10px;
+   width: 100%;
+   min-height: 100vh;
 }
 
-.read-the-docs {
-  color: #888;
+
+
+
+@media screen and (min-width:768px){
+
+   .header-down{
+
+       display: flex;
+       margin-top: 0px;
+
+       }
+
+   .main-content{
+   
+       padding: 10px;
+       margin-left: 150px;
+       margin-top: 50px;
+       margin-right: 30px;
+       width: 100%;
+   min-height: 90vh;
+   background-color: whitesmoke;
+   border-radius: 10px;
+   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+   
+   
+   }
+   .home-container{
+       background-color: whitesmoke;
+       height:100vh;
+   }
 }
+
+
+
+
+@media screen and (min-width:993px){
+   
+
+   .main-content{
+   
+       padding: 10px;
+       margin-left: 230px;
+       margin-top: 50px;
+       margin-right: 30px;
+       width: 100%;
+   min-height: 80vh;
+   background-color: whitesmoke;
+   border-radius: 10px;
+   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+   
+   
+   }
+   }
