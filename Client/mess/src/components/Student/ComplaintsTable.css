@@ -1,125 +1,145 @@
-/* General Styling for Complaints Table Component */
+/* Base styles for the container */
 .complaints-container {
-    padding: 20px;
-    background-color: #f9f9f9;
+  padding: 16px;
+  margin: auto;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+/* Header styles */
+.complaints-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+/* Table styles */
+.complaints-table .ant-table {
+  border-radius: 8px;
+  overflow-x: auto; /* Ensures responsiveness for small screens */
+}
+
+/* Modal styling for alignment and text */
+.ant-modal {
+  border-radius: 8px;
+}
+
+.ant-modal .ant-form-item-label > label {
+  font-weight: bold;
+}
+
+/* Responsive typography for text inside modals */
+.ant-modal p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Button styling */
+button.ant-btn-primary {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+/* Responsive design using media queries */
+
+/* For very small devices (300px to 479px) */
+@media (max-width: 479px) {
+  .complaints-container {
+    padding: 8px;
   }
-  
+
   .complaints-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-  }
-  
-  .ant-btn-primary {
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
-  
-  .ant-btn-primary:hover {
-    background-color: #40a9ff;
-    border-color: #40a9ff;
-  }
-  
-  /* Table Styling */
-  .complaints-table {
-    background-color: white;
-    border-radius: 8px;
-    overflow-x: auto; /* Ensures responsiveness */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .ant-table-thead > tr > th {
-    background-color: #fafafa;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .ant-table-tbody > tr > td {
-    text-align: center;
-  }
-  
-  .ant-tag {
-    display: flex;
-    align-items: center;
     justify-content: center;
+  }
+
+  .complaints-table .ant-table th,
+  .complaints-table .ant-table td {
+    font-size: 12px;
+  }
+
+  .ant-modal .ant-form-item-label > label {
     font-size: 14px;
   }
-  
-  /* Modal Styling */
-  .ant-modal {
-    border-radius: 8px;
+
+  .ant-modal p {
+    font-size: 12px;
   }
-  
-  .ant-modal-header {
-    background-color: #fafafa;
-    border-radius: 8px 8px 0 0;
-    text-align: center;
-    font-weight: bold;
+
+  button.ant-btn-primary {
+    font-size: 12px;
+    padding: 5px 10px;
   }
-  
-  .ant-modal-title {
-    font-size: 18px;
+}
+
+/* For small devices (480px to 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .complaints-container {
+    padding: 12px;
   }
-  
-  .ant-modal-footer {
-    text-align: center;
+
+  .complaints-header {
+    justify-content: center;
   }
-  
-  /* Form Field Styling */
-  .ant-form-item {
-    margin-bottom: 16px;
-  }
-  
-  .ant-input,
-  .ant-select-selector {
-    border-radius: 4px;
-  }
-  
-  .ant-btn {
-    border-radius: 4px;
+
+  .complaints-table .ant-table th,
+  .complaints-table .ant-table td {
     font-size: 14px;
   }
-  
-  /* Responsive Styling */
-  @media (max-width: 768px) {
-    .complaints-container {
-      padding: 10px;
-    }
-  
-    .complaints-header {
-      justify-content: center;
-    }
-  
-    .ant-table {
-      font-size: 12px;
-    }
-  
-    .ant-modal {
-      width: 90%;
-      padding: 10px;
-    }
-  
-    .ant-modal-header {
-      font-size: 16px;
-    }
-  
-    .ant-btn {
-      font-size: 12px;
-    }
+
+  button.ant-btn-primary {
+    font-size: 13px;
+    padding: 6px 12px;
   }
-  
-  @media (max-width: 480px) {
-    .ant-table {
-      font-size: 10px;
-    }
-  
-    .ant-modal {
-      padding: 5px;
-    }
-  
-    .ant-btn {
-      font-size: 10px;
-      padding: 5px 10px;
-    }
+}
+
+/* For medium devices (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .complaints-container {
+    padding: 16px;
   }
-  
+
+  .complaints-table .ant-table th,
+  .complaints-table .ant-table td {
+    font-size: 15px;
+  }
+
+  button.ant-btn-primary {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+}
+
+/* For large devices (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .complaints-container {
+    padding: 20px;
+  }
+
+  .complaints-table .ant-table th,
+  .complaints-table .ant-table td {
+    font-size: 16px;
+  }
+
+  button.ant-btn-primary {
+    font-size: 15px;
+    padding: 10px 16px;
+  }
+}
+
+/* For extra-large devices (1200px and above) */
+@media (min-width: 1200px) {
+  .complaints-container {
+    padding: 24px;
+  }
+
+  .complaints-table .ant-table th,
+  .complaints-table .ant-table td {
+    font-size: 16px;
+  }
+
+  button.ant-btn-primary {
+    font-size: 16px;
+    padding: 12px 18px;
+  }
+}

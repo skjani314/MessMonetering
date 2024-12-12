@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Table, Button, Modal, Form, Input, Select, Tag, Timeline } from "antd";
-import { CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import { Table, Button, Modal, Form, Input, Select, Tag, Timeline, Upload } from "antd";
+import { UploadOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import "./ComplaintsTable.css";
 
 const { Option } = Select;
@@ -21,6 +21,7 @@ const ComplaintsTable = () => {
         { timestamp: "2024-12-12", action: "Complaint Registered" },
         { timestamp: "2024-12-13", action: "Complaint under review" },
       ],
+      image: null, // No image uploaded
     },
     {
       key: "2",
@@ -32,9 +33,11 @@ const ComplaintsTable = () => {
         { timestamp: "2024-12-11", action: "Complaint Registered" },
         { timestamp: "2024-12-12", action: "Complaint resolved" },
       ],
+      image: "https://via.placeholder.com/150", // Example uploaded image
     },
   ]);
 
+  const [uploadedImage, setUploadedImage] = useState(null); // Store the uploaded image
   const [selectedComplaint, setSelectedComplaint] = useState(null);
 
   const columns = [
@@ -52,34 +55,26 @@ const ComplaintsTable = () => {
       title: "Complaint",
       dataIndex: "complaint",
       key: "complaint",
-      render: (text, record) => (
-        <a
-          onClick={() => handleComplaintClick(record)}
-          style={{ color: "#1890ff", cursor: "pointer" }}
-        >
-          {text}
-        </a>
-      ),
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status) => {
-        if (status === "Pending") {
-          return (
-            <Tag color="Red" icon={<ClockCircleOutlined />}>
-              Pending
+      render: (status, record) => {
+        const isPending = status === "Pending";
+        return (
+          <a
+            onClick={() => handleStatusClick(record)}
+            style={{ color: isPending ? "orange" : "green", cursor: "pointer" }}
+          >
+            <Tag
+              color={isPending ? "orange" : "green"}
+              icon={isPending ? <ClockCircleOutlined /> : <CheckCircleOutlined />}
+            >
+              {status}
             </Tag>
-          );
-        } else if (status === "Resolved") {
-          return (
-            <Tag color="Green" icon={<CheckCircleOutlined />}>
-              Resolved
-            </Tag>
-          );
-        }
-        return status;
+          </a>
+        );
       },
     },
   ];
@@ -90,7 +85,16 @@ const ComplaintsTable = () => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    setUploadedImage(null); // Reset image
     form.resetFields();
+  };
+
+  const handleUploadChange = (info) => {
+    if (info.file && info.file.originFileObj) {
+      setUploadedImage(info.file.originFileObj);
+    } else {
+      setUploadedImage(null);
+    }
   };
 
   const handleSubmit = (values) => {
@@ -101,14 +105,16 @@ const ComplaintsTable = () => {
       complaint: values.complaint,
       status: "Pending",
       timeline: [{ timestamp: new Date().toISOString().split("T")[0], action: "Complaint Registered" }],
+      image: uploadedImage ? URL.createObjectURL(uploadedImage) : null,
     };
 
     setData([...data, newComplaint]);
     setIsModalVisible(false);
+    setUploadedImage(null); // Reset image
     form.resetFields();
   };
 
-  const handleComplaintClick = (complaint) => {
+  const handleStatusClick = (complaint) => {
     setSelectedComplaint(complaint);
     setIsComplaintDetailVisible(true);
   };
@@ -145,10 +151,14 @@ const ComplaintsTable = () => {
             rules={[{ required: true, message: "Please select a category" }]}
           >
             <Select placeholder="Select a category">
-              <Option value="Food">Food</Option>
-              <Option value="Cleanliness">Cleanliness</Option>
-              <Option value="Electricity">Electricity</Option>
-              <Option value="Other">Other</Option>
+              <Option value="Timeliness">Timeliness of service</Option>
+              <Option value="Cleanliness of Mess">Cleanliness of dining hall,plates and surroundings</Option>
+              <Option value="Quality of food">Food Quality  including Rice,Snacks,Tea,Coffee and Breakfast</Option>
+              <Option value="Quantity of food">Quantity of food served as per Menu</Option>
+              <Option value="Courtesy of Mess staff"> Courtesy of Mess staff as per the Menu</Option>
+              <Option value="Staff hygine">Staff Hygine(uniforms,gloves,masks)</Option>
+              <Option value="Cooking and serving">Cooking and Serving adherence to the menu</Option>
+              <Option value="Cleanliness of Wash basins">Cleanliness of wash basins and wash areas</Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -158,6 +168,19 @@ const ComplaintsTable = () => {
           >
             <Input.TextArea placeholder="Describe your complaint" rows={4} />
           </Form.Item>
+          <Form.Item
+            name="image"
+            label="Upload Image"
+          >
+            <Upload
+              name="complaintImage"
+              listType="picture"
+              beforeUpload={() => false} // Prevent automatic upload
+              onChange={handleUploadChange}
+            >
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
+          </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit
@@ -166,7 +189,7 @@ const ComplaintsTable = () => {
         </Form>
       </Modal>
 
-      {/* Modal for Complaint Timeline and Description */}
+      {/* Modal for Complaint Timeline and Details */}
       <Modal
         title="Complaint Details"
         visible={isComplaintDetailVisible}
@@ -175,10 +198,21 @@ const ComplaintsTable = () => {
       >
         {selectedComplaint && (
           <div>
+            <p><strong>Complaint Category:</strong> {selectedComplaint.category}</p>
             <p><strong>Complaint Description:</strong> {selectedComplaint.complaint}</p>
+            {selectedComplaint.image && (
+              <div>
+                <p><strong>Uploaded Image:</strong></p>
+                <img
+                  src={selectedComplaint.image}
+                  alt="Complaint"
+                  style={{ maxWidth: "100%", borderRadius: "8px" }}
+                />
+              </div>
+            )}
             <Timeline>
               {selectedComplaint.timeline.map((entry, index) => (
-                <Timeline.Item key={index} color={index % 2 === 0 ?"red" :"green"}>
+                <Timeline.Item key={index} color={index % 2 === 0 ? "green" : "blue"}>
                   <strong>{entry.timestamp}</strong>: {entry.action}
                 </Timeline.Item>
               ))}

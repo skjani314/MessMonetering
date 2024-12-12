@@ -6,6 +6,7 @@ import { message } from 'antd';
 import Home from './components/Home/Home';
 import Coordinator from './pages/Coordinator';
 import Header from './components/Header/Header';
+import Student from './pages/Student'
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
       <Routes>
         <Route  path='/' element={<Home/>} />
         <Route path='/coordinator' element={<Coordinator/>} />
+        <Route path="/student" element={<Student/>}/>
 </Routes>
   </Context.Provider>
   )
