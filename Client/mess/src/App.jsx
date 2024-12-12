@@ -4,11 +4,9 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Context from './context/Context';
 import { message } from 'antd';
 import Home from './components/Home/Home';
-import CoordinatorHistory from './pages/Coordinator/CoordinatorHistory';
-import CoordinatorProfile from './pages/Coordinator/CoordinatorProfile';
-import CoordinatorComplaint from './pages/Coordinator/CoordinatorComplaint';
-import CoordinatorDashboard from './pages/Coordinator/CoordinatorDashboard';
-
+import Coordinator from './pages/Coordinator';
+import Header from './components/Header/Header';
+import Student from './pages/Student'
 
 function App() {
 
@@ -54,10 +52,8 @@ function App() {
     <Context.Provider value={context_data}>
       <Routes>
         <Route  path='/' element={<Home/>} />
-        <Route path='/coordinator/dashboard' element={<CoordinatorDashboard/>}/>
-        <Route path='/coordinator/complaint' element={<CoordinatorComplaint/>} />
-        <Route path='/coordinator/history' element={<CoordinatorHistory/>} />
-        <Route path='/coordinator/profile' element={<CoordinatorProfile/>} />
+        <Route path='/coordinator' element={<Coordinator/>} />
+        <Route path="/student" element={<Student/>}/>
 </Routes>
   </Context.Provider>
   )
