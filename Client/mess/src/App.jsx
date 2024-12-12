@@ -9,6 +9,10 @@ import AdminStudent from './pages/Admin/AdminStudent';
 import AdminCoordinator from './pages/Admin/AdminCoordinator';
 import AdminProfile from './pages/Admin/AdminProfile';
 import Student from './pages/Student'
+import CoordinatorHistory from './pages/Coordinator/CoordinatorHistory';
+import CoordinatorProfile from './pages/Coordinator/CoordinatorProfile';
+import CoordinatorComplaint from './pages/Coordinator/CoordinatorComplaint';
+import CoordinatorDashboard from './pages/Coordinator/CoordinatorDashboard';
 
 function App() {
 
@@ -59,10 +63,14 @@ function App() {
         <Route path='/admin/student' element={<AdminStudent/>} />
         <Route path='/admin/coordinator' element={<AdminCoordinator/>} />
         <Route path='/admin/profile' element={<AdminProfile/>} />      
+<Route path='/coordinator/dashboard' element={<CoordinatorDashboard/>}/>
+<Route path='/coordinator/complaint' element={<CoordinatorComplaint/>} />
+<Route path='/coordinator/history' element={<CoordinatorHistory/>} />
+<Route path='/coordinator/profile' element={<CoordinatorProfile/>} />
         <Route path="/student" element={<Student/>}/>
 </Routes>
   </Context.Provider>
   )
 }
 
-export default App
+export default App;

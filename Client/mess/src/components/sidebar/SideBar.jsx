@@ -5,6 +5,7 @@ import { GiMedicines } from "react-icons/gi";
 import { AiFillMedicineBox } from "react-icons/ai";
 import { PiStudentBold } from "react-icons/pi";
 
+
 import { GrTransaction } from "react-icons/gr";
 
 import './Sidebar.css'
@@ -15,33 +16,28 @@ const sidebarItems=[
         id:"DASHBOARD",
         displayText:"Dashboard",
         icon:<MdDashboard />,
-        path:'/dashboard'
+        path:'/coordinator/dashboard'
     },
     {
-        id:'MEDICINE',
-        displayText:'Medicine',
+        id:'COMPLAINT',
+        displayText:'Raise Complaint',
         icon:<GiMedicines className="mb-2"/>,
-        path:'/medicinepage',
+        path:'/coordinator/complaint',
     },
     
     {
-        id:"STOCK",
-        displayText:'Stock',
+        id:"HISTORY",
+        displayText:'History',
         icon:<AiFillMedicineBox className="mb-2"/>,
-        path:'/stockpage',
+        path:'/coordinator/history',
     },
     {
-        id:"STUDENT",
-        displayText:'Student',
+        id:"PROFILE",
+        displayText:'Profile',
         icon:<PiStudentBold className="mb-2"/>,
-        path:'/studentpage',
+        path:'/coordinator/profile',
     },
-    {
-        id:"TRANSACTIONS",
-        displayText:'Transactions',
-        icon:<GrTransaction className="mb-2"/>,
-        path:'/transactionpage',
-    }
+    
 ]
 
 const Sidebar=()=>{
@@ -53,7 +49,7 @@ const Sidebar=()=>{
                 <>
                 <div className='sidebar-container-md' >
                    <div style={{borderBottom:'1px solid black'}}>
-                        <h1 className="main-heading">PHARMACY</h1>
+                        <h1 className="main-heading">MESS MANAGEMENT</h1>
                         <img src={pharmacyImage} alt="pharmacy" className="pharmacy-image img-fluid"/>
                     </div>
                 <ul className="unordered-list">
