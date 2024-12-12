@@ -46,7 +46,7 @@ const AdminSidebar=()=>{
                 <>
                 <div className='sidebar-container-md' >
                    <div style={{borderBottom:'1px solid black'}}>
-                        <h1 className="main-heading">PHARMACY</h1>
+                        <h1 className="main-heading">MESS MAINTAINANCE</h1>
                         <img src={pharmacyImage} alt="pharmacy" className="pharmacy-image img-fluid"/>
                     </div>
                 <ul className="unordered-list">

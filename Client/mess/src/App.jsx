@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Context from './context/Context';
 import { message } from 'antd';
 import Home from './components/Home/Home';
@@ -8,6 +8,8 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminStudent from './pages/Admin/AdminStudent';
 import AdminCoordinator from './pages/Admin/AdminCoordinator';
 import AdminProfile from './pages/Admin/AdminProfile';
+import Student from './pages/Student'
+
 function App() {
 
 
@@ -52,14 +54,12 @@ function App() {
     <Context.Provider value={context_data}>
       <Routes>
         <Route  path='/' element={<Home/>} />
+
         <Route path='/admin/dashboard' element={<AdminDashboard/>} />
         <Route path='/admin/student' element={<AdminStudent/>} />
         <Route path='/admin/coordinator' element={<AdminCoordinator/>} />
-        <Route path='/admin/profile' element={<AdminProfile/>} />
-
-
-        
-
+        <Route path='/admin/profile' element={<AdminProfile/>} />      
+        <Route path="/student" element={<Student/>}/>
 </Routes>
   </Context.Provider>
   )
