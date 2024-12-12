@@ -5,7 +5,7 @@ import Header from '../../components/Header/Header';
 import Sidebar from '../../components/sidebar/SideBar';
 import Context from '../../context/Context';
 
-const Coordinator = props => {
+const CoordinatorDashboard = props => {
 
 
     const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
@@ -30,7 +30,7 @@ const Coordinator = props => {
                         <Sidebar />
                     </div>
                     <div className="main-content">
-                        hii
+                        Hello
                     </div>
                 </div>
 
@@ -42,4 +42,4 @@ const Coordinator = props => {
 };
 
 
-export default Coordinator;
+export default CoordinatorDashboard;
