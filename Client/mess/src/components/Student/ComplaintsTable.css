@@ -1,0 +1,125 @@
+/* General Styling for Complaints Table Component */
+.complaints-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .complaints-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+  
+  .ant-btn-primary {
+    background-color: #1890ff;
+    border-color: #1890ff;
+  }
+  
+  .ant-btn-primary:hover {
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+  }
+  
+  /* Table Styling */
+  .complaints-table {
+    background-color: white;
+    border-radius: 8px;
+    overflow-x: auto; /* Ensures responsiveness */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ant-table-thead > tr > th {
+    background-color: #fafafa;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .ant-table-tbody > tr > td {
+    text-align: center;
+  }
+  
+  .ant-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  
+  /* Modal Styling */
+  .ant-modal {
+    border-radius: 8px;
+  }
+  
+  .ant-modal-header {
+    background-color: #fafafa;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .ant-modal-title {
+    font-size: 18px;
+  }
+  
+  .ant-modal-footer {
+    text-align: center;
+  }
+  
+  /* Form Field Styling */
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
+  
+  .ant-input,
+  .ant-select-selector {
+    border-radius: 4px;
+  }
+  
+  .ant-btn {
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .complaints-container {
+      padding: 10px;
+    }
+  
+    .complaints-header {
+      justify-content: center;
+    }
+  
+    .ant-table {
+      font-size: 12px;
+    }
+  
+    .ant-modal {
+      width: 90%;
+      padding: 10px;
+    }
+  
+    .ant-modal-header {
+      font-size: 16px;
+    }
+  
+    .ant-btn {
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .ant-table {
+      font-size: 10px;
+    }
+  
+    .ant-modal {
+      padding: 5px;
+    }
+  
+    .ant-btn {
+      font-size: 10px;
+      padding: 5px 10px;
+    }
+  }
+  

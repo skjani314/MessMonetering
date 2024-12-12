@@ -6,7 +6,7 @@ const Home = () => {
     <div className="home-container">
       {/* Header Section */}
       <header className="header">
-        <h1>College Mess Feedback System</h1>
+        <h1>RGUKT ONGOLE Mess Feedback System</h1>
         <p>Your voice matters! Share your thoughts to improve our services.</p>
       </header>
 
@@ -42,7 +42,7 @@ const Home = () => {
 
       {/* Footer Section */}
       <footer className="footer">
-        <p>© 2024 College Mess Feedback System. All rights reserved.</p>
+        <p>© 2024 RGUKT ONGOLE Mess Feedback System. All rights reserved.</p>
       </footer>
     </div>
   );
