@@ -5,6 +5,7 @@ import Context from './context/Context';
 import { message } from 'antd';
 import Home from './components/Home/Home';
 import Coordinator from './pages/Coordinator';
+import Header from './components/Header/Header';
 
 function App() {
 
@@ -48,17 +49,10 @@ function App() {
   }
   return (
     <Context.Provider value={context_data}>
-
-    <BrowserRouter>
       <Routes>
         <Route  path='/' element={<Home/>} />
         <Route path='/coordinator' element={<Coordinator/>} />
-
-        {/* <Route path='/forgot/:token' component={Forgotpass} />
-        <Route path="*" component={NotFoundPage} /> */}
 </Routes>
-    </BrowserRouter>
-
   </Context.Provider>
   )
 }

@@ -9,31 +9,35 @@ const Coordinator = props => {
 
 
     const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
+
+
     useEffect(() => {
         changeActiveTab('DASHBOARD');
 
     }, [])
 
 
+
     return (
         <>
-            {contextHolder}
-            <Spin tip="Loading...." size='large' spinning={loading}>
-                <div className="home-container">
-                    <div className=""><Header /></div>
+        {contextHolder}
+        <Spin tip="Loading...." size='large' spinning={loading}>
+            <div className="home-container">
+                <div className="home-header-sidebar"><Header /></div>
 
-                    <div className="header-down">
-                        <div className="sidebar-container">
-                            <Sidebar />
-                        </div>
-                        <div className="main-content">
-                            hi
-                        </div>
+                <div className="header-down">
+                    <div className="sidebar-container">
+                        <Sidebar />
                     </div>
-
+                    <div className="main-content">
+                        hi
+                    </div>
                 </div>
-            </Spin>
-        </>
+
+            </div>
+        </Spin>
+    </>
+        
     );
 };
 
