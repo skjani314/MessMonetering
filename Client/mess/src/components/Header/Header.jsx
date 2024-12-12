@@ -2,7 +2,7 @@ import React from 'react';
 import logorgukt from './logo-rgukt.png';
 import { IoIosNotifications } from "react-icons/io";
 import './Header.css'
-// import { useContext } from "react"
+import { useContext } from "react"
 import Context from "../../context/Context"
 import LogIn from '../LogIn/LogIn';
 import HeaderDup from './HeaderDup';
@@ -10,7 +10,7 @@ import HeaderDup from './HeaderDup';
 
 const Header = (props) => {
 
-    // const { success,setLoading, error ,user,setUser,loading}=useContext(Context);
+    const { success,setLoading, error ,user,setUser,loading}=useContext(Context);
 
 
 
