@@ -33,7 +33,7 @@ const CoordinatorProfile = props => {
                         <Sidebar />
                     </div>
                     <div className="main-content">
-                    <h1 >Heading at the Top of the Page</h1>
+                    <h1 >Personal Profile</h1>
                         
                         <Profile />
                     </div>

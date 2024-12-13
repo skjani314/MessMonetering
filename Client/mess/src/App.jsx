@@ -13,6 +13,8 @@ import CoordinatorHistory from './pages/Coordinator/CoordinatorHistory';
 import CoordinatorProfile from './pages/Coordinator/CoordinatorProfile';
 import CoordinatorComplaint from './pages/Coordinator/CoordinatorComplaint';
 import CoordinatorDashboard from './pages/Coordinator/CoordinatorDashboard';
+import Forgotpass from './components/LogIn/Forgotpass';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
@@ -58,19 +60,19 @@ function App() {
     <Context.Provider value={context_data}>
       
       <Routes>
-        <Route  path='/' element={<Home/>} />
-
-        <Route path='/admin/dashboard' element={<AdminDashboard/>} />
-        <Route path='/admin/student' element={<AdminStudent/>} />
-        <Route path='/admin/coordinator' element={<AdminCoordinator/>} />
-        <Route path='/admin/profile' element={<AdminProfile/>} />      
-        <Route path='/coordinator/dashboard' element={<CoordinatorDashboard/>}/>
-        <Route path='/coordinator/complaint' element={<CoordinatorComplaint/>} />
-        <Route path='/coordinator/history' element={<CoordinatorHistory/>} />
-        <Route path='/coordinator/profile' element={<CoordinatorProfile/>} />
-        <Route path="/student" element={<Student/>}/>
-</Routes>
-  </Context.Provider>
+        <Route path='/' element={<Home />} />
+        <Route path='/forgot/:token' element={<Forgotpass/>} />
+        <Route path='/admin/dashboard' element={<AdminDashboard />} />
+        <Route path='/admin/student' element={<AdminStudent />} />
+        <Route path='/admin/coordinator' element={<AdminCoordinator />} />
+        <Route path='/admin/profile' element={<AdminProfile />} />
+        <Route path='/coordinator/dashboard' element={<CoordinatorDashboard />} />
+        <Route path='/coordinator/complaint' element={<CoordinatorComplaint />} />
+        <Route path='/coordinator/history' element={<CoordinatorHistory />} />
+        <Route path='/coordinator/profile' element={<CoordinatorProfile />} />
+        <Route path="/student" element={<Student />} />
+      </Routes>
+    </Context.Provider>
   )
 }
 

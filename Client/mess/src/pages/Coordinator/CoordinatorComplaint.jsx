@@ -4,7 +4,7 @@ import { Spin } from "antd";
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/sidebar/SideBar';
 import Context from '../../context/Context';
-import ComplaintsTable from '../../components/Student/ComplaintsTable'
+import ComplaintsTable from '../../components/Coordinator/ComplaintsTable'
 
 
 const CoordinatorComplaint = props => {
@@ -32,7 +32,7 @@ const CoordinatorComplaint = props => {
                         <Sidebar />
                     </div>
                     <div className="main-content">
-                    <h1 >Heading at the Top of the Page</h1>
+                    <h1 >Raise Complaint</h1>
                         <ComplaintsTable/>
                     </div>
                 </div>
