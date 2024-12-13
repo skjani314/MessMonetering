@@ -63,10 +63,10 @@ function App() {
         <Route path='/admin/student' element={<AdminStudent/>} />
         <Route path='/admin/coordinator' element={<AdminCoordinator/>} />
         <Route path='/admin/profile' element={<AdminProfile/>} />      
-<Route path='/coordinator/dashboard' element={<CoordinatorDashboard/>}/>
-<Route path='/coordinator/complaint' element={<CoordinatorComplaint/>} />
-<Route path='/coordinator/history' element={<CoordinatorHistory/>} />
-<Route path='/coordinator/profile' element={<CoordinatorProfile/>} />
+        <Route path='/coordinator/dashboard' element={<CoordinatorDashboard/>}/>
+        <Route path='/coordinator/complaint' element={<CoordinatorComplaint/>} />
+        <Route path='/coordinator/history' element={<CoordinatorHistory/>} />
+        <Route path='/coordinator/profile' element={<CoordinatorProfile/>} />
         <Route path="/student" element={<Student/>}/>
 </Routes>
   </Context.Provider>

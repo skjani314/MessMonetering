@@ -9,7 +9,7 @@ const CoordinatorDashboard = props => {
 
 
     const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
-
+    
 
     useEffect(() => {
         changeActiveTab('DASHBOARD');
@@ -30,7 +30,8 @@ const CoordinatorDashboard = props => {
                         <Sidebar />
                     </div>
                     <div className="main-content">
-                        Hello
+                    <h1 >Heading at the Top of the Page</h1>
+hello
                     </div>
                 </div>
 

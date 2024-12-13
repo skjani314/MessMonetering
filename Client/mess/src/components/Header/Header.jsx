@@ -6,6 +6,7 @@ import { useContext } from "react"
 import Context from "../../context/Context"
 import LogIn from '../LogIn/LogIn';
 import HeaderDup from './HeaderDup';
+import { CgProfile } from "react-icons/cg";
 
 
 const Header = (props) => {
@@ -27,6 +28,7 @@ const Header = (props) => {
                 <div className="logout-container">
 
                     <IoIosNotifications className="styling-icon" />
+                    <CgProfile className="profile-icon"/>
                     <LogIn />
                 </div>
             </div>
