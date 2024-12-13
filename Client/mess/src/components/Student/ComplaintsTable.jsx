@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Table, Button, Modal, Form, Input, Select, Tag, Timeline, Upload } from "antd";
 import { UploadOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import "./ComplaintsTable.css";
+import MenuTable from "../Home/MenuTable";
 
 const { Option } = Select;
 
@@ -124,7 +125,32 @@ const ComplaintsTable = () => {
   };
 
   return (
+<>
+    
     <div className="complaints-container">
+      
+
+      <div>
+      <h2
+  style={{
+    fontFamily: "'Roboto', sans-serif",
+    fontSize: "24px",
+    fontWeight: "600",
+    color: "#003366",
+    textAlign: "center",
+    textTransform: "capitalize",
+    margin: "20px 0",
+    paddingBottom: "10px",
+    borderBottom: "2px solid #0066cc",
+    letterSpacing: "1px",
+    lineHeight: "1.5",
+  }}
+>
+    Student Dashboard
+</h2>
+
+      </div>
+
       <div className="complaints-header">
         <Button type="primary" onClick={handleRaiseComplaint}>
           Raise a Complaint
@@ -220,7 +246,15 @@ const ComplaintsTable = () => {
           </div>
         )}
       </Modal>
+    
+
+      <div>
+       <h2>Menu of RGUKT-ONGOLE CAMPUS </h2>
+       <MenuTable/>
     </div>
+      
+    </div>
+    </>
   );
 };
 
