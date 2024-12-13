@@ -6,6 +6,8 @@ import Sidebar from '../../components/sidebar/SideBar';
 import Context from '../../context/Context';
 import Profile from '../../components/Profile/Profile';
 
+
+
 const CoordinatorProfile = props => {
 
 
@@ -31,6 +33,8 @@ const CoordinatorProfile = props => {
                         <Sidebar />
                     </div>
                     <div className="main-content">
+                    <h1 >Heading at the Top of the Page</h1>
+                        
                         <Profile />
                     </div>
                 </div>

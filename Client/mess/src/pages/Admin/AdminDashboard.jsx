@@ -9,6 +9,7 @@ const AdminDashboard = props => {
     
 
     const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
+    
 
 
     useEffect(() => {
@@ -28,7 +29,7 @@ const AdminDashboard = props => {
                         <AdminSidebar />
                     </div>
                     <div className="main-content">
-dashboard
+                        hello
                     </div>
                 </div>
 

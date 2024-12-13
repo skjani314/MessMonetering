@@ -26,6 +26,11 @@
         width:30px;
         margin-right: 10px;
     }
+    .profile-icon{
+        height:30px; 
+        width:30px;
+        margin-right: 10px;
+    }
     .logout-container{
         display: flex;
         margin-top: 10px;
