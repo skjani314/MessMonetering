@@ -11,7 +11,8 @@ import fs from 'fs';
 import path from 'path';
 import User from './models/User.js';
 import { v2 as cloudinary } from 'cloudinary';
-
+import Complaint from './models/Complaint.js';
+import Timeline from './models/Timeline.js';
 
 dotenv.config();
 const app = express();
@@ -316,7 +317,7 @@ app.post('/passchange', async (req, res, next) => {
 
 try{
 
-const {from,issue,category,des}=req.body;
+const {from,issue,category,des,level}=req.body;
 
 const arr=await Promise.all(
   req.files.map(async (each)=>{
@@ -330,8 +331,10 @@ const arr=await Promise.all(
   })
 )
 
-res.json(arr)
+const result =await Complaint.create({from,issue,category,des,image_array:arr,level})
+const time=await Timeline.create({complaint_id:result._id,status:"progress"})
 
+res.json({result,time});
 
 }
 catch(err)
@@ -344,6 +347,215 @@ next(err);
 
 
 
+app.get('/complaint',async (req,res,next)=>{
+
+
+try{
+
+const {level,from}=req.query;
+
+if(level)
+  {
+
+    const result =await Complaint.find({level});
+    
+    const data=await Promise.all(result.map( async (each)=>{
+
+      const {_id}=each;
+
+      const time=await Timeline.find({complaint_id:_id}).sort({date:-1});
+      
+      return {...each,time}
+
+    }))
+    console.log(data)
+    res.json(data);
+
+  }
+else if(from){
+
+  const result =await Complaint.find({from});
+    
+  const data=await Promise.all(result.map( async (each)=>{
+
+    const {_id}=each;
+
+    const time=await Timeline.find({complaint_id:_id}).sort({date:-1});
+    
+    return {...each,time}
+
+  }))
+  res.json(data);
+}
+else{
+  next(new Error("no data to fetch"));
+}
+
+
+}
+catch(err)
+{
+
+  next(err)
+
+}
+
+
+
+
+})
+
+
+app.put('/complaint',async (req,res,next)=>{
+
+
+try{
+
+const {complaint_id,status}=req.body
+
+const result= await Timeline.create({complaint_id,status}) 
+
+res.json(result)
+
+}
+catch(err)
+{
+  next(err);
+}
+
+
+
+})
+
+
+
+app.get('/dashboard',async (req,res,next)=>{
+
+
+try{
+
+
+  const monthlyRaisedCounts = await Timeline.aggregate([
+    {
+        $match: {
+            status: "progress",
+        },
+    },
+    {
+        $group: {
+            _id: {
+                year: { $year: "$date" },  
+                month: { $month: "$date" } 
+            },
+            count: { $sum: 1 } 
+        },
+    },
+    {
+        $sort: { "_id.year": 1, "_id.month": 1 } 
+    },
+]);
+
+
+const currentMonthStart = new Date();
+currentMonthStart.setDate(1); 
+currentMonthStart.setHours(0, 0, 0, 0); 
+
+const currentMonthEnd = new Date(currentMonthStart);
+currentMonthEnd.setMonth(currentMonthStart.getMonth() + 1); 
+
+
+const categoryWiseCounts = await Timeline.aggregate([
+  {
+      $match: {
+          status: "progress", 
+          date: { $gte: currentMonthStart, $lt: currentMonthEnd }, 
+      },
+  },
+  {
+      $lookup: {
+          from: "complaints", 
+          localField: "complaint_id", 
+          foreignField: "_id", 
+          as: "complaintDetails", 
+      },
+  },
+  {
+      $unwind: "$complaintDetails", 
+  },
+  {
+      $group: {
+          _id: "$complaintDetails.category", 
+          count: { $sum: 1 }, 
+      },
+  },
+  {
+      $sort: { count: -1 }, 
+  },
+]);
+
+
+
+res.json({monthlyRaisedCounts,categoryWiseCounts})
+
+
+
+}
+catch(err){
+  next(err)
+}
+
+
+})
+
+
+
+
+async function updateComplaintLevels() {
+  try {
+      const twoDaysAgo = new Date();
+      twoDaysAgo.setDate(twoDaysAgo.getDate() - 2); 
+
+      const unresolvedComplaints = await Timeline.aggregate([
+          {
+              $match: {
+                  status: "progress", 
+                  date: { $lte: twoDaysAgo } 
+              }
+          },
+          {
+              $lookup: {
+                  from: "complaints",
+                  localField: "complaint_id",
+                  foreignField: "_id",
+                  as: "complaintDetails"
+              }
+          },
+          {
+              $unwind: "$complaintDetails"
+          },
+          {
+              $project: {
+                  complaintId: "$complaintDetails._id",
+                  level: "$complaintDetails.level"
+              }
+          }
+      ]);
+
+      for (let complaint of unresolvedComplaints) {
+          const updatedLevel = complaint.level + 1;
+
+          await Complaint.findByIdAndUpdate(complaint.complaintId, {
+              $set: { level: updatedLevel }
+          });
+
+          console.log(`Complaint ${complaint.complaintId} updated to level ${updatedLevel}`);
+      }
+  } catch (err) {
+      console.error("Error updating complaint levels:", err);
+  }
+}
+
+setInterval(updateComplaintLevels, 24 * 60 * 60 * 1000); 
 
 
 

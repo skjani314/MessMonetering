@@ -3,10 +3,7 @@ import mongoose from 'mongoose';
 
 
 const complaintSchema = new mongoose.Schema({
-    from: {
-      type: String,
-      required: true
-    },
+    from: {default:null,required:true,type:mongoose.Schema.Types.ObjectId,ref:'users'},
     issue: {
       type: String,
       required: true, 
@@ -23,7 +20,10 @@ const complaintSchema = new mongoose.Schema({
       type: String, 
       required: true,
     },
-    timeline:{default:null,required:true,type:mongoose.Schema.Types.ObjectId,ref:'timeline'},
+    level:{
+      type:Number,
+      required:true
+    }
 });
 const Complaint=new mongoose.model("complaints",complaintSchema);
 
