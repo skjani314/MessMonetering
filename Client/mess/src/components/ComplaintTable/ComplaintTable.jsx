@@ -1,5 +1,7 @@
 import React from "react";
 import { Table, Button } from "antd";
+import './ComplaintTable.css';
+
 
 // Sample data for the table
 const data = [
