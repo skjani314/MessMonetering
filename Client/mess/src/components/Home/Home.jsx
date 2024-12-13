@@ -2,11 +2,20 @@ import React from 'react';
 import './Home.css';
 import Header from '../Header/Header';
 import MenuTable from './MenuTable';
-
+import { Spin } from 'antd';
+import Context from '../../context/Context';
+import { useContext } from 'react';
 
 const Home = () => {
+
+
+  const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
+
+
+
   return (
-    <>
+    
+    <Spin tip="Loading...." size='large' spinning={loading}>
     <Header/>
     
     <div className="home-container">
@@ -52,7 +61,8 @@ const Home = () => {
         <p>© 2024 RGUKT ONGOLE Mess Feedback System. All rights reserved.</p>
       </footer>
     </div>
-    </>
+    </Spin>
+    
   );
 };
 

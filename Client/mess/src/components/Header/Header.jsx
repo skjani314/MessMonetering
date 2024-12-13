@@ -28,7 +28,6 @@ const Header = (props) => {
                 <div className="logout-container">
 
                     <IoIosNotifications className="styling-icon" />
-                    <CgProfile className="profile-icon"/>
                     <LogIn />
                 </div>
             </div>

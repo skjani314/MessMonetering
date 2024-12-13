@@ -1,84 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Button, Modal, Form, Input, Select, Tag, Timeline, Upload } from "antd";
 import { UploadOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import "./ComplaintsTable.css";
 import MenuTable from "../Home/MenuTable";
-
+import { useContext } from "react";
+import Context from "../../context/Context";
+import axios from "axios";
+import StudentComplaints from "../Tables/StdentComplaints";
 const { Option } = Select;
 
 const ComplaintsTable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isComplaintDetailVisible, setIsComplaintDetailVisible] = useState(false);
   const [form] = Form.useForm();
+  const {loading,setLoading,success,error,contextHolder,user,setUser}=useContext(Context);
 
-  const [data, setData] = useState([
-    {
-      key: "1",
-      date: "2024-12-12",
-      category: "Food",
-      complaint: "Quality of food is not good",
-      status: "Pending",
-      timeline: [
-        { timestamp: "2024-12-12", action: "Complaint Registered" },
-        { timestamp: "2024-12-13", action: "Complaint under review" },
-      ],
-      image: null, // No image uploaded
-    },
-    {
-      key: "2",
-      date: "2024-12-11",
-      category: "Cleanliness",
-      complaint: "Rooms are not cleaned properly",
-      status: "Resolved",
-      timeline: [
-        { timestamp: "2024-12-11", action: "Complaint Registered" },
-        { timestamp: "2024-12-12", action: "Complaint resolved" },
-      ],
-      image: "https://via.placeholder.com/150", // Example uploaded image
-    },
-  ]);
+ 
 
-  const [uploadedImage, setUploadedImage] = useState(null); // Store the uploaded image
-  const [selectedComplaint, setSelectedComplaint] = useState(null);
+  const [fileList, setFileList] = useState([]);
+ const [data,setData]=useState([]);
+ const [tabledata,setTabledata]=useState([]);
 
-  const columns = [
-    {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
-    },
-    {
-      title: "Complaint Category",
-      dataIndex: "category",
-      key: "category",
-    },
-    {
-      title: "Complaint",
-      dataIndex: "complaint",
-      key: "complaint",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (status, record) => {
-        const isPending = status === "Pending";
-        return (
-          <a
-            onClick={() => handleStatusClick(record)}
-            style={{ color: isPending ? "orange" : "green", cursor: "pointer" }}
-          >
-            <Tag
-              color={isPending ? "orange" : "green"}
-              icon={isPending ? <ClockCircleOutlined /> : <CheckCircleOutlined />}
-            >
-              {status}
-            </Tag>
-          </a>
-        );
-      },
-    },
-  ];
 
   const handleRaiseComplaint = () => {
     setIsModalVisible(true);
@@ -86,43 +27,98 @@ const ComplaintsTable = () => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    setUploadedImage(null); // Reset image
     form.resetFields();
   };
 
-  const handleUploadChange = (info) => {
-    if (info.file && info.file.originFileObj) {
-      setUploadedImage(info.file.originFileObj);
-    } else {
-      setUploadedImage(null);
-    }
+  const handleUploadChange = ({ fileList }) => {
+    setFileList(fileList);
+};
+
+  const handleSubmit = async (values) => {
+
+try{
+
+  const form_data=new FormData();
+  fileList.forEach(file => {
+    form_data.append('img', file.originFileObj);
+});
+form_data.append('from',user._id);
+form_data.append('issue',values.category);
+let category="";
+if(values.category=='Timeliness' || values.category=='Courtesy of Mess staff'){
+category="service quality";
+}
+else if(values.category=='Cleanliness of Mess' || values.category=='Staff hygine' || values.category=='Cleanliness of Wash basins'){
+category="cleanliness";
+}
+else if(values.category=='Quantity of food' || values.category=='Quality of food'){
+category="food quality";}
+else{
+category="others";
+}
+console.log(category);
+
+form_data.append('category',category);
+form_data.append('des',values.complaint);
+form_data.append('level',1);
+setIsModalVisible(false);
+setFileList([]); 
+form.resetFields();
+
+const result=await axios.post(import.meta.env.VITE_API_URL+'/complaint',form_data,{withCredentials:true})
+console.log(result);
+success("Complaint Registered Successsfully");
+setUser(prev=>({...prev}))
+}catch(err){
+  console.log(err);
+  error("Unable to Raise complaint")
+}
+
+   
   };
 
-  const handleSubmit = (values) => {
-    const newComplaint = {
-      key: data.length + 1,
-      date: new Date().toISOString().split("T")[0],
-      category: values.category,
-      complaint: values.complaint,
-      status: "Pending",
-      timeline: [{ timestamp: new Date().toISOString().split("T")[0], action: "Complaint Registered" }],
-      image: uploadedImage ? URL.createObjectURL(uploadedImage) : null,
-    };
 
-    setData([...data, newComplaint]);
-    setIsModalVisible(false);
-    setUploadedImage(null); // Reset image
-    form.resetFields();
-  };
 
-  const handleStatusClick = (complaint) => {
-    setSelectedComplaint(complaint);
-    setIsComplaintDetailVisible(true);
-  };
 
-  const handleComplaintDetailCancel = () => {
-    setIsComplaintDetailVisible(false);
-  };
+
+useEffect(()=>{
+
+const fun=async ()=>{
+
+
+try{
+
+const result=await axios.get(import.meta.env.VITE_API_URL+'/complaint?from='+user._id)
+const data=result.data.map((each)=>{
+const {time,_doc}=each;
+
+return {time,..._doc}
+
+})
+setData(data);
+
+const tabledata=data.map((each)=>{
+
+  const {_id,category,time,des}=each;
+
+
+  return {category,date:time[0].date.split('T')[0],complaint:des.slice(0,50),status:time[0].status,id:_id}
+
+})
+console.log(tabledata)
+setTabledata(tabledata)
+}
+catch(err)
+{
+  console.log(err);
+}
+
+}
+if(user){
+fun()
+}
+},[user])
+
 
   return (
 <>
@@ -156,17 +152,11 @@ const ComplaintsTable = () => {
           Raise a Complaint
         </Button>
       </div>
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={{ pageSize: 5 }}
-        className="complaints-table"
-      />
+<StudentComplaints rowsData={tabledata} data={data}/>
 
-      {/* Modal for Raising Complaint */}
       <Modal
         title="Raise a Complaint"
-        visible={isModalVisible}
+        open={isModalVisible}
         onCancel={handleCancel}
         footer={null}
       >
@@ -199,11 +189,12 @@ const ComplaintsTable = () => {
             label="Upload Image"
           >
             <Upload
-              name="complaintImage"
-              listType="picture"
-              beforeUpload={() => false} // Prevent automatic upload
-              onChange={handleUploadChange}
-            >
+                        multiple
+                        listType="picture"
+                        beforeUpload={() => false}
+                        fileList={fileList}
+                        onChange={handleUploadChange}
+                    >
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </Form.Item>
@@ -213,38 +204,6 @@ const ComplaintsTable = () => {
             </Button>
           </Form.Item>
         </Form>
-      </Modal>
-
-      {/* Modal for Complaint Timeline and Details */}
-      <Modal
-        title="Complaint Details"
-        visible={isComplaintDetailVisible}
-        onCancel={handleComplaintDetailCancel}
-        footer={null}
-      >
-        {selectedComplaint && (
-          <div>
-            <p><strong>Complaint Category:</strong> {selectedComplaint.category}</p>
-            <p><strong>Complaint Description:</strong> {selectedComplaint.complaint}</p>
-            {selectedComplaint.image && (
-              <div>
-                <p><strong>Uploaded Image:</strong></p>
-                <img
-                  src={selectedComplaint.image}
-                  alt="Complaint"
-                  style={{ maxWidth: "100%", borderRadius: "8px" }}
-                />
-              </div>
-            )}
-            <Timeline>
-              {selectedComplaint.timeline.map((entry, index) => (
-                <Timeline.Item key={index} color={index % 2 === 0 ? "green" : "blue"}>
-                  <strong>{entry.timestamp}</strong>: {entry.action}
-                </Timeline.Item>
-              ))}
-            </Timeline>
-          </div>
-        )}
       </Modal>
     
 

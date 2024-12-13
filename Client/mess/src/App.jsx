@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import Context from './context/Context';
@@ -15,6 +15,7 @@ import CoordinatorComplaint from './pages/Coordinator/CoordinatorComplaint';
 import CoordinatorDashboard from './pages/Coordinator/CoordinatorDashboard';
 import Forgotpass from './components/LogIn/Forgotpass';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 function App() {
 
@@ -56,6 +57,43 @@ function App() {
     setLoading,
 
   }
+
+useEffect(()=>{
+
+setLoading(true)
+const getuser=async ()=>{
+
+
+
+try{
+
+
+const result=await axios.post(import.meta.env.VITE_API_URL+'/get-user',{},{withCredentials:true})  
+
+setUser(result.data);
+console.log(result)
+
+}
+catch(err){
+console.log(err)
+
+}
+
+
+
+}
+
+
+getuser()
+setLoading(false)
+
+},[])
+
+
+
+
+
+
   return (
     <Context.Provider value={context_data}>
       

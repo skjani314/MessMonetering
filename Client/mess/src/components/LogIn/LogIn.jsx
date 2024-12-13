@@ -6,14 +6,14 @@ import './LogIn.css';
 import { FaEye, FaEyeSlash, FaUser } from "react-icons/fa";
 import Context from '../../context/Context';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 function LogIn() {
 const [isVisible, setIsVisible] = useState(false);  
 const [LogData,setLogdata]=useState({email:'',password:''});
 const [psicon,setPsicon]=useState(false);
 const [forgetpass,setForgetPass]=useState({email:'',flag:false});
 const {loading,setLoading,success,error,contextHolder,user,setUser}=useContext(Context);
-
+const navigate=useNavigate()
 const showModal = () => {
   
     setIsVisible(true);
@@ -68,7 +68,15 @@ const handleLogData=(e)=>
         setUser(result.data);
         setLoading(false);
         success("Logged In successfully");
-
+        if(result.data.role=='student'){
+          navigate('/student')
+        }
+        else if(result.data.role=='admin'){
+          navigate('/admin/dashboard')
+        }
+        else if(result.data.role=='coordinator'){
+          navigate('/coordinator/dashboard')
+        }
        }catch(err)
        {
         console.log(err);

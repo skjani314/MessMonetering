@@ -13,6 +13,7 @@ import User from './models/User.js';
 import { v2 as cloudinary } from 'cloudinary';
 import Complaint from './models/Complaint.js';
 import Timeline from './models/Timeline.js';
+import { userInfo } from 'os';
 
 dotenv.config();
 const app = express();
@@ -176,6 +177,7 @@ app.post('/get-user', async (req, res, next) => {
 
 
   const accessToken = req.cookies.accessToken;
+  console.log(accessToken)
   if (!accessToken){ next(new Error("jwt token not found"))}
   else{
   await jwt.verify(accessToken, process.env.KEY, async (err, decode) => {
@@ -336,6 +338,7 @@ const time=await Timeline.create({complaint_id:result._id,status:"progress"})
 
 res.json({result,time});
 
+
 }
 catch(err)
 {
@@ -364,8 +367,9 @@ if(level)
       const {_id}=each;
 
       const time=await Timeline.find({complaint_id:_id}).sort({date:-1});
-      
-      return {...each,time}
+      const user_details=await User.findOne({_id:each.from})
+      console.log(user_details);
+      return {...each,time,user_details}
 
     }))
     console.log(data)
@@ -413,7 +417,7 @@ try{
 
 const {complaint_id,status}=req.body
 
-const result= await Timeline.create({complaint_id,status}) 
+const result= await Timeline.create({complaint_id,status, date: new Date()}) 
 
 res.json(result)
 

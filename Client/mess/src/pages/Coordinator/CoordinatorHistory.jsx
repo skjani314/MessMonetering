@@ -1,22 +1,64 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useContext } from "react"
 import { Spin } from "antd";
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/sidebar/SideBar';
 import Context from '../../context/Context';
-import ComplaintTable from '../../components/ComplaintTable/ComplaintTable'
-
+import ViewTable from '../../components/Tables/ViewTable';
+import axios from 'axios';
 const CoordinatorHistory = props => {
 
 
-    const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
+    const { loading, setLoading, success, error, contextHolder,user, changeActiveTab} = useContext(Context);
+const [data,setData]=useState([])
 
-
-    useEffect(() => {
+const [tabledata,setTabledata]=useState([]);
+useEffect(() => {
         changeActiveTab('HISTORY');
 
     }, [])
 
+
+
+    useEffect(()=>{
+
+        const fun=async ()=>{
+        
+        
+        try{
+        
+        const result=await axios.get(import.meta.env.VITE_API_URL+'/complaint?level='+1)
+        console.log(result);
+        const data=result.data.map((each)=>{
+        const {time,_doc,user_details}=each;
+        
+        return {time,..._doc,user_details}
+        
+        })
+        setData(data);
+        
+        const tabledata=data.map((each)=>{
+        
+          const {_id,category,time,des,user_details}=each;
+        
+        
+          return {category,date:time[0].date.split('T')[0],complaint:des.slice(0,50),status:time[0].status,id:_id,user_details}
+        
+        })
+        console.log(tabledata)
+        setTabledata(tabledata)
+        }
+        catch(err)
+        {
+          console.log(err);
+        }
+        
+        }
+        if(user){
+        fun()
+        }
+        },[user])
+        
 
 
     return (
@@ -32,7 +74,7 @@ const CoordinatorHistory = props => {
                     </div>
                     <div className="main-content">
                     <h1 >Student Complaints</h1>
-                        <ComplaintTable />
+                        <ViewTable rowsData={tabledata} data={data} />
                     </div>
                 </div>
 
