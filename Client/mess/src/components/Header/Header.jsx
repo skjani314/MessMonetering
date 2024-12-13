@@ -2,15 +2,16 @@ import React from 'react';
 import logorgukt from './logo-rgukt.png';
 import { IoIosNotifications } from "react-icons/io";
 import './Header.css'
-// import { useContext } from "react"
+import { useContext } from "react"
 import Context from "../../context/Context"
 import LogIn from '../LogIn/LogIn';
 import HeaderDup from './HeaderDup';
+import { CgProfile } from "react-icons/cg";
 
 
 const Header = (props) => {
 
-    // const { success,setLoading, error ,user,setUser,loading}=useContext(Context);
+    const { success,setLoading, error ,user,setUser,loading}=useContext(Context);
 
 
 
@@ -27,6 +28,7 @@ const Header = (props) => {
                 <div className="logout-container">
 
                     <IoIosNotifications className="styling-icon" />
+                    <CgProfile className="profile-icon"/>
                     <LogIn />
                 </div>
             </div>

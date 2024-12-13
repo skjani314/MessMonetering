@@ -10,7 +10,7 @@ const HeaderDup = props => {
    
         return (
             <div className='header-main-container' style={{position:'static',background:"white"}}>
-               <div className='header-container' style={{}} >
+               <div className='header-container' style={{zIndex:-100}} >
                    <div>
                        <img src={logorgukt} className="styling-logo" alt="logo" />
                    </div>

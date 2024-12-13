@@ -2,21 +2,21 @@ import React, { useEffect } from 'react';
 import { useContext } from "react"
 import { Spin } from "antd";
 import Header from '../../components/Header/Header';
-import Sidebar from '../../components/sidebar/SideBar';
 import Context from '../../context/Context';
+import AdminSidebar from '../../components/sidebar/AdminSidebar';
+import AdminDashboard2 from './AdminDashboard2';
 
-const Coordinator = props => {
-
+const AdminDashboard = props => {
+    
 
     const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
+    
 
 
     useEffect(() => {
         changeActiveTab('DASHBOARD');
 
     }, [])
-
-
 
     return (
         <>
@@ -27,19 +27,20 @@ const Coordinator = props => {
 
                 <div className="header-down">
                     <div className="sidebar-container">
-                        <Sidebar />
+                        <AdminSidebar />
                     </div>
                     <div className="main-content">
-                        hii
+                        <AdminDashboard2/>
                     </div>
                 </div>
 
             </div>
         </Spin>
     </>
-        
+
     );
 };
 
 
-export default Coordinator;
+
+export default AdminDashboard;

@@ -1,12 +1,18 @@
 import { useState } from 'react'
 import './App.css'
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Context from './context/Context';
 import { message } from 'antd';
 import Home from './components/Home/Home';
-import Coordinator from './pages/Coordinator';
-import Header from './components/Header/Header';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import AdminStudent from './pages/Admin/AdminStudent';
+import AdminCoordinator from './pages/Admin/AdminCoordinator';
+import AdminProfile from './pages/Admin/AdminProfile';
 import Student from './pages/Student'
+import CoordinatorHistory from './pages/Coordinator/CoordinatorHistory';
+import CoordinatorProfile from './pages/Coordinator/CoordinatorProfile';
+import CoordinatorComplaint from './pages/Coordinator/CoordinatorComplaint';
+import CoordinatorDashboard from './pages/Coordinator/CoordinatorDashboard';
 
 function App() {
 
@@ -53,11 +59,19 @@ function App() {
       
       <Routes>
         <Route  path='/' element={<Home/>} />
-        <Route path='/coordinator' element={<Coordinator/>} />
+
+        <Route path='/admin/dashboard' element={<AdminDashboard/>} />
+        <Route path='/admin/student' element={<AdminStudent/>} />
+        <Route path='/admin/coordinator' element={<AdminCoordinator/>} />
+        <Route path='/admin/profile' element={<AdminProfile/>} />      
+        <Route path='/coordinator/dashboard' element={<CoordinatorDashboard/>}/>
+        <Route path='/coordinator/complaint' element={<CoordinatorComplaint/>} />
+        <Route path='/coordinator/history' element={<CoordinatorHistory/>} />
+        <Route path='/coordinator/profile' element={<CoordinatorProfile/>} />
         <Route path="/student" element={<Student/>}/>
 </Routes>
   </Context.Provider>
   )
 }
 
-export default App
+export default App;

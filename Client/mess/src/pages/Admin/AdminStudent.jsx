@@ -2,21 +2,20 @@ import React, { useEffect } from 'react';
 import { useContext } from "react"
 import { Spin } from "antd";
 import Header from '../../components/Header/Header';
-import Sidebar from '../../components/sidebar/SideBar';
 import Context from '../../context/Context';
+import AdminSidebar from '../../components/sidebar/AdminSidebar';
+import ComplaintTable from '../../components/ComplaintTable/ComplaintTable';
 
-const Coordinator = props => {
-
+const AdminStudent = props => {
+    
 
     const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
 
 
     useEffect(() => {
-        changeActiveTab('DASHBOARD');
+        changeActiveTab('STUDENT');
 
     }, [])
-
-
 
     return (
         <>
@@ -27,19 +26,20 @@ const Coordinator = props => {
 
                 <div className="header-down">
                     <div className="sidebar-container">
-                        <Sidebar />
+                        <AdminSidebar />
                     </div>
                     <div className="main-content">
-                        hii
+                        <ComplaintTable/>
                     </div>
                 </div>
 
             </div>
         </Spin>
     </>
-        
+
     );
 };
 
 
-export default Coordinator;
+
+export default AdminStudent;

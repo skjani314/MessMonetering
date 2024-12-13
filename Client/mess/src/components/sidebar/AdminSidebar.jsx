@@ -1,12 +1,10 @@
 import { MdDashboard } from "react-icons/md";
 import Context from "../../context/Context";
 import pharmacyImage from './logo-rgukt.png'
-import { GiMedicines } from "react-icons/gi";
-import { AiFillMedicineBox } from "react-icons/ai";
+import { FaHandsHelping } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 
-
-import { GrTransaction } from "react-icons/gr";
+import { CgProfile } from "react-icons/cg";
 
 import './Sidebar.css'
 import {Link} from 'react-router-dom'
@@ -16,31 +14,30 @@ const sidebarItems=[
         id:"DASHBOARD",
         displayText:"Dashboard",
         icon:<MdDashboard />,
-        path:'/coordinator/dashboard'
+        path:'/admin/dashboard'
     },
     {
-        id:'COMPLAINT',
-        displayText:'Raise Complaint',
-        icon:<GiMedicines className="mb-2"/>,
-        path:'/coordinator/complaint',
+        id:'STUDENT',
+        displayText:'Student',
+        icon:<PiStudentBold className="mb-2"/>,
+        path:'/admin/student',
     },
     
     {
-        id:"HISTORY",
-        displayText:'History',
-        icon:<AiFillMedicineBox className="mb-2"/>,
-        path:'/coordinator/history',
+        id:"COORDINATOR",
+        displayText:'Co-ordinator',
+        icon:<FaHandsHelping className="mb-2"/>,
+        path:'/admin/coordinator',
     },
     {
         id:"PROFILE",
         displayText:'Profile',
-        icon:<PiStudentBold className="mb-2"/>,
-        path:'/coordinator/profile',
-    },
-    
+        icon:<CgProfile className="mb-2"/>,
+        path:'/admin/profile',
+    }
 ]
 
-const Sidebar=()=>{
+const AdminSidebar=()=>{
    return <Context.Consumer>
     {
         value=>{
@@ -49,7 +46,7 @@ const Sidebar=()=>{
                 <>
                 <div className='sidebar-container-md' >
                    <div style={{borderBottom:'1px solid black'}}>
-                        <h1 className="main-heading">MESS MANAGEMENT</h1>
+                        <h1 className="main-heading">MESS MAINTAINANCE</h1>
                         <img src={pharmacyImage} alt="pharmacy" className="pharmacy-image img-fluid"/>
                     </div>
                 <ul className="unordered-list">
@@ -81,4 +78,4 @@ const Sidebar=()=>{
     </Context.Consumer>
    
 }
-export default Sidebar
+export default AdminSidebar

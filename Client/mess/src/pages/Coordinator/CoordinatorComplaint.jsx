@@ -4,15 +4,17 @@ import { Spin } from "antd";
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/sidebar/SideBar';
 import Context from '../../context/Context';
+import ComplaintsTable from '../../components/Student/ComplaintsTable'
 
-const Coordinator = props => {
+
+const CoordinatorComplaint = props => {
 
 
     const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
 
 
     useEffect(() => {
-        changeActiveTab('DASHBOARD');
+        changeActiveTab('COMPLAINT');
 
     }, [])
 
@@ -30,7 +32,8 @@ const Coordinator = props => {
                         <Sidebar />
                     </div>
                     <div className="main-content">
-                        hii
+                    <h1 >Heading at the Top of the Page</h1>
+                        <ComplaintsTable/>
                     </div>
                 </div>
 
@@ -42,4 +45,4 @@ const Coordinator = props => {
 };
 
 
-export default Coordinator;
+export default CoordinatorComplaint;
