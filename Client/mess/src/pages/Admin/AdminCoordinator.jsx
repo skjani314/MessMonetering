@@ -4,6 +4,8 @@ import { Spin } from "antd";
 import Header from '../../components/Header/Header';
 import Context from '../../context/Context';
 import AdminSidebar from '../../components/sidebar/AdminSidebar';
+import ComplaintTable from '../../components/ComplaintTable/ComplaintTable';
+import CoordinatorTab from '../Coordinator/CoordinatorTab';
 
 const AdminCoordinator = props => {
     
@@ -28,7 +30,7 @@ const AdminCoordinator = props => {
                         <AdminSidebar />
                     </div>
                     <div className="main-content">
-                        admin coordinator
+                        <CoordinatorTab/>
                     </div>
                 </div>
 

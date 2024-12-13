@@ -1,0 +1,98 @@
+/* General Styles */
+.menu-table-container {
+  margin: 20px;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.menu-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto; /* Ensures table is scrollable horizontally on small devices */
+}
+
+/* Table Cell Styling */
+.menu-table td, .menu-table th {
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Image Styling */
+.menu-table img {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* Responsive Styles for Devices (300px and up) */
+@media screen and (max-width: 300px) {
+  .menu-table img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .menu-table td, .menu-table th {
+    padding: 5px;
+  }
+
+  .menu-table p {
+    font-size: 8px;
+  }
+}
+
+/* Responsive Styles for Small Devices */
+@media screen and (max-width: 480px) {
+  .menu-table img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .menu-table td, .menu-table th {
+    padding: 8px;
+  }
+
+  .menu-table p {
+    font-size: 10px;
+  }
+}
+
+/* Responsive Styles for Medium Devices */
+@media screen and (max-width: 768px) {
+  .menu-table img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .menu-table td, .menu-table th {
+    padding: 10px;
+  }
+
+  .menu-table p {
+    font-size: 12px;
+  }
+}
+
+/* Responsive Styles for Larger Devices */
+@media screen and (min-width: 769px) {
+  .menu-table img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .menu-table td, .menu-table th {
+    padding: 12px;
+  }
+
+  .menu-table p {
+    font-size: 14px;
+  }
+}
+
+/* Horizontal Scrolling for Very Small Devices */
+@media screen and (max-width: 600px) {
+  .menu-table-container {
+    overflow-x: scroll;
+  }
+}

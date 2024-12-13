@@ -5,6 +5,7 @@ import { Spin } from "antd";
 import Header from '../../components/Header/Header';
 import Context from '../../context/Context';
 import AdminSidebar from '../../components/sidebar/AdminSidebar';
+import Profile from '../../components/Profile/Profile';
 
 const AdminProfile = props => {
     
@@ -29,7 +30,7 @@ const AdminProfile = props => {
                         <AdminSidebar />
                     </div>
                     <div className="main-content">
-profile
+                      <Profile/>
                     </div>
                 </div>
 

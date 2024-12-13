@@ -1,7 +1,5 @@
 import React from "react";
 import { Table, Button } from "antd";
-import './ComplaintTable.css';
-
 
 // Sample data for the table
 const data = [
@@ -28,7 +26,7 @@ const data = [
   }
 ];
 
-const ComplaintTable = () => {
+const CoordinatorTab = () => {
   // Define columns for the table
   const columns = [
     {
@@ -72,4 +70,4 @@ const ComplaintTable = () => {
   );
 };
 
-export default ComplaintTable;
+export default CoordinatorTab;

@@ -5,6 +5,7 @@ import Header from '../../components/Header/Header';
 import Sidebar from '../../components/sidebar/SideBar';
 import Context from '../../context/Context';
 
+
 const CoordinatorDashboard = props => {
 
 
@@ -30,8 +31,8 @@ const CoordinatorDashboard = props => {
                         <Sidebar />
                     </div>
                     <div className="main-content">
-                    <h1 >Heading at the Top of the Page</h1>
-hello
+                    <h1 >Dashboard</h1>
+                    
                     </div>
                 </div>
 

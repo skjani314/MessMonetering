@@ -31,7 +31,7 @@ const CoordinatorHistory = props => {
                         <Sidebar />
                     </div>
                     <div className="main-content">
-                    <h1 >Heading at the Top of the Page</h1>
+                    <h1 >Student Complaints</h1>
                         <ComplaintTable />
                     </div>
                 </div>

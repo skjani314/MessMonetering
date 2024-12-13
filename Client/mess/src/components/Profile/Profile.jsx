@@ -31,7 +31,7 @@ const Profile = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Title level={3} style={{ textAlign: "center" }}>Profile </Title>
+      <Title level={3} style={{ textAlign: "center" }}> </Title>
 
       <Row gutter={[16, 16]} align="middle">
         {/* Profile Input Section */}

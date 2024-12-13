@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Table, Button, Modal, Form, Input, Select, Tag, Timeline, Upload } from "antd";
 import { UploadOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import "./ComplaintsTable.css";
-import MenuTable from "../Home/MenuTable";
 
 const { Option } = Select;
 
@@ -125,32 +124,7 @@ const ComplaintsTable = () => {
   };
 
   return (
-<>
-    
     <div className="complaints-container">
-      
-
-      <div>
-      <h2
-  style={{
-    fontFamily: "'Roboto', sans-serif",
-    fontSize: "24px",
-    fontWeight: "600",
-    color: "#003366",
-    textAlign: "center",
-    textTransform: "capitalize",
-    margin: "20px 0",
-    paddingBottom: "10px",
-    borderBottom: "2px solid #0066cc",
-    letterSpacing: "1px",
-    lineHeight: "1.5",
-  }}
->
-    Student Dashboard
-</h2>
-
-      </div>
-
       <div className="complaints-header">
         <Button type="primary" onClick={handleRaiseComplaint}>
           Raise a Complaint
@@ -177,14 +151,14 @@ const ComplaintsTable = () => {
             rules={[{ required: true, message: "Please select a category" }]}
           >
             <Select placeholder="Select a category">
-              <Option value="Timeliness">Timeliness of service</Option>
-              <Option value="Cleanliness of Mess">Cleanliness of dining hall,plates and surroundings</Option>
-              <Option value="Quality of food">Food Quality  including Rice,Snacks,Tea,Coffee and Breakfast</Option>
-              <Option value="Quantity of food">Quantity of food served as per Menu</Option>
-              <Option value="Courtesy of Mess staff"> Courtesy of Mess staff as per the Menu</Option>
-              <Option value="Staff hygine">Staff Hygine(uniforms,gloves,masks)</Option>
-              <Option value="Cooking and serving">Cooking and Serving adherence to the menu</Option>
-              <Option value="Cleanliness of Wash basins">Cleanliness of wash basins and wash areas</Option>
+              <Option value="Timeliness">Quality and Expiry of items in store inspections</Option>
+              <Option value="Cleanliness of Mess">Standards of raw materials used</Option>
+              <Option value="Quality of food">Insufficient staff or adequacy of food at counters</Option>
+              <Option value="Quantity of food">Menu discrepancies or insufficient cooking quantities</Option>
+              <Option value="Courtesy of Mess staff"> Lack of regular meetings and updates</Option>
+              <Option value="Staff hygine">Taste and quality of food</Option>
+              <Option value="Cooking and serving">Hygiene in kitchens, dining areas and stores</Option>
+              <Option value="Cleanliness of Wash basins">Cleanliness of utensils and serving tools</Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -246,15 +220,7 @@ const ComplaintsTable = () => {
           </div>
         )}
       </Modal>
-    
-
-      <div>
-       <h2>Menu of RGUKT-ONGOLE CAMPUS </h2>
-       <MenuTable/>
     </div>
-      
-    </div>
-    </>
   );
 };
 

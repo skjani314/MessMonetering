@@ -1,0 +1,123 @@
+/* General Reset */
+
+  
+  /* Sidebar Styles */
+  .new-sidebar {
+    width: 260px;
+    background-color: #1e3d58;
+    color: white;
+    padding: 25px;
+    height: 100vh;
+    position: fixed;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .new-sidebar-title {
+    font-size: 1.9rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .new-sidebar-menu {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .new-sidebar-item {
+    padding: 12px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .new-sidebar-item:hover {
+    background-color: #2c5275;
+    transition: background-color 0.3s;
+  }
+  
+  /* Main Content Styles */
+  .new-main-content {
+    margin-left: 260px;
+    padding: 30px;
+    width: 100%;
+  }
+  
+  .new-header {
+    margin-bottom: 30px;
+  }
+  
+  .new-header-title {
+    font-size: 2.1rem;
+    color: #333;
+  }
+  
+  /* Cards Container */
+  .new-charts-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .new-chart-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    width: 48%;
+    min-width: 320px;
+    text-align: center;
+  }
+  
+  .new-chart-title {
+    font-size: 1.6rem;
+    color: #444;
+    margin-bottom: 25px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .new-sidebar {
+      width: 230px;
+    }
+  
+    .new-main-content {
+      margin-left: 230px;
+    }
+  
+    .new-charts-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .new-chart-card {
+      width: 90%;
+      margin-bottom: 30px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .new-sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+  
+    .new-main-content {
+      margin-left: 0;
+    }
+  
+    .new-charts-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .new-chart-card {
+      width: 90%;
+      margin-bottom: 30px;
+    }
+  
+    .new-chart-title {
+      font-size: 1.4rem;
+    }
+  }
+  

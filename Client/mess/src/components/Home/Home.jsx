@@ -1,11 +1,14 @@
 import React from 'react';
 import './Home.css';
 import Header from '../Header/Header';
+import MenuTable from './MenuTable';
+
 
 const Home = () => {
   return (
     <>
     <Header/>
+    
     <div className="home-container">
       {/* Header Section */}
       <header className="header-home">
@@ -32,6 +35,7 @@ const Home = () => {
         </div>
       </section>
 
+      
       {/* About Section */}
       <section className="about-section">
         <h2>About the Feedback System</h2>

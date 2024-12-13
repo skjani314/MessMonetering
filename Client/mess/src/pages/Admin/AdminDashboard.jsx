@@ -4,6 +4,7 @@ import { Spin } from "antd";
 import Header from '../../components/Header/Header';
 import Context from '../../context/Context';
 import AdminSidebar from '../../components/sidebar/AdminSidebar';
+import AdminDashboard2 from './AdminDashboard2';
 
 const AdminDashboard = props => {
     
@@ -29,7 +30,7 @@ const AdminDashboard = props => {
                         <AdminSidebar />
                     </div>
                     <div className="main-content">
-                        hello
+                        <AdminDashboard2/>
                     </div>
                 </div>
 
