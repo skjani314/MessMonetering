@@ -8,14 +8,13 @@ const BarGraph = props => {
 const data=props.data.map((each)=>{
 
   const mon=["null","JAN","FEB","MAR","APR","MAY",'JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-  const {_id,count,totalQuantity}=each;
-
-  return {month:mon[_id],Complaints:count,Medicine:1}
+  const {_id,count}=each;
+  return {month:mon[_id.month],Complaints:count}
 
 })
 
 
-
+console.log(data)
 
 
 
@@ -37,11 +36,9 @@ const data=props.data.map((each)=>{
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
-            <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="Complaints" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-            <Bar dataKey="Medicine" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+            <Bar dataKey="Complaints" fill="#82ca9d" activeBar={<Rectangle fill="pink" stroke="blue" />} />
           </BarChart>
           </ResponsiveContainer>
       );

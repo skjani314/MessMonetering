@@ -8,7 +8,7 @@ import { FaPills, FaSquareFull } from 'react-icons/fa';
 import axios from 'axios';
 import { GiConsoleController } from 'react-icons/gi';
 import BarGraph from '../../components/graphs/BarGraph';
-
+import InventoryChart from '../../components/graphs/Inventory';
 
 const { Text } = Typography;
 const CoordinatorDashboard = props => {
@@ -17,7 +17,7 @@ const CoordinatorDashboard = props => {
     const { loading, setLoading, success, error, contextHolder, changeActiveTab ,user} = useContext(Context);
 
 const [graph_data,setGraph]=useState([]);
-const [pie_data,setPieData]=useState([]);
+const [pie_data,setPieData]=useState([{count:0},{count:0},{count:0},{count:0}]);
     useEffect(() => {
         changeActiveTab('DASHBOARD');
 
@@ -72,7 +72,7 @@ if(user){fun()}
                                     <h2>Inventory</h2>
 
                                     <Flex vertical gap={10}  >
-                                        {/* <InventoryChart data={{ total_medicines: Medicine_data.length, shortage: data.shortage_list.length, expery: data.expiring_list.length }} /> */}
+                                        <InventoryChart data={pie_data} />
                                         <Flex wrap gap={10}>
                                             <Text><FaSquareFull color='#FFBB28' /> <b>out of Stock</b></Text>
                                             <Text><FaSquareFull color='#0088FE' /> <b>Total Product</b></Text>

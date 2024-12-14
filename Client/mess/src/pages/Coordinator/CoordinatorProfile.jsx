@@ -11,7 +11,7 @@ import Profile from '../../components/Profile/Profile';
 const CoordinatorProfile = props => {
 
 
-    const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
+    const { loading, setLoading, success, error, contextHolder, changeActiveTab,user} = useContext(Context);
 
 
     useEffect(() => {

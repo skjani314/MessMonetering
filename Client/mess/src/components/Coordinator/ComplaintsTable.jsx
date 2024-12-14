@@ -44,9 +44,26 @@ try{
 });
 form_data.append('from',user._id);
 form_data.append('issue',values.category);
-console.log(values.category);
 
-form_data.append('category',values.category);
+
+
+let category="";
+if(values.category=='Insufficient staff or adequacy of food at counters.' || values.category=='Lack of regular meetings and updates from mess supervisors.' || values.category=="Adherence to the menu and service timings."){
+category="service quality";
+}
+else if(values.category=='Hygiene in kitchens, dining areas, and stores.' || values.category=='Cleanliness of utensils and serving tools.'){
+category="cleanliness";
+}
+else if(values.category=="Quality and expiry of items in store inspections." || values.category=="Standards of raw materials used (IS/AGMARK/FPO/FSSAI)." || values.category=="Taste and quality of food."){
+category="food quality";}
+else{
+category="others";
+}
+console.log(category);
+
+form_data.append('category',category);
+
+
 form_data.append('des',values.complaint);
 form_data.append('level',2);
 setIsModalVisible(false);
@@ -130,7 +147,7 @@ fun()
     lineHeight: "1.5",
   }}
 >
-    Student Dashboard
+    My Complaints
 </h2>
 
       </div>
