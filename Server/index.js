@@ -40,7 +40,7 @@ app.use(cookieParser());
 
 app.use(cors({
   origin: (origin, callback) => {
-    const allowedOrigins = ['https://mess-monetering.vercel.app','http://localhost:3000'];
+    const allowedOrigins = ['https://mess-monetering.vercel.app','http://localhost:5173'];
     if (origin && (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app'))) {
         callback(null, true); 
     } else {
@@ -341,6 +341,43 @@ const arr=await Promise.all(
 
 const result =await Complaint.create({from,issue,category,des,image_array:arr,level})
 const time=await Timeline.create({complaint_id:result._id,status:"progress"})
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'messmonetering@gmail.com',
+    pass: process.env.EMAIL_APPCODE
+  }
+});
+
+let emails=[];
+
+if(level==1){
+
+const representatives=await User.find({role:"coordinator"})
+emails=representatives.map((each)=>{return each.email})
+}
+else{
+  const representatives=await User.find({role:"admin"})
+  emails=representatives.map((each)=>{return each.email})
+}
+
+const mailOptions = {
+  from: 'messmonetering@gmail.com',
+  to: emails.join(','),
+  subject: 'Forget Password',
+  text: "you have a new Complaint Check Mess App Once\n"+"issue:\n"+issue+"\nDescription\n"+des
+};
+
+await transporter.sendMail(mailOptions, function (error, info) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
+
+
 
 res.json({result,time});
 

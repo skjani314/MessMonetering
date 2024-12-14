@@ -2,9 +2,20 @@ import React from 'react';
 import './Home.css';
 import Header from '../Header/Header';
 import MenuTable from './MenuTable';
-import { Spin } from 'antd';
+import { Spin,Card,Typography,Flex } from 'antd';
 import Context from '../../context/Context';
 import { useContext } from 'react';
+import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
+import { Carousel } from 'antd';
+import c1 from './c1.webp';
+import c2 from './c2.jpeg';
+import c3 from './c3.jpeg';
+import mess from './mess.webp'
+import c4 from './c4.jpeg';
+import { FaDotCircle } from 'react-icons/fa';
+
+
+const {Text}=Typography;
 
 const Home = () => {
 
@@ -18,42 +29,36 @@ const Home = () => {
     <Spin tip="Loading...." size='large' spinning={loading}>
     <Header/>
     
-    <div className="home-container">
-      {/* Header Section */}
-      <header className="header-home">
-        <h1>College Mess Management System</h1>
-        <p>Your voice matters! Share your thoughts to improve our services.</p>
-      </header>
+   
+    <Carousel infinite autoplay arrows className='my-5' centerMode={true} dots={false} nextArrow={<MdArrowForwardIos color='red' size='large' />} prevArrow={<MdArrowBackIos color='red' size={30} />} >
 
-      {/* Features Section */}
-      <section className="features-section">
-        <h2>Why Use the Management System?</h2>
-        <div className="features">
-          <div className="feature">
-            <h3>Smart Planning</h3>
-            <p>Automate meal schedules and reduce waste effortlessly.</p>
-          </div>
-          <div className="feature">
-            <h3>User Friendly</h3>
-            <p>Simplify dining and improve overall satisfaction.</p>
-          </div>
-          <div className="feature">
-            <h3>Stock Control</h3>
-            <p>Track inventory instantly and avoid shortages.</p>
-          </div>
-        </div>
-      </section>
-
-      
-      {/* About Section */}
+<div className='home-carousel px-2'>
+    <img src={c1} className='mx-3' />
+</div>
+<div className='home-carousel px-2'>
+    <img src={c2} className='mx-3' />
+</div>
+<div className='home-carousel px-2'>
+    <img src={c3} className='mx-3' />
+</div>
+<div className='home-carousel px-2'>
+    <img src={c4} className='mx-3' />
+</div>
+</Carousel>
+  <div className='container-fluid'>
+   <h1 >Welcome to <b>RGUKT Mess</b></h1>
+<Text> Raise Your Complaints At Any time With a Digital Record</Text><br></br>
+<Text> Every Complaint matters and valued</Text>
+</div>
+    <div className="home-container">   
+      <Card hoverable>
       <section className="about-section">
         <h2>About the Management System</h2>
         <p>
         The RGUKT mess management system simplifies meal planning, inventory tracking, and billing. With real-time updates and streamlined processes, it provides transparency and convenience for both staff and students, fostering a well-organized and hassle-free dining experience within the campus.
         </p>
       </section>
-
-      {/* Footer Section */}
+      </Card>
       <footer className="footer">
         <p>© 2024 RGUKT Mess Management System. All rights reserved.</p>
       </footer>
