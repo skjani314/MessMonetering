@@ -39,8 +39,14 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "https://mess-monetering.vercel.app",
-    methods:["POST","GET","PUT","DELETE"],
+  origin: (origin, callback) => {
+    const allowedOrigins = ['https://mess-monetering.vercel.app','http://localhost:3000'];
+    if (origin && (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app'))) {
+        callback(null, true); 
+    } else {
+        callback(new Error('Not allowed by CORS')); 
+    }
+},    methods:["POST","GET","PUT","DELETE"],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
 
