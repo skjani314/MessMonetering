@@ -114,7 +114,7 @@ const handleLogout=async ()=>{
    Sign in
     </AntButton>
     :<>
-   <Link className='Link' style={{color:'black'}} to="/dashboard"><FaUser size={14} className="styling-icon"/></Link>
+   <Link className='Link' style={{color:'black'}} to={user.role=='student'?'/student':user.role=="admin"?'/admin/dashboard':"/coordinator/dashboard"}><FaUser size={14} className="styling-icon"/></Link>
     <AntButton type='primary'  onClick={handleLogout}>
      <Link className="Link" to="/">Log Out</Link> 
     </AntButton>
@@ -142,7 +142,7 @@ const handleLogout=async ()=>{
         Forgot Password?
       </div>
       <button id="log-in-submit mb-6">Log in</button><br></br>
-      <center>Only Institution Pharmacy Staff Authorized</center><br></br>
+      <center>Only Institution Members Are Authorized</center><br></br>
     </form>
 
   </div>:
