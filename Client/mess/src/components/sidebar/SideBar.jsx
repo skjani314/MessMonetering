@@ -1,8 +1,8 @@
 import { MdDashboard } from "react-icons/md";
 import Context from "../../context/Context";
 import pharmacyImage from './logo-rgukt.png'
-import { GiMedicines } from "react-icons/gi";
-import { AiFillMedicineBox } from "react-icons/ai";
+import { TbReport } from "react-icons/tb";
+import { TbReportAnalytics } from "react-icons/tb";
 import { PiStudentBold } from "react-icons/pi";
 
 
@@ -21,14 +21,14 @@ const sidebarItems=[
     {
         id:'COMPLAINT',
         displayText:'Raise Complaint',
-        icon:<GiMedicines className="mb-2"/>,
+        icon:<TbReport className="mb-2"/>,
         path:'/coordinator/complaint',
     },
     
     {
         id:"HISTORY",
         displayText:'History',
-        icon:<AiFillMedicineBox className="mb-2"/>,
+        icon:<TbReportAnalytics className="mb-2"/>,
         path:'/coordinator/history',
     },
     {

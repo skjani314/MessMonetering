@@ -96,11 +96,11 @@ catch(err)
                     aria-label="a dense table" >
                     <TableHead >
                         <TableRow >
-                            <TableCell align="center" > DATE </TableCell>
-                            <TableCell align="center" > FROM </TableCell>
-                            <TableCell align="center" > CATEGORY </TableCell>
-                            <TableCell align="center" > COMPLAINT </TableCell>
-                            <TableCell align="center" > STATUS </TableCell>
+                            <TableCell align="center" ><b> DATE </b></TableCell>
+                            <TableCell align="center" ><b> FROM </b></TableCell>
+                            <TableCell align="center" ><b> CATEGORY</b> </TableCell>
+                            <TableCell align="center" ><b> COMPLAINT</b> </TableCell>
+                            <TableCell align="center" ><b> STATUS</b> </TableCell>
                         </TableRow> </TableHead> <TableBody >
                         {
                             props.rowsData.map((row, index) => (
@@ -122,36 +122,43 @@ catch(err)
             </TableContainer>
 
 <Modal open={isModel} footer={null} onCancel={()=>setModel(false)}>
-<h1>
+<h3>
 <b>
-Complaint Details</b>
-</h1>
+Complaint Details:</b>
+</h3>
+<br/>
 
-<h3>Complaint Category:</h3>
-{des.category}
-<h3>Issue:</h3>
-{des.issue}
-<h3>Complaint Description:</h3>
-{des.des}
-<h3>Images:</h3>
+<h4>Complaint Category:</h4>
+<p style={{fontSize:'17px'}}>{des.category}</p>
+<h4>Issue:</h4>
+<p style={{fontSize:'17px'}}>{des.issue}</p>
+<h4>Complaint Description:</h4>
+<p style={{fontSize:'17px'}}>{des.des}</p>
+<h4>Images:</h4>
 {
     des.image_array.map((each)=>{
-      return  <img src={each} className='img-fluid'></img>
+      return  <img src={each} className='img-fluid' style={{height:'150px',width:'200px'}}></img>
     })
 }
 
-<h3>User Details</h3>
+<h3><br></br><b>User Details</b></h3>
 <Flex vertical>
-
-    <Text>{des.user_details.name}</Text>
-    <Text>{des.user_details.email}</Text>
-    <Text>{des.user_details.designation}</Text>
-    <img src={des.user_details.img} className='img-fluid'></img>
+<h4>Name:</h4>
+    <p style={{fontSize:'17px'}}>{des.user_details.name}</p>
+    <h4>Email:</h4>
+    <p style={{fontSize:'17px'}}>{des.user_details.email}</p>
+    <h4>Image:</h4>
+    <p style={{fontSize:'17px'}}>{des.user_details.designation}</p>
+    <img src={des.user_details.img} className='img-fluid' style={{height:'150px',width:'200px'}}></img>
 
 </Flex>
-<h3>
+<h3><br></br>
     Time Line:
+    <br/>
+    <h3>
+        <br/>
     <Timeline items={items}/>
+    </h3>
 </h3>
 </Modal>
 

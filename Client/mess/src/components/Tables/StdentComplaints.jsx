@@ -60,16 +60,16 @@ catch(err)
             size='large'
             spinning={loading} >
             <TableContainer component={Paper} >
-                <Table sx={
+                <Table  sx={
                     { minWidth: 650 }}
                     size="small"
                     aria-label="a dense table" >
                     <TableHead >
                         <TableRow >
-                            <TableCell align="center" > DATE </TableCell>
-                            <TableCell align="center" > CATEGORY </TableCell>
-                            <TableCell align="center" > COMPLAINT </TableCell>
-                            <TableCell align="center" > STATUS </TableCell>
+                            <TableCell align="center"><b> DATE </b></TableCell>
+                            <TableCell align="center" ><b> CATEGORY </b></TableCell>
+                            <TableCell align="center" ><b> COMPLAINT</b> </TableCell>
+                            <TableCell align="center" ><b> STATUS </b></TableCell>
                         </TableRow> </TableHead> <TableBody >
                         {
                             props.rowsData.map((row, index) => (
@@ -77,11 +77,11 @@ catch(err)
                                     { '&:last-child td, &:last-child th': { border: 0 } }} onClick={()=>handleClick(row.id)} >
                                     <TableCell align="center"
                                         component="th"
-                                        scope="row" > {row.date} </TableCell>
+                                        scope="row" ><b> {row.date} </b></TableCell>
                                     <TableCell align="center" > {row.category} </TableCell>
                                     <TableCell align="center" > {row.complaint} </TableCell>
                                     <TableCell align="center" >
-                                        < Button className={row.status == 'progress' ? 'bg-danger' : row.status == 'acknowledged' ? 'bg-warning' : 'bg-success'} > {row.status} </Button></TableCell>
+                                        < Button style={{color:"white"}} className={row.status == 'progress' ? 'bg-danger' : row.status == 'acknowledged' ? 'bg-warning' : 'bg-success'} > {row.status} </Button></TableCell>
                                 </TableRow>
                             ))
                         }
@@ -90,27 +90,36 @@ catch(err)
             </TableContainer>
 
 <Modal open={isModel} footer={null} onCancel={()=>setModel(false)}>
-<h1>
+<h3>
 <b>
-Complaint Details</b>
-</h1>
+Complaint Details:</b>
+</h3>
+<br/>
 
-<h3>Complaint Category:</h3>
-{des.category}
-<h3>Issue:</h3>
-{des.issue}
-<h3>Complaint Description:</h3>
-{des.des}
-<h3>Images:</h3>
+<h4>Complaint Category:</h4>
+<p style={{fontSize:'17px'}}>{des.category}</p>
+<h4>Issue:</h4>
+<p style={{fontSize:'17px'}}>{des.issue}</p>
+<h4>Complaint Description:</h4>
+<p style={{fontSize:'17px'}}>{des.des}</p>
+<h4>Images:</h4>
 {
     des.image_array.map((each)=>{
-      return  <img src={each} className='img-fluid'></img>
+      return  <img src={each} className='img-fluid' style={{height:'150px',width:'200px'}}></img>
     })
 }
+
 <h3>
+<br/>
     Time Line:
-    <Timeline items={items}/>
-</h3>
+    <br/>
+    </h3>
+    <br/>
+
+    <b><Timeline items={items}/></b>
+    
+
+
 </Modal>
 
         </Spin>

@@ -1,7 +1,7 @@
 /* General Styles */
 .menu-table-container {
-  margin: 20px;
-  padding: 10px;
+  margin: 0px;
+  padding: 0px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -68,7 +68,7 @@
   .menu-table td, .menu-table th {
     padding: 10px;
   }
-
+  
   .menu-table p {
     font-size: 12px;
   }
@@ -84,7 +84,7 @@
   .menu-table td, .menu-table th {
     padding: 12px;
   }
-
+  
   .menu-table p {
     font-size: 14px;
   }

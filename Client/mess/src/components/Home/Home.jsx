@@ -21,25 +21,25 @@ const Home = () => {
     <div className="home-container">
       {/* Header Section */}
       <header className="header-home">
-        <h1>College Mess Feedback System</h1>
+        <h1>College Mess Management System</h1>
         <p>Your voice matters! Share your thoughts to improve our services.</p>
       </header>
 
       {/* Features Section */}
       <section className="features-section">
-        <h2>Why Use the Feedback System?</h2>
+        <h2>Why Use the Management System?</h2>
         <div className="features">
           <div className="feature">
-            <h3>Transparency</h3>
-            <p>Ensure that your feedback is heard and considered by the management.</p>
+            <h3>Smart Planning</h3>
+            <p>Automate meal schedules and reduce waste effortlessly.</p>
           </div>
           <div className="feature">
-            <h3>Improvement</h3>
-            <p>Help us continuously improve the quality of food and service.</p>
+            <h3>User Friendly</h3>
+            <p>Simplify dining and improve overall satisfaction.</p>
           </div>
           <div className="feature">
-            <h3>Engagement</h3>
-            <p>Be a part of creating a better dining experience for everyone.</p>
+            <h3>Stock Control</h3>
+            <p>Track inventory instantly and avoid shortages.</p>
           </div>
         </div>
       </section>
@@ -47,18 +47,15 @@ const Home = () => {
       
       {/* About Section */}
       <section className="about-section">
-        <h2>About the Feedback System</h2>
+        <h2>About the Management System</h2>
         <p>
-          The College Mess Feedback System is designed to gather opinions and suggestions
-          from students regarding the quality of food, hygiene, and overall service of the
-          mess. Your feedback plays a crucial role in making informed decisions to ensure 
-          satisfaction for all.
+        The RGUKT mess management system simplifies meal planning, inventory tracking, and billing. With real-time updates and streamlined processes, it provides transparency and convenience for both staff and students, fostering a well-organized and hassle-free dining experience within the campus.
         </p>
       </section>
 
       {/* Footer Section */}
       <footer className="footer">
-        <p>© 2024 RGUKT ONGOLE Mess Feedback System. All rights reserved.</p>
+        <p>© 2024 RGUKT Mess Management System. All rights reserved.</p>
       </footer>
     </div>
     </Spin>

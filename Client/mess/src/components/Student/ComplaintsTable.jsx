@@ -46,15 +46,15 @@ form_data.append('from',user._id);
 form_data.append('issue',values.category);
 let category="";
 if(values.category=='Timeliness' || values.category=='Courtesy of Mess staff'){
-category="service quality";
+category="Service quality";
 }
 else if(values.category=='Cleanliness of Mess' || values.category=='Staff hygine' || values.category=='Cleanliness of Wash basins'){
-category="cleanliness";
+category="Cleanliness";
 }
 else if(values.category=='Quantity of food' || values.category=='Quality of food'){
-category="food quality";}
+category="Food quality";}
 else{
-category="others";
+category="Others";
 }
 console.log(category);
 
@@ -74,7 +74,7 @@ setUser(prev=>({...prev}))
   error("Unable to Raise complaint")
 }
 
-   
+
   };
 
 
@@ -208,7 +208,23 @@ fun()
     
 
       <div>
-       <h2>Menu of RGUKT-ONGOLE CAMPUS </h2>
+      <h2
+  style={{
+    fontFamily: "'Roboto', sans-serif",
+    fontSize: "24px",
+    fontWeight: "600",
+    color: "#003366",
+    textAlign: "center",
+    textTransform: "capitalize",
+    margin: "20px 0",
+    paddingBottom: "10px",
+    borderBottom: "2px solid #0066cc",
+    letterSpacing: "1px",
+    lineHeight: "1.5",
+  }}
+>
+    Mess Menu
+</h2>
        <MenuTable/>
     </div>
       
