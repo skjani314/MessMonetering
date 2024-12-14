@@ -520,6 +520,48 @@ catch(err){
 
 
 
+app.get('/admin-complaints',async (res,req,next)=>{
+
+
+try{
+const {role}=req.query;
+
+const result =await Complaint.find({ level: { $gte: 2 } });
+    
+    const data=await Promise.all(result.map( async (each)=>{
+
+      const {_id}=each;
+
+      const time=await Timeline.find({complaint_id:_id}).sort({date:-1});
+      const user_details=await User.findOne({_id:each.from})
+      console.log(user_details);
+      return {...each,time,user_details,role:user_details.role}
+
+    }))
+    if(role=='student')
+      {
+        const stu_data=data.filter(each=>each.role=="student");
+        res.json(stu_data);
+      }
+      else{
+        const rep_data=data.filter(each=>each.role=="coordinator");
+        res.json(rep_data);
+      }
+
+
+}
+catch(err){
+  next(err);
+}
+
+
+
+
+})
+
+
+
+
 async function updateComplaintLevels() {
   try {
       const twoDaysAgo = new Date();
