@@ -55,7 +55,11 @@ const {user}=useContext(Context)
                 <Meta
                   description={
                     <>
+                    {user.role=="student"?
                       <p><strong>ID:</strong> {user.user_id}</p>
+                      :null
+
+                    }
                       <p><strong>Email:</strong> {user.email}</p>
                       <p><strong>Role:</strong> {user.role}</p>
                     </>

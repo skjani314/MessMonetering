@@ -520,13 +520,14 @@ catch(err){
 
 
 
-app.get('/admin-complaints',async (res,req,next)=>{
+app.get('/admin-complaints',async (req,res,next)=>{
 
 
 try{
-const {role}=req.query;
 
-const result =await Complaint.find({ level: { $gte: 2 } });
+  const {role}=req.query;
+
+  const result =await Complaint.find({ level: { $gte: 2 } });
     
     const data=await Promise.all(result.map( async (each)=>{
 
