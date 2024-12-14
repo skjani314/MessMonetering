@@ -236,7 +236,7 @@ app.post('/forget', async (req, res, next) => {
         from: 'messmonetering@gmail.com',
         to: email,
         subject: 'Forget Password',
-        text: 'Your Password reset link is provided here and \n it will work only for 5 minuetes\n' + 'http://localhost:5173/forgot/' + token
+        text: 'Your Password reset link is provided here and \n it will work only for 5 minuetes\n' + 'https://mess-monetering.vercel.app/forgot/' + token
       };
 
       await transporter.sendMail(mailOptions, function (error, info) {
