@@ -4,17 +4,45 @@ import { Spin } from "antd";
 import Header from '../../components/Header/Header';
 import Context from '../../context/Context';
 import AdminSidebar from '../../components/sidebar/AdminSidebar';
+import axios from 'axios';
 
 const AdminStudent = props => {
     
 
-    const { loading, setLoading, success, error, contextHolder, changeActiveTab} = useContext(Context);
-
+    const { loading, setLoading, success, error, contextHolder, changeActiveTab,user} = useContext(Context);
 
     useEffect(() => {
         changeActiveTab('STUDENT');
 
     }, [])
+
+useEffect(()=>{
+
+
+const fun=async ()=>{
+
+try{
+
+
+const result =await axios.get(import.meta.env.VITE_API_URL+'/admin-complaints?role=student',{withCredentials:true});
+
+console.log(result)
+}
+catch(err){
+    console.log(err);
+}
+}
+
+if(user)fun();
+
+},[])
+
+
+
+
+
+
+
 
     return (
         <>
@@ -28,6 +56,8 @@ const AdminStudent = props => {
                         <AdminSidebar />
                     </div>
                     <div className="main-content">
+                        <h1>Student Complaints</h1>
+                          
                     </div>
                 </div>
 

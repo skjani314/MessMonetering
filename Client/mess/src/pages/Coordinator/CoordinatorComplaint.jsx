@@ -32,7 +32,6 @@ const CoordinatorComplaint = props => {
                         <Sidebar />
                     </div>
                     <div className="main-content">
-                    <h1 >Raise Complaint</h1>
                         <ComplaintsTable/>
                     </div>
                 </div>

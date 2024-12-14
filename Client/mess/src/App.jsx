@@ -16,6 +16,7 @@ import CoordinatorDashboard from './pages/Coordinator/CoordinatorDashboard';
 import Forgotpass from './components/LogIn/Forgotpass';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import NotFoundPage from './components/NotFound/NotFound';
 
 function App() {
 
@@ -100,15 +101,15 @@ setLoading(false)
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/forgot/:token' element={<Forgotpass/>} />
-        <Route path='/admin/dashboard' element={<AdminDashboard />} />
-        <Route path='/admin/student' element={<AdminStudent />} />
-        <Route path='/admin/coordinator' element={<AdminCoordinator />} />
-        <Route path='/admin/profile' element={<AdminProfile />} />
-        <Route path='/coordinator/dashboard' element={<CoordinatorDashboard />} />
-        <Route path='/coordinator/complaint' element={<CoordinatorComplaint />} />
-        <Route path='/coordinator/history' element={<CoordinatorHistory />} />
-        <Route path='/coordinator/profile' element={<CoordinatorProfile />} />
-        <Route path="/student" element={<Student />} />
+        <Route path='/admin/dashboard' element={user && user.role=="admin"?<AdminDashboard />:<NotFoundPage/>} />
+        <Route path='/admin/student' element={user && user.role=="admin"?<AdminStudent />:<NotFoundPage/>} />
+        <Route path='/admin/coordinator' element={user && user.role=="admin"?<AdminCoordinator />:<NotFoundPage/>} />
+        <Route path='/admin/profile' element={user && user.role=="admin"?<AdminProfile />:<NotFoundPage/>} />
+        <Route path='/coordinator/dashboard' element={user && user.role=="coordinator"?<CoordinatorDashboard />:<NotFoundPage/>} />
+        <Route path='/coordinator/complaint' element={user && user.role=="coordinator"?<CoordinatorComplaint />:<NotFoundPage/>} />
+        <Route path='/coordinator/history' element={user && user.role=="coordinator"?<CoordinatorHistory />:<NotFoundPage/>} />
+        <Route path='/coordinator/profile' element={user && user.role=="coordinator"?<CoordinatorProfile />:<NotFoundPage/>} />
+        <Route path="/student" element={user && user.role=="student"?<Student />:<NotFoundPage/>} />
       </Routes>
     </Context.Provider>
   )
