@@ -1,0 +1,103 @@
+/* CoordinatorProfile and Profile components - CSS for responsiveness */
+
+/* General styles for the home-container */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Header and sidebar layout */
+  .home-header-sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+    background-color: #f0f2f5;
+    border-bottom: 1px solid #d9d9d9;
+  }
+  
+  .header-down {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    overflow: hidden;
+  }
+  
+  .sidebar-container {
+    flex: 0 0 250px;
+    background-color: #001529;
+    color: #fff;
+    overflow-y: auto;
+    height: 100%;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Profile card styling */
+  .ant-card {
+    width: 90%;
+    max-width: 600px; /* Enlarged the profile component */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ant-card-body {
+    padding: 20px; /* Increased padding for better spacing */
+  }
+  
+  /* Responsiveness for smaller screens */
+  @media (max-width: 768px) {
+    .header-down {
+      flex-direction: column;
+    }
+  
+    .sidebar-container {
+      flex: 0 0 auto;
+      width: 100%;
+      height: auto;
+      border-bottom: 1px solid #d9d9d9;
+    }
+  
+    .main-content {
+      padding: 10px;
+    }
+  
+    table {
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+    }
+  
+    th, td {
+      white-space: nowrap;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .ant-card {
+      width: 100%;
+      border-radius: 5px;
+      box-shadow: none;
+    }
+  
+    .ant-card-body {
+      padding: 12px;
+    }
+  
+    table {
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+    }
+  
+    th, td {
+      white-space: nowrap;
+    }
+  }
+  
