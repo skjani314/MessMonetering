@@ -40,7 +40,7 @@ app.use(cookieParser());
 
 app.use(cors({
   origin: (origin, callback) => {
-    const allowedOrigins = ['https://mess-monetering.vercel.app','http://localhost:3000'];
+    const allowedOrigins = ['https://mess-monetering.vercel.app','http://localhost:5173'];
     if (origin && (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app'))) {
         callback(null, true); 
     } else {
