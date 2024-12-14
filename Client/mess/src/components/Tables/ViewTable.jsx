@@ -68,6 +68,7 @@ else if(status=="acknowledged"){
 const form_data=new FormData();
 form_data.append('complaint_id',id);
 form_data.append('status',update);
+form_data.append('user_id',user._id);
 const result=await axios.put(import.meta.env.VITE_API_URL+'/complaint',form_data,{withCredentials:true});
 console.log(result);
 setUser(prev=>({...prev}))

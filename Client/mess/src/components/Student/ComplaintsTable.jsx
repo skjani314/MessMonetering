@@ -166,15 +166,15 @@ fun()
             label="Complaint Category"
             rules={[{ required: true, message: "Please select a category" }]}
           >
-            <Select placeholder="Select a category">
-              <Option value="Timeliness">Timeliness of service</Option>
-              <Option value="Cleanliness of Mess">Cleanliness of dining hall,plates and surroundings</Option>
-              <Option value="Quality of food">Food Quality  including Rice,Snacks,Tea,Coffee and Breakfast</Option>
-              <Option value="Quantity of food">Quantity of food served as per Menu</Option>
-              <Option value="Courtesy of Mess staff"> Courtesy of Mess staff as per the Menu</Option>
-              <Option value="Staff hygine">Staff Hygine(uniforms,gloves,masks)</Option>
-              <Option value="Cooking and serving">Cooking and Serving adherence to the menu</Option>
-              <Option value="Cleanliness of Wash basins">Cleanliness of wash basins and wash areas</Option>
+            <Select placeholder="Select a category"  key={1}>
+              <Option value="Timeliness" key={2}>Timeliness of service</Option>
+              <Option value="Cleanliness of Mess" key={3}>Cleanliness of dining hall,plates and surroundings</Option>
+              <Option value="Quality of food" key={4}>Food Quality  including Rice,Snacks,Tea,Coffee and Breakfast</Option>
+              <Option value="Quantity of food" key={5}>Quantity of food served as per Menu</Option>
+              <Option value="Courtesy of Mess staff" key={6}> Courtesy of Mess staff as per the Menu</Option>
+              <Option value="Staff hygine" key={7}>Staff Hygine(uniforms,gloves,masks)</Option>
+              <Option value="Cooking and serving" key={8}>Cooking and Serving adherence to the menu</Option>
+              <Option value="Cleanliness of Wash basins" key={9}>Cleanliness of wash basins and wash areas</Option>
             </Select>
           </Form.Item>
           <Form.Item

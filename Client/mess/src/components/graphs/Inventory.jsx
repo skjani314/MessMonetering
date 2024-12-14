@@ -10,10 +10,10 @@ const InventoryChart = props => {
 console.log(props.data)
 
   const data = [
-    { name: 'Food Quality', value:  props.data[3].count,color:'#0088FE' },
-    { name: 'Cleanliness', value:  props.data[0].count,color:'#00C49F' },
-    { name: 'Service Quality', value:  props.data[1].count ,color:'#FFBB28'},
-    { name: 'others', value:  props.data[2].count,color:'blue'},
+    { name: 'Food Quality', value: props.data[3]? props.data[3].count:2,color:'#0088FE' },
+    { name: 'Cleanliness', value:  props.data[0]? props.data[0].count:2,color:'#00C49F' },
+    { name: 'Service Quality', value:  props.data[1]? props.data[1].count:2 ,color:'#FFBB28'},
+    { name: 'others', value:  props.data[2]? props.data[2].count:2,color:'blue'},
 
   ];
 

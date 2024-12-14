@@ -44,7 +44,9 @@ app.use(cors({
     if (origin && (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app'))) {
         callback(null, true); 
     } else {
-        callback(new Error('Not allowed by CORS')); 
+        // callback(new Error('Not allowed by CORS')); 
+        callback(null, true); 
+
     }
 },    methods:["POST","GET","PUT","DELETE"],
     credentials: true,
@@ -94,7 +96,7 @@ app.post('/register',async (req,res,next)=>{
 
 try{
 
-const {name,email,password,role,img,destination,user_id}=req.body;
+const {email,password,role,img,designation,user_id,name}=req.body;
 
 const user = await User.findOne({ email });
 
@@ -111,7 +113,7 @@ else {
 
   fs.unlinkSync(req.files[0].path);
 
-  const result = await User.create({ name, email, password: hashpassword, role,destination,user_id,img:imgresult.secure_url })
+  const result = await User.create({ name:name, email, password: hashpassword, role,designation,user_id,img:imgresult.secure_url })
 res.json(result)
 
 }
@@ -163,6 +165,8 @@ app.post('/login', async (req, res, next) => {
     next(error)
   }
 });
+
+
 
 app.post('/logout', (req, res) => {
   try {
@@ -365,7 +369,7 @@ else{
 const mailOptions = {
   from: 'messmonetering@gmail.com',
   to: emails.join(','),
-  subject: 'Forget Password',
+  subject: 'Notification',
   text: "you have a new Complaint Check Mess App Once\n"+"issue:\n"+issue+"\nDescription\n"+des
 };
 
@@ -415,7 +419,6 @@ if(level)
       return {...each,time,user_details}
 
     }))
-    console.log(data)
     res.json(data);
 
   }
@@ -458,9 +461,15 @@ app.put('/complaint',async (req,res,next)=>{
 
 try{
 
-const {complaint_id,status}=req.body
-
+const {complaint_id,status,user_id}=req.body
+console.log(user_id)
 const result= await Timeline.create({complaint_id,status, date: new Date()}) 
+
+if(status=="resolved"){
+
+const update=await Complaint.findByIdAndUpdate(mongoose.Types.ObjectId(complaint_id),{resolved_by:user_id},{new:true})
+console.log(complaint_id)
+}
 
 res.json(result)
 
@@ -598,7 +607,78 @@ catch(err){
 })
 
 
+app.get('/user',async (req,res,next)=>{
 
+
+try{
+const {id}=req.query;
+
+const data=await User.findOne({_id:id})
+
+res.json(data);
+
+}
+catch(err){
+// next(err);
+
+}
+
+
+})
+
+
+const Adminauthenticate = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(accessToken, process.env.KEY);
+    
+    const user_details = await User.findOne({email:decoded});
+    if(user_details.role=='admin'){
+    next();}
+    else{
+      next(new Error("unauthorized"))
+    }
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Token" });
+  }
+};
+
+
+const Coordinatorauthenticate = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(accessToken, process.env.KEY);
+    
+    const user_details = await User.findOne({email:decoded});
+    if(user_details.role=='coordinator'){
+    next();}
+    else{
+      next(new Error("unauthorized"))
+    }
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Token" });
+  }
+};
+
+
+const Studentauthenticate = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(accessToken, process.env.KEY);
+    
+    const user_details = await User.findOne({email:decoded});
+    if(user_details.role=='student'){
+    next();}
+    else{
+      next(new Error("unauthorized"))
+    }
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Token" });
+  }
+};
 
 async function updateComplaintLevels() {
   try {
