@@ -31,13 +31,20 @@ const data=props.data.filter((each)=>each._id===id)
 const item=data[0].time.map(each=>{
     const {date,status}=each;
     let color="";
+    let st_text="";
     if(status=='progress'){
 color="red"
+st_text="Lodged"
     }
     else if(status=="acknowledged"){
         color="yellow"
-    }else{color="green"}
-    return {children:date.split("T")[0],color}
+        st_text="Acknowledged"
+
+    }else{color="green"
+        st_text="Resolved"
+
+    }
+    return {children:date.split("T")[0]+" "+st_text,color}
 })
 setItems(item)
 setDes(data[0]);

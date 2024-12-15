@@ -56,7 +56,7 @@ catch(err){
 
 if(user)fun();
 
-},[])
+},[user])
 
 
 

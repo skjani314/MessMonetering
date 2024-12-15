@@ -57,7 +57,7 @@ const AdminCoordinator = props => {
         
         if(user)fun();
         
-        },[])
+        },[user])
         
 
 

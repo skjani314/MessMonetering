@@ -467,7 +467,7 @@ const result= await Timeline.create({complaint_id,status, date: new Date()})
 
 if(status=="resolved"){
 
-const update=await Complaint.findByIdAndUpdate(mongoose.Types.ObjectId(complaint_id),{resolved_by:user_id},{new:true})
+const update=await Complaint.findByIdAndUpdate(complaint_id,{resolved_by:user_id},{new:true})
 console.log(complaint_id)
 }
 
