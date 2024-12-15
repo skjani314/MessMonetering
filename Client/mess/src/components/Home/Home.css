@@ -126,3 +126,8 @@ width: 100%;
 height: 40vb;
 align-self: center;
 }
+.container-fluid-para{
+  background-color: #9e2021;
+  padding: 2%;
+  border-radius: 10px;
+}

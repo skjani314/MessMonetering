@@ -26,13 +26,9 @@ const StudentComplaints = props => {
         setLoading(true);
         setModel(true);
 
-        // Find the specific complaint data
         const data = props.data.filter((each) => each._id === id);
-        if (data.length === 0) throw new Error("Complaint not found");
+        const complaint = { ...data[0] }; 
 
-        const complaint = { ...data[0] }; // Create a copy of the complaint object
-
-        // Map the timeline
         const item = complaint.time.map((each) => {
             const { date, status } = each;
             let color = "";
@@ -46,9 +42,8 @@ const StudentComplaints = props => {
             return { children: date.split("T")[0], color };
         });
 
-        setItems(item); // Set the timeline items
+        setItems(item); 
 
-        // Populate resolved_by if it exists
         if (complaint.resolved_by) {
             const resolver = await axios.get(
                 `${import.meta.env.VITE_API_URL}/user?id=${complaint.resolved_by}`,

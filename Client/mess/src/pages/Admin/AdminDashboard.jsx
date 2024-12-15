@@ -65,12 +65,12 @@ if(user){fun()}
                             <h1 >Dashboard</h1>
                             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                 <Col md={{ span: 12 }} sm={{ span: 24 }} xs={{ span: 24 }}>
-                                    <h2>Total Transactions</h2>
+                                    <h2>Monthlywise Complaints</h2>
 
                                     <BarGraph data={graph_data} />
                                 </Col>
                                 <Col md={{ span: 12 }} sm={{ span: 24 }} xs={{ span: 24 }}>
-                                    <h2>Inventory</h2>
+                                    <h2>Current Month Categorywise Complaints</h2>
 
                                     <Flex vertical gap={10}  >
                                         <InventoryChart data={pie_data} />

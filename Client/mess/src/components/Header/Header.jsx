@@ -23,7 +23,8 @@ const Header = (props) => {
         <div className='header-main-container' style={{ zIndex: 1000 }}>
             <div className='header-container'  >
                 <div>
-                    <img src={logorgukt} className="styling-logo" alt="logo" />
+                    <img src={logorgukt} className="styling-logo" alt="logo" /> <b style={{fontSize:18}} className='my-3'>RGUKT</b>
+                
                 </div>
                 <div className="logout-container">
 

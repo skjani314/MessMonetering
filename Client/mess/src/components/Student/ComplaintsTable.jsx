@@ -89,6 +89,7 @@ const fun=async ()=>{
 try{
 
 const result=await axios.get(import.meta.env.VITE_API_URL+'/complaint?from='+user._id)
+console.log(result)
 const data=result.data.map((each)=>{
 const {time,_doc}=each;
 
