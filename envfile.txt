@@ -1,0 +1,20 @@
+For Backend
+
+PORT="3400" 
+DB_PASSWORD="skjani314"
+CLOUDNIR_API_KEY="447441433216463"
+CLOUDNIR_API_SECRET="gYy4wm2qMSlZ0Jj_I86oltUASNo"
+KEY="hjvjfvjnvrsnvbrsj fb"
+EMAIL_APPCODE="dwbs vmpn mytd jqlg"
+
+
+for Frontend
+VITE_API_URL="https://messmonetering-production.up.railway.app"
+
+
+credentials
+
+Admin: nidadavolunandini@gmail.com
+Representative: abhi123@gmail.com
+Student: skskjani7@gmail.com
+Password for all users: skjani314@A
