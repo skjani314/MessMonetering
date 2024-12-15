@@ -2,15 +2,15 @@
 
 ## **Project Overview**
 
-SkillLink is a complaint management system designed to streamline the process of lodging and resolving issues related to mess operations. The system has three types of users, each with specific features:
+**SkillLink** is a complaint management system designed to streamline the process of lodging and resolving issues related to mess operations. The system supports three types of users, each with specific features:
 
 ### **1. Student**
 - **Features**:
-  - Raise complaints on various issues with the ability to:
+  - Raise complaints on various issues with options to:
     - Provide descriptions.
     - Attach images.
   - Complaints are forwarded to representatives/coordinators.
-  - View all complaints in a dashboard.
+  - View all complaints on a dashboard.
   - Click on a complaint in the table to view detailed information in a pop-up, including:
     - Images, description, issue, and category.
     - Timeline of the complaint.
@@ -21,7 +21,7 @@ SkillLink is a complaint management system designed to streamline the process of
 - **Features**:
   - Review complaints raised by students in a table format.
   - Click on a complaint to view a pop-up with details, including:
-    - Images, description, issue category.
+    - Images, description, issue, and category.
     - Timeline.
     - User details of the complaint raiser.
   - Change the status of complaints via a status button in the table.
@@ -62,6 +62,14 @@ SkillLink is a complaint management system designed to streamline the process of
 
 ## **Environment Variables**
 All environment variables are defined in `.env` files for both the backend and frontend.
+
+---
+
+## **Sample Credentials**
+- **Admin**: `nidadavolunandini@gmail.com`
+- **Representative**: `abhi123@gmail.com`
+- **Student**: `skskjani7@gmail.com`
+- **Password for all users**: `skjani314@A`
 
 ---
 
