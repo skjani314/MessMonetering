@@ -44,8 +44,8 @@ app.use(cors({
     if (origin && (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app'))) {
         callback(null, true); 
     } else {
-        // callback(new Error('Not allowed by CORS')); 
-        callback(null, true); 
+        callback(new Error('Not allowed by CORS')); 
+        // callback(null, true); 
 
     }
 },    methods:["POST","GET","PUT","DELETE"],
@@ -612,14 +612,13 @@ app.get('/user',async (req,res,next)=>{
 
 try{
 const {id}=req.query;
-
+console.log(id);
 const data=await User.findOne({_id:id})
-
-res.json(data);
+res.json(data)
 
 }
 catch(err){
-// next(err);
+next(err);
 
 }
 
