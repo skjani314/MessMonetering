@@ -28,6 +28,14 @@ const complaintSchema = new mongoose.Schema({
 
     type: mongoose.Schema.Types.ObjectId, ref: 'users'
   },
+  current_status: { type: String },
+  date: { type: Date, default: Date.now },
+  res_des: { type: String },
+  res_array: {
+    type: [String],
+    default: [],
+  },
+
 });
 const Complaint = new mongoose.model("complaints", complaintSchema);
 

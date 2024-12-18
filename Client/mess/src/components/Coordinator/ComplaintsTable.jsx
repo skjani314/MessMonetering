@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Modal, Form, Input, Select, Tag, Timeline, Upload } from "antd";
+import { Table, Button, Modal, Form, Input, Select, Dropdown,Space, Flex, Upload, DatePicker,Typography } from "antd";
 import { UploadOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import "./ComplaintsTable.css";
 import MenuTable from "../Home/MenuTable";
@@ -8,19 +8,56 @@ import Context from "../../context/Context";
 import axios from "axios";
 import StudentComplaints from "../Tables/StdentComplaints";
 const { Option } = Select;
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { MdOutlineClear } from "react-icons/md";
 
+
+const {Text}=Typography
 const ComplaintsTable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const {loading,setLoading,success,error,contextHolder,user,setUser}=useContext(Context);
 
- 
+  const [datseRange, setdatesrange] = useState({ start: '', end: '' });
+  const [status_cat,setStatusCat]=useState({status:"Select a status",category:"Select a category"});
+
 
   const [fileList, setFileList] = useState([]);
  const [data,setData]=useState([]);
  const [tabledata,setTabledata]=useState([]);
 
+ const handleDatessubmit = async () => {
 
+  try {
+
+        const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + user._id+'&status='+status_cat.status+"&category="+status_cat.category+"&start="+datseRange.start+"&end="+datseRange.end)
+        console.log(result)
+        const data=result.data.map((each)=>{
+          const {time,_doc}=each;
+          
+          return {time,..._doc}
+          
+          })
+          setData(data);
+          
+          const tabledata=data.map((each)=>{
+          
+            const {_id,category,time,des}=each;
+          
+          
+            return {category,date:time[0].date.split('T')[0],complaint:des.slice(0,50),status:time[0].status,id:_id}
+          
+          })
+          console.log(tabledata)
+          setTabledata(tabledata)
+            }
+  catch (err) {
+    console.log(err);
+    error("something went wrong")
+  }
+
+
+}
   const handleRaiseComplaint = () => {
     setIsModalVisible(true);
   };
@@ -49,15 +86,15 @@ form_data.append('issue',values.category);
 
 let category="";
 if(values.category=='Insufficient staff or adequacy of food at counters.' || values.category=='Lack of regular meetings and updates from mess supervisors.' || values.category=="Adherence to the menu and service timings."){
-category="service quality";
+category="Service quality";
 }
 else if(values.category=='Hygiene in kitchens, dining areas, and stores.' || values.category=='Cleanliness of utensils and serving tools.'){
-category="cleanliness";
+category="Cleanliness";
 }
 else if(values.category=="Quality and expiry of items in store inspections." || values.category=="Standards of raw materials used (IS/AGMARK/FPO/FSSAI)." || values.category=="Taste and quality of food."){
-category="food quality";}
+category="Food quality";}
 else{
-category="others";
+category="Others";
 }
 console.log(category);
 
@@ -93,8 +130,8 @@ const fun=async ()=>{
 
 try{
 
-const result=await axios.get(import.meta.env.VITE_API_URL+'/complaint?from='+user._id)
-const data=result.data.map((each)=>{
+  const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + user._id+'&status='+status_cat.status+"&category="+status_cat.category+"&start="+datseRange.start+"&end="+datseRange.end)
+  const data=result.data.map((each)=>{
 const {time,_doc}=each;
 
 return {time,..._doc}
@@ -126,7 +163,6 @@ fun()
 
 
   return (
-<>
     
     <div className="complaints-container">
       
@@ -157,6 +193,46 @@ fun()
           Raise a Complaint
         </Button>
       </div>
+
+
+      <Text>Filter</Text>
+      <Flex wrap gap={10} justify="inline" className="my-3">
+      <Dropdown menu={{items:[{key:"Service quality",label:"Service quality"},{key:"Cleanliness",label:"Cleanliness"},{key:"Food quality",label:"Food quality"},{key:"Others",label:"Others"}],onClick:({key})=>{setStatusCat(prev=>({...prev,category:key}))}}}>
+      <Button>
+        <Space>
+          {
+          status_cat.category=="Select a category"?
+          <Text disabled>{status_cat.category}
+          <DownOutlined /></Text>
+          :
+          <Text >{status_cat.category}
+          <MdOutlineClear className="mx-2" onClick={()=>setStatusCat(prev=>({...prev,category:"Select a category"}))} />
+          </Text>
+}
+        </Space>
+      </Button>
+    </Dropdown>
+    <Dropdown menu={{items:[{key:"progress",label:"Progress"},{key:"acknowledged",label:"Acknowledged"},{key:"resolved",label:"Resolved"}],onClick:({key})=>{setStatusCat(prev=>({...prev,status:key}))}}}>
+      <Button>
+        <Space>
+          {
+          status_cat.status=="Select a status"?
+          <Text disabled>{status_cat.status}
+          <DownOutlined   /></Text>
+          :
+          <Text >{status_cat.status}
+          <MdOutlineClear className="mx-2" onClick={()=>setStatusCat(prev=>({...prev,status:"Select a status"}))} /></Text>
+}
+        </Space>
+      </Button>
+    </Dropdown>
+      <DatePicker  placeholder="select Start Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, start: s })) }} />
+      <DatePicker  placeholder="select End Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, end: s })) }} />
+      <Button onClick={handleDatessubmit} type="primary">Submit</Button>
+      </Flex>
+ 
+
+
 <StudentComplaints rowsData={tabledata} data={data}/>
 
       <Modal
@@ -215,7 +291,7 @@ fun()
 
       
     </div>
-    </>
+    
   );
 };
 
