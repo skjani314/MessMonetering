@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useContext } from "react"
 import { Spin } from "antd";
 import Header from '../../components/Header/Header';
-import StudentSidebar from '../../components/sidebar/StudentSideBar';
+import StudentSidebar from '../../components/sidebar/StudentSidebar';
 import Context from '../../context/Context';
 import ComplaintsTable from '../../components/Student/ComplaintsTable'
 
