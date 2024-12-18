@@ -143,7 +143,7 @@ fun()
     lineHeight: "1.5",
   }}
 >
-    Student Dashboard
+    Raise Complaint
 </h2>
 
       </div>
@@ -208,26 +208,7 @@ fun()
       </Modal>
     
 
-      <div>
-      <h2
-  style={{
-    fontFamily: "'Roboto', sans-serif",
-    fontSize: "24px",
-    fontWeight: "600",
-    color: "#003366",
-    textAlign: "center",
-    textTransform: "capitalize",
-    margin: "20px 0",
-    paddingBottom: "10px",
-    borderBottom: "2px solid #0066cc",
-    letterSpacing: "1px",
-    lineHeight: "1.5",
-  }}
->
-    Mess Menu
-</h2>
-       <MenuTable/>
-    </div>
+      
       
     </div>
     </>

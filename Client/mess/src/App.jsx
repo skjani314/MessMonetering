@@ -8,7 +8,7 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminStudent from './pages/Admin/AdminStudent';
 import AdminCoordinator from './pages/Admin/AdminCoordinator';
 import AdminProfile from './pages/Admin/AdminProfile';
-import Student from './pages/Student'
+import Student from './pages/Student/Student'
 import CoordinatorHistory from './pages/Coordinator/CoordinatorHistory';
 import CoordinatorProfile from './pages/Coordinator/CoordinatorProfile';
 import CoordinatorComplaint from './pages/Coordinator/CoordinatorComplaint';
@@ -17,6 +17,8 @@ import Forgotpass from './components/LogIn/Forgotpass';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import NotFoundPage from './components/NotFound/NotFound';
+import StudentComplaint from './pages/Student/StudentComplaint';
+import StudentProfile from './pages/Student/StudentProfile';
 
 function App() {
 
@@ -110,6 +112,8 @@ setLoading(false)
         <Route path='/coordinator/history' element={user && user.role=="coordinator"?<CoordinatorHistory />:<NotFoundPage/>} />
         <Route path='/coordinator/profile' element={user && user.role=="coordinator"?<CoordinatorProfile />:<NotFoundPage/>} />
         <Route path="/student" element={user && user.role=="student"?<Student />:<NotFoundPage/>} />
+        <Route path="/student/complaint" element={user && user.role=="student"?<StudentComplaint />:<NotFoundPage/>} />
+        <Route path="/student/profile" element={user && user.role=="student"?<StudentProfile />:<NotFoundPage/>} />
       </Routes>
     </Context.Provider>
   )
