@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, Modal, Form, Input, Select, Dropdown,Space, Flex, Upload, DatePicker,Typography } from "antd";
 import { UploadOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import "./ComplaintsTable.css";
-import MenuTable from "../Home/MenuTable";
 import { useContext } from "react";
 import Context from "../../context/Context";
 import axios from "axios";
