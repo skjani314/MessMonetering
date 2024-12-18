@@ -127,7 +127,25 @@ app.post('/register', async (req, res, next) => {
 });
 
 
+app.post('/fcm-token',async (req,res,next)=>{
 
+
+
+try{
+
+  console.log("Headers:", req.headers);
+  console.log("body:",req.body);
+
+
+}
+catch(err){
+
+  console.log(err)
+}
+
+
+
+})
 
 app.post('/login', async (req, res, next) => {
   try {
