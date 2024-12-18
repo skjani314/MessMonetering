@@ -44,8 +44,8 @@ app.use(cors({
     if (origin && (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app'))) {
       callback(null, true);
     } else {
-      // callback(new Error('Not allowed by CORS'));
-      callback(null, true); 
+      callback(new Error('Not allowed by CORS'));
+      // callback(null, true); 
 
     }
   }, methods: ["POST", "GET", "PUT", "DELETE"],
@@ -145,7 +145,7 @@ app.post('/login', async (req, res, next) => {
       if (isMatch) {
         const accessToken = jwt.sign({ email }, process.env.KEY, { expiresIn: '7d' });
 
-        res.cookie('accessToken ', accessToken, {
+        res.cookie('accessToken', accessToken, {
           httpOnly: true,
           maxAge: 7 * 24 * 60 * 60 * 1000,
           secure: true,
