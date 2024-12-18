@@ -145,13 +145,13 @@ app.post('/login', async (req, res, next) => {
       if (isMatch) {
         const accessToken = jwt.sign({ email }, process.env.KEY, { expiresIn: '7d' });
 
-        res.cookie('accessToken', accessToken, {
+        res.cookie('accessToken ', accessToken, {
           httpOnly: true,
           maxAge: 7 * 24 * 60 * 60 * 1000,
           secure: true,
           sameSite: 'None',
           path: '/',
-
+  
         });
 
         return res.status(200).json("logged in sucessfully");
