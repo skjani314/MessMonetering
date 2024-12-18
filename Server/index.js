@@ -44,8 +44,8 @@ app.use(cors({
     if (origin && (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app'))) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
-      // callback(null, true); 
+      // callback(new Error('Not allowed by CORS'));
+      callback(null, true); 
 
     }
   }, methods: ["POST", "GET", "PUT", "DELETE"],
