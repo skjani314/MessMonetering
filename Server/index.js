@@ -44,8 +44,8 @@ app.use(cors({
     if (origin && (allowedOrigins.includes(origin))) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
-      // callback(null, true); 
+      // callback(new Error('Not allowed by CORS'));
+      callback(null, true); 
 
     }
   }, methods: ["POST", "GET", "PUT", "DELETE"],
@@ -134,7 +134,7 @@ app.post('/fcm-token',async (req,res,next)=>{
 try{
 
   console.log("Headers:", req.headers);
-  console.log("body:",req.query);
+  console.log("body:",req.body);
 res.json("sucess")
 
 }
