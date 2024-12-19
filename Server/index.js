@@ -135,7 +135,7 @@ try{
 
   console.log("Headers:", req.headers);
   console.log("body:",req.body);
-res.json("sucess")
+res.json({})
 
 }
 catch(err){
@@ -193,6 +193,7 @@ app.post('/logout', (req, res) => {
       sameSite: 'None',
       path: '/',
     });
+    console.log(req.cookies)
     return res.json({ message: "Logout successfully" });
   } catch (error) {
     next(error);
@@ -205,6 +206,7 @@ app.post('/get-user', async (req, res, next) => {
 
   const accessToken = req.cookies.accessToken;
   console.log(accessToken)
+  console.log(req.cookies)
   if (!accessToken) { next(new Error("jwt token not found")) }
   else {
     await jwt.verify(accessToken, process.env.KEY, async (err, decode) => {
