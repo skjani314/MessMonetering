@@ -171,6 +171,13 @@ app.post('/login', async (req, res, next) => {
           path: '/',
   
         });
+        res.cookie('email', email, {
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+          secure: true,
+          sameSite: 'None',
+          path: '/',
+  
+        });
 
         return res.status(200).json("logged in sucessfully");
       } else {
