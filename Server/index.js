@@ -127,14 +127,14 @@ app.post('/register', async (req, res, next) => {
 });
 
 
-app.post('/fcm-token',async (req,res,next)=>{
+app.get('/fcm-token',async (req,res,next)=>{
 
 
 
 try{
 
   console.log("Headers:", req.headers);
-  console.log("body:",req.body);
+  console.log("body:",req.query);
 res.json("sucess")
 
 }
