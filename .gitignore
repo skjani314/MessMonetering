@@ -2,7 +2,6 @@
 
 # dependencies
 /Server/node_modules
-/Server/serviceAccount.json
 
 /Client/mess/node_modules
 /Client/mess/.pnp
