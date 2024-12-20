@@ -21,13 +21,19 @@ const Home = () => {
   const { loading, setLoading, success, error, contextHolder, changeActiveTab,setDeviceToken } = useContext(Context);
 
 
+const handledeviceToken=(token)=>{
+  setDeviceToken(token)
+}
+
+
   window.receiveData = (data) => {
 
 
 alert(data);
 success(data);    
-setDeviceToken(data)    
-      };
+handledeviceToken(data);
+
+};
 
   const headingStyle = {
     fontFamily: "'Poppins', 'Roboto', sans-serif",

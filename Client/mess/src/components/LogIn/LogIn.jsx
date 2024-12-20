@@ -92,6 +92,7 @@ const handleLogData=(e)=>
  
 const handleLogout=async ()=>{
   setLoading(true);
+  success(device_token)
   try{
   
     await axios.post(import.meta.env.VITE_API_URL+'/logout',{},{ withCredentials: true, })
