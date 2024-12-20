@@ -24,8 +24,8 @@ const Home = () => {
   window.receiveData = (data) => {
 
 
-    setDeviceToken(data)
-    
+alert(data);
+success(data);    
         success(data)
     
       };
