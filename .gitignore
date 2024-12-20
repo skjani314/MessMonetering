@@ -2,10 +2,12 @@
 
 # dependencies
 /Server/node_modules
+/Server/serviceAccount.json
+
 /Client/mess/node_modules
 /Client/mess/.pnp
 /Client/mess.pnp.js
-/Server/serviceAccount.json
+/Server/
 # testing
 /Client/mess/coverage
 
