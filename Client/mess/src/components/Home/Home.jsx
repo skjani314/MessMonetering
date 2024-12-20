@@ -18,7 +18,17 @@ const { Text } = Typography;
 const Home = () => {
 
   const [isHovered, setIsHovered] = useState(false);
-  const { loading, setLoading, success, error, contextHolder, changeActiveTab } = useContext(Context);
+  const { loading, setLoading, success, error, contextHolder, changeActiveTab,setDeviceToken } = useContext(Context);
+
+
+  window.receiveData = (data) => {
+
+
+    setDeviceToken(data)
+    
+        success(data)
+    
+      };
 
   const headingStyle = {
     fontFamily: "'Poppins', 'Roboto', sans-serif",
