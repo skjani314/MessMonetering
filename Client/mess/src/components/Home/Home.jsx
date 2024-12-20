@@ -26,8 +26,7 @@ const Home = () => {
 
 alert(data);
 success(data);    
-        success(data)
-    
+setDeviceToken(data)    
       };
 
   const headingStyle = {
