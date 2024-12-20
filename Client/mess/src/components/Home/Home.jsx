@@ -16,8 +16,7 @@ const { Text } = Typography;
 
 const Home = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const { loading, setLoading, success, error, contextHolder, changeActiveTab } = useContext(Context);
-  const [device_token,setDeviceToken]=useState("");
+  const { loading, setLoading, success, error, contextHolder, changeActiveTab,setDeviceToken ,device_token} = useContext(Context);
 
 
   window.receiveData = (data) => {
@@ -114,7 +113,7 @@ const Home = () => {
                 <Text style={{ fontSize: 20 }}>
                   <b>Analytics</b>
                 </Text>
-                <Text>{localStorage.getItem("userToken") || "No Token Available"}</Text>
+                <Text>{device_token}</Text>
               </div>
             </Card>
             <Card hoverable style={{ background: "#FFF9CC", margin: "3%" }}>
