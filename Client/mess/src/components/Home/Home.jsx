@@ -1,34 +1,40 @@
-import React,  { useState } from 'react';
-import './Home.css';
-import Header from '../Header/Header';
-import { Spin, Card, Typography, Flex } from 'antd';
-import Context from '../../context/Context';
-import { useContext } from 'react';
+import React, { useEffect, useState } from "react";
+import "./Home.css";
+import Header from "../Header/Header";
+import { Spin, Card, Typography } from "antd";
+import Context from "../../context/Context";
+import { useContext } from "react";
 import { MdArrowForwardIos, MdArrowBackIos, MdFeedback, MdTimeline } from "react-icons/md";
-import { Carousel } from 'antd';
-import c1 from './c1.webp';
-import c2 from './girlsmess.jpeg';
-import c3 from './meals.jpg';
-import c4 from './servers.jpg';
-import { IoMdAnalytics } from 'react-icons/io';
-
+import { Carousel } from "antd";
+import c1 from "./c1.webp";
+import c2 from "./girlsmess.jpeg";
+import c3 from "./meals.jpg";
+import c4 from "./servers.jpg";
+import { IoMdAnalytics } from "react-icons/io";
 
 const { Text } = Typography;
 
 const Home = () => {
-
   const [isHovered, setIsHovered] = useState(false);
-  const { loading, setLoading, success, error, contextHolder, changeActiveTab,setDeviceToken } = useContext(Context);
+  const { loading, setLoading, success, error, contextHolder, changeActiveTab, setDeviceToken } = useContext(Context);
 
-
-
-let token ="no token";
+  let token = "no token";
 
   window.receiveData = (data) => {
+    token = data;
+    success(data);
+    // Store token in localStorage
+    localStorage.setItem("userToken", token);
+  };
 
-token=data;
-success(data);
-};
+  useEffect(() => {
+    const storedToken = localStorage.getItem("userToken");
+    if (storedToken) {
+      setDeviceToken(storedToken);
+    } else {
+      setDeviceToken(token);
+    }
+  }, [setDeviceToken, token]);
 
   const headingStyle = {
     fontFamily: "'Poppins', 'Roboto', sans-serif",
@@ -51,92 +57,100 @@ success(data);
     cursor: "pointer", // Pointer cursor for interactivity
   };
 
-
- 
   return (
-<div >
-    <Spin tip="Loading...." size='large' spinning={loading}>
-      <Header />
-      <h1 style={headingStyle}
-      onMouseEnter={() => setIsHovered(true)} // Set hover state to true
-      onMouseLeave={() => setIsHovered(false)}
-      >Welcome to <b>RGUKT MESS</b></h1>
+    <div>
+      <Spin tip="Loading...." size="large" spinning={loading}>
+        <Header />
+        <h1
+          style={headingStyle}
+          onMouseEnter={() => setIsHovered(true)} // Set hover state to true
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          Welcome to <b>RGUKT MESS</b>
+        </h1>
 
-      <Carousel infinite autoplay arrows className='my-4 mb-5' centerMode={true} dots={false} nextArrow={<MdArrowForwardIos color='red' size='large' />} prevArrow={<MdArrowBackIos color='red' size={30} />} >
+        <Carousel
+          infinite
+          autoplay
+          arrows
+          className="my-4 mb-5"
+          centerMode={true}
+          dots={false}
+          nextArrow={<MdArrowForwardIos color="red" size="large" />}
+          prevArrow={<MdArrowBackIos color="red" size={30} />}
+        >
+          <div className="home-carousel px-2">
+            <img src={c1} className="mx-3" alt="Carousel 1" />
+          </div>
+          <div className="home-carousel px-2">
+            <img src={c2} className="mx-3" alt="Carousel 2" />
+          </div>
+          <div className="home-carousel px-2">
+            <img src={c3} className="mx-3" alt="Carousel 3" />
+          </div>
+          <div className="home-carousel px-2">
+            <img src={c4} className="mx-3" alt="Carousel 4" />
+          </div>
+        </Carousel>
 
-        <div className='home-carousel px-2'>
-          <img src={c1} className='mx-3' />
+        <div className="home-container">
+          <h2
+            style={{
+              fontFamily: "'Roboto', sans-serif",
+              fontSize: "24px",
+              fontWeight: "600",
+              color: "#003366",
+              textAlign: "center",
+              textTransform: "capitalize",
+              margin: "20px 0",
+              paddingBottom: "5px",
+              borderBottom: "2px solid #0066cc",
+              letterSpacing: "1px",
+              lineHeight: "1.5",
+            }}
+          >
+            Mess Monitoring Application
+          </h2>
+          <div className="flex-container">
+            <Card hoverable style={{ background: "#E0F7FA", margin: "3%" }}>
+              <div className="flex-column">
+                <IoMdAnalytics size={50} color="#9e2021" />
+                <Text style={{ fontSize: 20 }}>
+                  <b>Analytics</b>
+                </Text>
+                <Text>{localStorage.getItem("userToken") || "No Token Available"}</Text>
+              </div>
+            </Card>
+            <Card hoverable style={{ background: "#FFF9CC", margin: "3%" }}>
+              <div className="flex-column">
+                <MdFeedback size={50} color="#9e2021" />
+                <Text style={{ fontSize: 20 }}>
+                  <b>Complaints</b>
+                </Text>
+                <Text>
+                  Any Student Can Raise Complaints at any time and can attach images also and every complaint is digitally recorded and retrieved when needed and help in making dashboard statistics.
+                </Text>
+              </div>
+            </Card>
+            <Card hoverable style={{ background: "#FDE2E4", margin: "3%" }}>
+              <div className="flex-column">
+                <MdTimeline size={50} color="#9e2021" />
+                <Text style={{ fontSize: 20 }}>
+                  <b>Timeline</b>
+                </Text>
+                <Text>
+                  Every complaint has Timeline to track when complaint is lodged and when complaint acknowledged and resolved.
+                </Text>
+              </div>
+            </Card>
+          </div>
+
+          <footer className="footer mt-3">
+            <p>© 2024 RGUKT Mess Management System. All rights reserved.</p>
+          </footer>
         </div>
-        <div className='home-carousel px-2'>
-          <img src={c2} className='mx-3' />
-        </div>
-        <div className='home-carousel px-2'>
-          <img src={c3} className='mx-3' />
-        </div>
-        <div className='home-carousel px-2'>
-          <img src={c4} className='mx-3' />
-        </div>
-      </Carousel>
-      
-      <div className="home-container">
-        <h2    style={{
-                      fontFamily: "'Roboto', sans-serif",
-                      fontSize: "24px",
-                      fontWeight: "600",
-                      color: "#003366",
-                      textAlign: "center",
-                      textTransform: "capitalize",
-                      margin: "20px 0",
-                      paddingBottom: "5px",
-                      borderBottom: "2px solid #0066cc",
-                      letterSpacing: "1px",
-                      lineHeight: "1.5",
-                      
-                    }}>Mess Monitoring Application</h2>
-        <Flex vertical>
-          <Card hoverable style={{ background: '#E0F7FA', margin: '3%' }} >
-
-            <Flex vertical >
-              <IoMdAnalytics size={50} color='#9e2021' ></IoMdAnalytics>
-              <Text style={{ fontSize: 20 }} > <b>Analytics</b></Text>
-              {/* <Text >Admin Dashboard with statistices like monthlywise complaint bargraphs and categorywise complaints</Text> */}
-              <Text>{token}</Text>
-            </Flex>
-
-          </Card>
-          <Card hoverable style={{ background: '#FFF9CC', margin: '3%' }} >
-
-            <Flex vertical >
-              <MdFeedback size={50} color='#9e2021' ></MdFeedback>
-              <Text style={{ fontSize: 20 }} > <b>Complaints</b></Text>
-              <Text >
-                Any Student Can Raise Complaints at any time and can attach images also and every complaint is digitally recorded and retrieved when needed and help in making dashboard statistics
-
-              </Text>
-            </Flex>
-
-          </Card>
-          <Card hoverable style={{ background: '#FDE2E4', margin: '3%' }} >
-
-            <Flex vertical >
-              <MdTimeline size={50} color='#9e2021' ></MdTimeline>
-              <Text style={{ fontSize: 20 }} > <b>Timeline</b></Text>
-              <Text >
-            Every complaint has Timeline to track ehen complaint is lodged and when complaint acknowledeg and resolved
-              </Text>
-            </Flex>
-
-          </Card>
-        </Flex>
-
-
-
-        <footer className="footer mt-3">
-          <p>© 2024 RGUKT Mess Management System. All rights reserved.</p>
-        </footer>
-      </div>
-    </Spin>
-</div>
+      </Spin>
+    </div>
   );
 };
 
