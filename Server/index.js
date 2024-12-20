@@ -155,7 +155,7 @@ app.post('/login', async (req, res, next) => {
   
         });
         console.log("device token: "+token);
-       if(device_token){
+       if(token){
 
         const token_res=await Dtoken.create({user_id:user._id,token:token})
         console.log(token_res);
