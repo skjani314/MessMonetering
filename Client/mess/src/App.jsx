@@ -28,7 +28,6 @@ function App() {
   const [activeTab, setActiveTab] = useState('DASHBOARD');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-const [device_token,setDeviceToken]=useState("");
 
   const [messageApi, contextHolder] = message.useMessage();
   const success = (msg) => {
@@ -44,14 +43,7 @@ const [device_token,setDeviceToken]=useState("");
     });
   };
 
-  window.receiveData = (data) => {
 
-
-setDeviceToken(data)
-
-    success(data)
-
-  };
   const changeActiveTab = (tabId) => {
     setActiveTab(tabId);
   }
@@ -65,7 +57,6 @@ setDeviceToken(data)
     setUser,
     loading,
     setLoading,
-    device_token,
 
   }
 

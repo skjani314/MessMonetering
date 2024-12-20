@@ -16,25 +16,21 @@ const { Text } = Typography;
 
 const Home = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const { loading, setLoading, success, error, contextHolder, changeActiveTab, setDeviceToken } = useContext(Context);
+  const { loading, setLoading, success, error, contextHolder, changeActiveTab } = useContext(Context);
+  const [device_token,setDeviceToken]=useState("");
 
-  let token = "no token";
 
   window.receiveData = (data) => {
-    token = data;
     success(data);
-    // Store token in localStorage
-    localStorage.setItem("userToken", token);
+    localStorage.setItem("userToken", data);
   };
 
   useEffect(() => {
     const storedToken = localStorage.getItem("userToken");
     if (storedToken) {
       setDeviceToken(storedToken);
-    } else {
-      setDeviceToken(token);
-    }
-  }, [setDeviceToken, token]);
+    } 
+  }, [setDeviceToken]);
 
   const headingStyle = {
     fontFamily: "'Poppins', 'Roboto', sans-serif",
