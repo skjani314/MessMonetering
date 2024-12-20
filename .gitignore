@@ -5,7 +5,7 @@
 /Client/mess/node_modules
 /Client/mess/.pnp
 /Client/mess.pnp.js
-
+/Server/serviceAccount.json
 # testing
 /Client/mess/coverage
 

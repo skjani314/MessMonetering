@@ -19,16 +19,24 @@ import admin from 'firebase-admin';
 import { fileURLToPath } from 'url';
 
 
+
+
+
+dotenv.config();
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const serviceAccount = path.join(__dirname, 'serviceAccount.json');
 
+// Decode the service account JSON from the environment variable
+const serviceAccountJson = Buffer.from(process.env.SERVICE_ACCOUNT_JSON, 'base64').toString('utf-8');
+const serviceAccount = JSON.parse(serviceAccountJson);
 
+// Initialize Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-dotenv.config();
 const app = express();
 
 const storage = multer.diskStorage({
