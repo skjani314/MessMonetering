@@ -132,7 +132,7 @@ app.post('/register', async (req, res, next) => {
 
 app.post('/login', async (req, res, next) => {
   try {
-    const { email, password ,device_token} = req.body;
+    const { email, password ,token} = req.body;
 
 
     const user = await User.findOne({ email });
@@ -154,10 +154,10 @@ app.post('/login', async (req, res, next) => {
           path: '/',
   
         });
-        console.log("device token: "+device_token);
+        console.log("device token: "+token);
        if(device_token){
 
-        const token_res=await Dtoken.create({user_id:user._id,token:device_token})
+        const token_res=await Dtoken.create({user_id:user._id,token:token})
         console.log(token_res);
        }
 

@@ -12,7 +12,7 @@ function LogIn() {
   const {loading,setLoading,success,error,contextHolder,user,setUser, device_token}=useContext(Context);
 
 const [isVisible, setIsVisible] = useState(false);  
-const [LogData,setLogdata]=useState({email:'',password:'',device_token});
+const [LogData,setLogdata]=useState({email:'',password:'',token:""});
 const [psicon,setPsicon]=useState(false);
 const [forgetpass,setForgetPass]=useState({email:'',flag:false});
 const navigate=useNavigate()
@@ -60,7 +60,8 @@ const handleLogData=(e)=>
     {
       e.preventDefault();
       setLoading(true);
-      success(device_token)
+      success(device_token);
+      setLogdata(prev=>({...prev,token:device_token}))
        try{
         
        await axios.post(import.meta.env.VITE_API_URL+'/login',LogData, { withCredentials: true })
@@ -71,6 +72,7 @@ const handleLogData=(e)=>
         setUser(result.data);
         setLoading(false);
         success("Logged In successfully");
+        success(device_token);
         if(result.data.role=='student'){
           navigate('/student')
         }
@@ -93,13 +95,14 @@ const handleLogData=(e)=>
  
 const handleLogout=async ()=>{
   setLoading(true);
-  success(device_token)
   try{
   
     await axios.post(import.meta.env.VITE_API_URL+'/logout',{},{ withCredentials: true, })
      success("logged out successfully");
      setUser(null);
      setLoading(false);
+     success(device_token)
+
   
   }
   catch{
