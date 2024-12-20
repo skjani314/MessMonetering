@@ -21,18 +21,13 @@ const Home = () => {
   const { loading, setLoading, success, error, contextHolder, changeActiveTab,setDeviceToken } = useContext(Context);
 
 
-const handledeviceToken=(token)=>{
-  setDeviceToken(token)
-}
 
+let token ="no token";
 
   window.receiveData = (data) => {
 
-
-alert(data);
-success(data);    
-handledeviceToken(data);
-
+token=data;
+success(data);
 };
 
   const headingStyle = {
@@ -104,7 +99,8 @@ handledeviceToken(data);
             <Flex vertical >
               <IoMdAnalytics size={50} color='#9e2021' ></IoMdAnalytics>
               <Text style={{ fontSize: 20 }} > <b>Analytics</b></Text>
-              <Text >Admin Dashboard with statistices like monthlywise complaint bargraphs and categorywise complaints</Text>
+              {/* <Text >Admin Dashboard with statistices like monthlywise complaint bargraphs and categorywise complaints</Text> */}
+              <Text>{token}</Text>
             </Flex>
 
           </Card>
