@@ -8,11 +8,13 @@ import Context from '../../context/Context';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 function LogIn() {
+
+  const {loading,setLoading,success,error,contextHolder,user,setUser, device_token}=useContext(Context);
+
 const [isVisible, setIsVisible] = useState(false);  
-const [LogData,setLogdata]=useState({email:'',password:''});
+const [LogData,setLogdata]=useState({email:'',password:'',device_token});
 const [psicon,setPsicon]=useState(false);
 const [forgetpass,setForgetPass]=useState({email:'',flag:false});
-const {loading,setLoading,success,error,contextHolder,user,setUser}=useContext(Context);
 const navigate=useNavigate()
 const showModal = () => {
   

@@ -28,7 +28,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('DASHBOARD');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-
+const [device_token,setDeviceToken]=useState("");
 
   const [messageApi, contextHolder] = message.useMessage();
   const success = (msg) => {
@@ -46,7 +46,9 @@ function App() {
 
   window.receiveData = (data) => {
 
-    alert(data);
+
+setDeviceToken(data)
+
     success(data)
 
   };
@@ -63,6 +65,7 @@ function App() {
     setUser,
     loading,
     setLoading,
+    device_token,
 
   }
 

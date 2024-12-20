@@ -41,23 +41,8 @@ const Home = () => {
     cursor: "pointer", // Pointer cursor for interactivity
   };
 
-  window.receiveData = (data) => {
 
-    alert(data);
-    success(data)
-
-  };
-  const callAndroidToast = () => {
-    // Check if the WebView Android interface is available
-    if (window.Android) {
-      // Call the Android 'showToast' method
-      window.Android.showToast("Hello from ViteJS!");
-    } else {
-  alert("Android interface is not available.");
-    }
-  };
-
-
+ 
   return (
 <div >
     <Spin tip="Loading...." size='large' spinning={loading}>
@@ -83,7 +68,7 @@ const Home = () => {
         </div>
       </Carousel>
       
-      <div className="home-container" onClick={()=>callAndroidToast()}>
+      <div className="home-container">
         <h2    style={{
                       fontFamily: "'Roboto', sans-serif",
                       fontSize: "24px",

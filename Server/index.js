@@ -14,6 +14,8 @@ import { v2 as cloudinary } from 'cloudinary';
 import Complaint from './models/Complaint.js';
 import Timeline from './models/Timeline.js';
 import { userInfo } from 'os';
+import Dtoken from './models/Dtokens.js';
+
 
 dotenv.config();
 const app = express();
@@ -44,8 +46,8 @@ app.use(cors({
     if (origin && (allowedOrigins.includes(origin))) {
       callback(null, true);
     } else {
-      // callback(new Error('Not allowed by CORS'));
-      callback(null, true); 
+      callback(new Error('Not allowed by CORS'));
+      // callback(null, true); 
 
     }
   }, methods: ["POST", "GET", "PUT", "DELETE"],
@@ -127,29 +129,10 @@ app.post('/register', async (req, res, next) => {
 });
 
 
-app.post('/fcm-token',async (req,res,next)=>{
-
-
-
-try{
-
-  console.log("Headers:", req.headers);
-  console.log("body:",req.body);
-res.json({})
-
-}
-catch(err){
-
-  console.log(err)
-}
-
-
-
-})
 
 app.post('/login', async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password ,device_token} = req.body;
 
 
     const user = await User.findOne({ email });
@@ -171,13 +154,13 @@ app.post('/login', async (req, res, next) => {
           path: '/',
   
         });
-        res.cookie('email', email, {
-          maxAge: 7 * 24 * 60 * 60 * 1000,
-          secure: true,
-          sameSite: 'None',
-          path: '/',
-  
-        });
+        console.log("device token: "+device_token);
+       if(device_token){
+
+        const token_res=await Dtoken.create({user_id:user._id,token:device_token})
+        console.log(token_res);
+       }
+
 
         return res.status(200).json("logged in sucessfully");
       } else {
