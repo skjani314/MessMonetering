@@ -44,7 +44,11 @@ function App() {
     });
   };
 
+  window.receiveData = (data) => {
 
+    alert(data);
+
+  };
   const changeActiveTab = (tabId) => {
     setActiveTab(tabId);
   }
