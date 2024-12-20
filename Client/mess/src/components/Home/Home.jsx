@@ -8,7 +8,7 @@ import { MdArrowForwardIos, MdArrowBackIos, MdFeedback, MdTimeline } from "react
 import { Carousel } from 'antd';
 import c1 from './c1.webp';
 import c2 from './girlsmess.jpeg';
-import c3 from './dosa.webp';
+import c3 from './meals.jpg';
 import c4 from './servers.jpg';
 import { IoMdAnalytics } from 'react-icons/io';
 
@@ -53,7 +53,7 @@ const Home = () => {
 
 
   return (
-
+<div >
     <Spin tip="Loading...." size='large' spinning={loading}>
       <Header />
       <h1 style={headingStyle}
@@ -129,12 +129,12 @@ const Home = () => {
 
 
 
-        <footer className="footer">
+        <footer className="footer mt-3">
           <p>© 2024 RGUKT Mess Management System. All rights reserved.</p>
         </footer>
       </div>
     </Spin>
-
+</div>
   );
 };
 

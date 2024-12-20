@@ -102,6 +102,7 @@ setLoading(false)
 
 
   return (
+    
     <Context.Provider value={context_data}>
       
       <Routes>
@@ -120,6 +121,7 @@ setLoading(false)
         <Route path="/student/profile" element={user && user.role=="student"?<StudentProfile />:<NotFoundPage/>} />
       </Routes>
     </Context.Provider>
+    
   )
 }
 

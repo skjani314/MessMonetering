@@ -1,19 +1,3 @@
-// import React from 'react'
-// import Header from '../../components/Header/Header'
-// import ComplaintsTable from '../../components/Student/ComplaintsTable'
-
-// function Student() {
-//   return (
-//     <div>
-//       <Header/>
-//       <ComplaintsTable/>
-//     </div>
-//   )
-// }
-
-// export default Student
-
-
 import React, { useEffect, useState } from 'react';
 import { useContext } from "react"
 import { Spin, Row, Col, Flex, Typography } from "antd";
@@ -21,13 +5,9 @@ import Header from '../../components/Header/Header';
 import StudentSidebar from '../../components/sidebar/StudentSidebar';
 import MenuTable from '../../components/Home/MenuTable';
 import Context from '../../context/Context';
-import { FaPills, FaSquareFull } from 'react-icons/fa';
 import axios from 'axios';
-import { GiConsoleController } from 'react-icons/gi';
-import BarGraph from '../../components/graphs/BarGraph';
-import InventoryChart from '../../components/graphs/Inventory';
 
-const { Text } = Typography;
+
 const Student = props => {
 
 
@@ -67,60 +47,85 @@ const Student = props => {
 
 
     return (
+        // <>
+        //     {contextHolder}
+        //     <Spin tip="Loading...." size='large' spinning={loading}>
+        //         <div className="home-container">
+        //             <div className="home-header-sidebar"><Header /></div>
+
+        //             <div className="header-down">
+        //                 <div className="sidebar-container">
+        //                     <StudentSidebar />
+        //                 </div>
+                    
+        //                 <div>
+        //                 <h2
+        //             style={{
+        //                 fontFamily: "'Roboto', sans-serif",
+        //                 fontSize: "24px",
+        //                 fontWeight: "600",
+        //                 color: "#003366",
+        //                 textAlign: "left",
+        //                 textTransform: "capitalize",
+        //                 margin: "20px 0",
+        //                 padding: "10px",
+                        
+        //                 letterSpacing: "1px",
+                    
+        //             }}
+        //             >
+        //             Hi Welcome, {user.name}
+        //         </h2>
+        //                 </div>
+        //                 <div>
+        //                 <h2
+        //             style={{
+        //                 fontFamily: "'Roboto', sans-serif",
+        //                 fontSize: "24px",
+        //                 fontWeight: "600",
+        //                 color: "#003366",
+        //                 textAlign: "center",
+        //                 textTransform: "capitalize",
+        //                 margin: "20px 0",
+        //                 paddingBottom: "10px",
+        //                 borderBottom: "2px solid #0066cc",
+        //                 letterSpacing: "1px",
+        //                 lineHeight: "1.5",
+        //             }}
+        //         >
+        //             Mess Menu
+        //         </h2>
+        //             <MenuTable/>
+        //         </div>
+        //         </div>
+        //             </div>
+
+                
+        //     </Spin>
+        // </>
+
+
+
         <>
-            {contextHolder}
-            <Spin tip="Loading...." size='large' spinning={loading}>
-                <div className="home-container">
-                    <div className="home-header-sidebar"><Header /></div>
+        {contextHolder}
+        <Spin tip="Loading...." size='large' spinning={loading}>
+            <div className="home-container">
+                <div className="home-header-sidebar"><Header /></div>
 
-                    <div className="header-down">
-                        <div className="sidebar-container">
-                            <StudentSidebar />
-                        </div>
-                        <div>
-                        <h2
-                    style={{
-                      fontFamily: "'Roboto', sans-serif",
-                      fontSize: "24px",
-                      fontWeight: "600",
-                      color: "#003366",
-                      textAlign: "start",
-                      textTransform: "capitalize",
-                      margin: "20px 0",
-                      padding: "10px",
-                      
-                      letterSpacing: "1px",
-                      
-                    }}
-                  >
-                      Hi Welcome, {user.name}
-                  </h2>
-                        </div>
-                        <div>
-                        <h2
-                    style={{
-                      fontFamily: "'Roboto', sans-serif",
-                      fontSize: "24px",
-                      fontWeight: "600",
-                      color: "#003366",
-                      textAlign: "center",
-                      textTransform: "capitalize",
-                      margin: "20px 0",
-                      paddingBottom: "10px",
-                      borderBottom: "2px solid #0066cc",
-                      letterSpacing: "1px",
-                      lineHeight: "1.5",
-                    }}
-                  >
-                      Mess Menu
-                  </h2>
-                    <MenuTable/>
-                  </div>
+                <div className="header-down">
+                    <div className="sidebar-container">
+                        <StudentSidebar />
                     </div>
-
+                    <div className="main-content">
+                        <MenuTable/>
+                    </div>
                 </div>
-            </Spin>
-        </>
+
+            </div>
+        </Spin>
+    </>
+
+        
 
     );
 };

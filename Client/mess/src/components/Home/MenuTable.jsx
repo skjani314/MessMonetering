@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table } from "antd";
 import "./MenuTable.css";
+import { useContext } from "react"
+import Context from '../../context/Context';
 
 const MenuTable = () => {
+
+  const {user} = useContext(Context);
+
   const data = [
     {
       day: "Sunday",
@@ -86,8 +91,79 @@ const MenuTable = () => {
     },
   ];
 
+  const [isHovered, setIsHovered] = useState(false);
+  const headingStyle = {
+    fontFamily: "'Poppins', 'Roboto', sans-serif",
+    fontSize: "2rem",
+    fontWeight: 700,
+    letterSpacing: "1px",
+    textTransform: "capitalize",
+    textAlign: "left",
+    color: isHovered ? "#ff758c" : "#333", // Dynamic color on hover
+    background: "linear-gradient(90deg, #ff7eb3, #ff758c)", // Gradient text
+    WebkitBackgroundClip: "text", // Clipping background to text
+    WebkitTextFillColor: "transparent", // Makes gradient visible
+    margin: "0px 0 10px 0",
+    padding: "0px 20px 0 0px",
+    transition: "all 0.3s ease-in-out", // Smooth transitions
+    textShadow: isHovered
+      ? "2px 2px 10px rgba(255, 117, 140, 0.5)" // Larger shadow on hover
+      : "1px 1px 5px rgba(0, 0, 0, 0.2)", // Subtle shadow by default
+    transform: isHovered ? "scale(1.05)" : "scale(1)", // Slight scaling on hover
+    cursor: "pointer", // Pointer cursor for interactivity
+  };
+
   return (
+    <div className="complaints-container">
+
+<div>
+      {/* <h2
+  style={{
+    fontFamily: "'Roboto', sans-serif",
+    fontSize: "24px",
+    fontWeight: "600",
+    color: "#003366",
+    textAlign: "left",
+    textTransform: "capitalize",
+    margin: "20px 0",
+    paddingBottom: "10px",
+    
+  }}
+>
+    Hi Welcome, {user.name}
+</h2> */}
+<h2 style={headingStyle}
+      onMouseEnter={() => setIsHovered(true)} // Set hover state to true
+      onMouseLeave={() => setIsHovered(false)}>Hi Welcome, {user.name}</h2>
+
+
+      </div>
+
+<div>
+      <h2
+  style={{
+    fontFamily: "'Roboto', sans-serif",
+    fontSize: "24px",
+    fontWeight: "600",
+    color: "#003366",
+    textAlign: "center",
+    textTransform: "capitalize",
+    margin: "20px 0",
+    paddingBottom: "10px",
+    borderBottom: "2px solid #0066cc",
+    letterSpacing: "1px",
+    lineHeight: "1.5",
+  }}
+>
+    Mess Menu 
+</h2>
+
+
+
+      </div>
+      
     <div className="menu-table-container">
+      
       <Table
         columns={columns}
         dataSource={data}
@@ -96,6 +172,7 @@ const MenuTable = () => {
         rowKey="day"
         className="menu-table"
       />
+    </div>
     </div>
   );
 };

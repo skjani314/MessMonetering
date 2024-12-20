@@ -1,4 +1,13 @@
 /* General Styles */
+
+.complaints-container {
+  padding: 16px;
+  margin: auto;
+  max-width: 1200px;
+  box-sizing: border-box;
+  
+}
+
 .menu-table-container {
   margin: 0px;
   padding: 0px;

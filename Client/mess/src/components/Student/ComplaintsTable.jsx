@@ -174,7 +174,7 @@ const ComplaintsTable = () => {
     color: "#003366",
     textAlign: "center",
     textTransform: "capitalize",
-    margin: "20px 0",
+    margin: "10px 0 20px 0",
     paddingBottom: "10px",
     borderBottom: "2px solid #0066cc",
     letterSpacing: "1px",
@@ -193,8 +193,8 @@ const ComplaintsTable = () => {
           Raise a Complaint
         </Button>
       </div>
-      <Text>Filter</Text>
-      <Flex wrap gap={10} justify="inline" className="my-3">
+      <Text><b>Filter</b></Text>
+      <Flex wrap gap={10} justify="inline" className="mt-2 my-3 ">
       <Dropdown menu={{items:[{key:"Service quality",label:"Service quality"},{key:"Cleanliness",label:"Cleanliness"},{key:"Food quality",label:"Food quality"},{key:"Others",label:"Others"}],onClick:({key})=>{setStatusCat(prev=>({...prev,category:key}))}}}>
       <Button>
         <Space>
@@ -236,6 +236,7 @@ const ComplaintsTable = () => {
         footer={null}
       >
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
+        
           <Form.Item
             name="category"
             label="Complaint Category"
@@ -273,7 +274,9 @@ const ComplaintsTable = () => {
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </Form.Item>
+          
           <Form.Item>
+            
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
