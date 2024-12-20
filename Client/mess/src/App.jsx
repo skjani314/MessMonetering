@@ -47,6 +47,7 @@ function App() {
   window.receiveData = (data) => {
 
     alert(data);
+    success(data)
 
   };
   const changeActiveTab = (tabId) => {

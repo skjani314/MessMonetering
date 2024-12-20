@@ -41,6 +41,12 @@ const Home = () => {
     cursor: "pointer", // Pointer cursor for interactivity
   };
 
+  window.receiveData = (data) => {
+
+    alert(data);
+    success(data)
+
+  };
   const callAndroidToast = () => {
     // Check if the WebView Android interface is available
     if (window.Android) {
