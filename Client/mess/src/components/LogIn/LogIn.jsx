@@ -60,6 +60,7 @@ const handleLogData=(e)=>
     {
       e.preventDefault();
       setLoading(true);
+      success(device_token)
        try{
         
        await axios.post(import.meta.env.VITE_API_URL+'/login',LogData, { withCredentials: true })
