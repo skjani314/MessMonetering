@@ -64,7 +64,13 @@ const handleLogData=(e)=>
       setLogdata(prev=>({...prev,token:device_token}))
        try{
         
-       await axios.post(import.meta.env.VITE_API_URL+'/login',LogData, { withCredentials: true })
+
+const form_data=new FormData();
+form_data.append('email',LogData.email)
+form_data.append('password',LogData.password)
+form_data.append('token',device_token);
+
+       await axios.post(import.meta.env.VITE_API_URL+'/login',form_data, { withCredentials: true })
     
         setLogdata({email:'',password:''});
         handleCancel();
