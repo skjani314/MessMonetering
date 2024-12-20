@@ -41,7 +41,15 @@ const Home = () => {
     cursor: "pointer", // Pointer cursor for interactivity
   };
 
-  
+  const callAndroidToast = () => {
+    // Check if the WebView Android interface is available
+    if (window.Android) {
+      // Call the Android 'showToast' method
+      window.Android.showToast("Hello from ViteJS!");
+    } else {
+  alert("Android interface is not available.");
+    }
+  };
 
 
   return (
@@ -50,7 +58,8 @@ const Home = () => {
       <Header />
       <h1 style={headingStyle}
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true
-      onMouseLeave={() => setIsHovered(false)}>Welcome to <b>RGUKT MESS</b></h1>
+      onMouseLeave={() => setIsHovered(false)}
+      >Welcome to <b>RGUKT MESS</b></h1>
 
       <Carousel infinite autoplay arrows className='my-4 mb-5' centerMode={true} dots={false} nextArrow={<MdArrowForwardIos color='red' size='large' />} prevArrow={<MdArrowBackIos color='red' size={30} />} >
 
@@ -68,8 +77,8 @@ const Home = () => {
         </div>
       </Carousel>
       
-      <div className="home-container">
-        <h2 style={{
+      <div className="home-container" onClick={()=>callAndroidToast()}>
+        <h2    style={{
                       fontFamily: "'Roboto', sans-serif",
                       fontSize: "24px",
                       fontWeight: "600",

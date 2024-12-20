@@ -44,8 +44,8 @@ app.use(cors({
     if (origin && (allowedOrigins.includes(origin))) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
-      // callback(null, true); 
+      // callback(new Error('Not allowed by CORS'));
+      callback(null, true); 
 
     }
   }, methods: ["POST", "GET", "PUT", "DELETE"],
@@ -134,8 +134,8 @@ app.post('/fcm-token',async (req,res,next)=>{
 try{
 
   console.log("Headers:", req.headers);
-  console.log("body:",req.query);
-res.json("sucess")
+  console.log("body:",req.body);
+res.json({})
 
 }
 catch(err){
@@ -171,6 +171,13 @@ app.post('/login', async (req, res, next) => {
           path: '/',
   
         });
+        res.cookie('email', email, {
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+          secure: true,
+          sameSite: 'None',
+          path: '/',
+  
+        });
 
         return res.status(200).json("logged in sucessfully");
       } else {
@@ -193,6 +200,7 @@ app.post('/logout', (req, res) => {
       sameSite: 'None',
       path: '/',
     });
+    console.log(req.cookies)
     return res.json({ message: "Logout successfully" });
   } catch (error) {
     next(error);
@@ -205,6 +213,7 @@ app.post('/get-user', async (req, res, next) => {
 
   const accessToken = req.cookies.accessToken;
   console.log(accessToken)
+  console.log(req.cookies)
   if (!accessToken) { next(new Error("jwt token not found")) }
   else {
     await jwt.verify(accessToken, process.env.KEY, async (err, decode) => {
