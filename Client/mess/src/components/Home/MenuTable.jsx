@@ -117,21 +117,7 @@ const MenuTable = () => {
     <div className="complaints-container">
 
 <div>
-      {/* <h2
-  style={{
-    fontFamily: "'Roboto', sans-serif",
-    fontSize: "24px",
-    fontWeight: "600",
-    color: "#003366",
-    textAlign: "left",
-    textTransform: "capitalize",
-    margin: "20px 0",
-    paddingBottom: "10px",
-    
-  }}
->
-    Hi Welcome, {user.name}
-</h2> */}
+      
 <h2 style={headingStyle}
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true
       onMouseLeave={() => setIsHovered(false)}>Hi Welcome, {user.name}</h2>

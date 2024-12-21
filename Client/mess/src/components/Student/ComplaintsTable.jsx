@@ -194,7 +194,7 @@ const ComplaintsTable = () => {
         </Button>
       </div>
       <Text><b>Filter</b></Text>
-      <Flex wrap gap={10} justify="inline" className="mt-2 my-3 ">
+      <Flex style={{overflowX:"scroll"}} gap={10} justify="inline" className="mt-2 my-3 ">
       <Dropdown menu={{items:[{key:"Service quality",label:"Service quality"},{key:"Cleanliness",label:"Cleanliness"},{key:"Food quality",label:"Food quality"},{key:"Others",label:"Others"}],onClick:({key})=>{setStatusCat(prev=>({...prev,category:key}))}}}>
       <Button>
         <Space>

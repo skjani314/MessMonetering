@@ -173,7 +173,7 @@ const ViewTable = props => {
                                     { '&:last-child td, &:last-child th': { border: 0 } }} >
                                     <TableCell align="center"
                                         component="th"
-                                        scope="row" > {row.date} </TableCell>
+                                        scope="row" ><b> {row.date} </b></TableCell>
                                     <TableCell align="center" > {row.user_details.name} </TableCell>
                                     <TableCell align="center" > {row.category} </TableCell>
                                     <TableCell align="center" > {row.complaint} </TableCell>
