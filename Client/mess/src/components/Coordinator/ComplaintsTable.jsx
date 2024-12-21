@@ -27,6 +27,8 @@ const ComplaintsTable = () => {
  const [tabledata,setTabledata]=useState([]);
 
  const handleDatessubmit = async () => {
+  setLoading(true)
+
 
   try {
 
@@ -55,6 +57,7 @@ const ComplaintsTable = () => {
     console.log(err);
     error("something went wrong")
   }
+  setLoading(false)
 
 
 }
@@ -106,11 +109,14 @@ form_data.append('level',2);
 setIsModalVisible(false);
 setFileList([]); 
 form.resetFields();
+setLoading(true)
 
 const result=await axios.post(import.meta.env.VITE_API_URL+'/complaint',form_data,{withCredentials:true})
 console.log(result);
 success("Complaint Registered Successsfully");
 setUser(prev=>({...prev}))
+setLoading(false)
+
 }catch(err){
   console.log(err);
   error("Unable to Raise complaint")
@@ -126,6 +132,7 @@ setUser(prev=>({...prev}))
 useEffect(()=>{
 
 const fun=async ()=>{
+  setLoading(true)
 
 
 try{
@@ -154,6 +161,7 @@ catch(err)
 {
   console.log(err);
 }
+setLoading(false)
 
 }
 if(user){

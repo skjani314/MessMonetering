@@ -45,7 +45,7 @@ const CoordinatorDashboard = props => {
     useEffect(() => {
 
         const fun = async () => {
-
+setLoading(true)
             try {
 
                 const result = await axios.get(import.meta.env.VITE_API_URL + '/dashboard', { withCredentials: true });
@@ -59,6 +59,8 @@ const CoordinatorDashboard = props => {
                 error("Unable to get data")
 
             }
+            setLoading(false)
+
         }
 
         if (user) { fun() }

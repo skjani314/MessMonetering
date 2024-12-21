@@ -27,6 +27,7 @@ const CoordinatorHistory = props => {
     }, [])
 
     const handleDatessubmit = async () => {
+        setLoading(true)
 
         try {
 
@@ -55,6 +56,7 @@ const CoordinatorHistory = props => {
             console.log(err);
             error("something went wrong")
         }
+        setLoading(false)
 
 
     }
@@ -63,6 +65,7 @@ const CoordinatorHistory = props => {
 
         const fun = async () => {
 
+            setLoading(true)
 
             try {
 
@@ -90,6 +93,7 @@ const CoordinatorHistory = props => {
             catch (err) {
                 console.log(err);
             }
+            setLoading(true)
 
         }
         if (user) {

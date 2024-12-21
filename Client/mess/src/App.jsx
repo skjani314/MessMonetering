@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import Context from './context/Context';
-import { message } from 'antd';
+import { message,Spin } from 'antd';
 import Home from './components/Home/Home';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminStudent from './pages/Admin/AdminStudent';
@@ -72,7 +72,6 @@ const getuser=async ()=>{
 
 try{
 
-
 const result=await axios.post(import.meta.env.VITE_API_URL+'/get-user',{},{withCredentials:true})  
 
 setUser(result.data);
@@ -84,13 +83,12 @@ console.log(err)
 
 }
 
-
+setLoading(false)
 
 }
 
 
 getuser()
-setLoading(false)
 
 },[])
 
@@ -100,7 +98,8 @@ setLoading(false)
 
 
   return (
-    
+    <Spin tip="Loading...." size='large' spinning={loading}>
+
     <Context.Provider value={context_data}>
       
       <Routes>
@@ -119,7 +118,7 @@ setLoading(false)
         <Route path="/student/profile" element={user && user.role=="student"?<StudentProfile />:<NotFoundPage/>} />
       </Routes>
     </Context.Provider>
-    
+   </Spin> 
   )
 }
 

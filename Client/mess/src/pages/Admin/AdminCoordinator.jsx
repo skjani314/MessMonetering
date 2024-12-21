@@ -25,7 +25,7 @@ const AdminCoordinator = props => {
     const handleDatessubmit = async () => {
 
         try {
-
+setLoading(true)
             const result = await axios.get(import.meta.env.VITE_API_URL + '/admin-complaints?role='+'coordinator'+'&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end, { withCredentials: true });
             console.log(result)
             const data = result.data.map((each) => {
@@ -52,7 +52,7 @@ const AdminCoordinator = props => {
             error("something went wrong")
         }
 
-
+setLoading(false)
     }
 
     useEffect(() => {
@@ -65,7 +65,7 @@ const AdminCoordinator = props => {
 
 
         const fun = async () => {
-
+setLoading(true)
             try {
 
 
@@ -94,6 +94,7 @@ const AdminCoordinator = props => {
             catch (err) {
                 console.log(err);
             }
+        setLoading(false)
         }
 
         if (user) fun();

@@ -23,6 +23,7 @@ const Student = props => {
     useEffect(() => {
 
         const fun = async () => {
+            setLoading(true)
 
             try {
 
@@ -37,6 +38,8 @@ const Student = props => {
                 error("Unable to get data")
 
             }
+            setLoading(false)
+
         }
 
         if (user) { fun() }

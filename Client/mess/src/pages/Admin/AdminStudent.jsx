@@ -24,7 +24,7 @@ const AdminStudent = props => {
 
 
     const handleDatessubmit = async () => {
-
+          setLoading(true)
         try {
 
             const result = await axios.get(import.meta.env.VITE_API_URL + '/admin-complaints?role=' + 'student' + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end, { withCredentials: true });
@@ -52,7 +52,7 @@ const AdminStudent = props => {
             console.log(err);
             error("something went wrong")
         }
-
+   setLoading(false)
 
     }
 
@@ -66,7 +66,7 @@ const AdminStudent = props => {
 
 
         const fun = async () => {
-
+setLoading(true)
             try {
 
 
@@ -95,6 +95,7 @@ const AdminStudent = props => {
             catch (err) {
                 console.log(err);
             }
+            setLoading(false)
         }
 
         if (user) fun();

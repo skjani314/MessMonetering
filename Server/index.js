@@ -430,9 +430,8 @@ if(each){
 console.log(responses)
 
 
-res.json('hi')
 
-    // res.json({ result, time,notify });
+    res.json({ result, time,notify });
 
 
   }
@@ -625,18 +624,8 @@ app.put('/complaint', async (req, res, next) => {
 
       const update = await Complaint.findByIdAndUpdate(complaint_id, { resolved_by: user_id, current_status: status, res_des: des, res_array: arr }, { new: true })
       const result =await Dtoken.find({user_id:update.from})
-
-      const user_ids=result.map(each=>each._id)
-      const device_tokens =await Promise.all(user_ids.map(async (each)=>{
-
-       const token=await Dtoken.find({user_id:each})
-       return token;
        
-       }))
-       
-       const flated_device_tokens=device_tokens.flat(Infinity);
-       
-       const responses=await Promise.all(flated_device_tokens.map(async (each)=>{
+       const responses=await Promise.all(result.map(async (each)=>{
        
        
        if(each){
@@ -667,18 +656,8 @@ app.put('/complaint', async (req, res, next) => {
     else{
 
          const result =await Dtoken.find({user_id:update1.from})
-
-         const user_ids=result.map(each=>each._id)
-         const device_tokens =await Promise.all(user_ids.map(async (each)=>{
-
-          const token=await Dtoken.find({user_id:each})
-          return token;
           
-          }))
-          
-          const flated_device_tokens=device_tokens.flat(Infinity);
-          
-          const responses=await Promise.all(flated_device_tokens.map(async (each)=>{
+          const responses=await Promise.all(result.map(async (each)=>{
           
           if(each){
             
@@ -702,7 +681,7 @@ app.put('/complaint', async (req, res, next) => {
             return response;
           } 
           }))
-          
+          console.log(responses)
 
     }
 
