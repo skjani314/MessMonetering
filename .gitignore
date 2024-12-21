@@ -2,10 +2,10 @@
 
 # dependencies
 /Server/node_modules
+
 /Client/mess/node_modules
 /Client/mess/.pnp
 /Client/mess.pnp.js
-
 # testing
 /Client/mess/coverage
 

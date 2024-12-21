@@ -15,11 +15,29 @@ import Complaint from './models/Complaint.js';
 import Timeline from './models/Timeline.js';
 import { userInfo } from 'os';
 import Dtoken from './models/Dtokens.js';
+import admin from 'firebase-admin';
+import { fileURLToPath } from 'url';
+
+
+
 
 
 dotenv.config();
-const app = express();
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Decode the service account JSON from the environment variable
+const serviceAccountJson = Buffer.from(process.env.SERVICE_ACCOUNT_JSON, 'base64').toString('utf-8');
+const serviceAccount = JSON.parse(serviceAccountJson);
+
+// Initialize Firebase Admin SDK
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+const app = express();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -156,9 +174,11 @@ app.post('/login', async (req, res, next) => {
         });
         console.log("device token: "+token);
        if(token){
-
+         const record =await Dtoken.findOne({user_id:user._id,token:token})
+         if(!record){
         const token_res=await Dtoken.create({user_id:user._id,token:token})
-        console.log(token_res);
+        console.log(token_res);}
+        console.log(record)
        }
 
 
@@ -175,15 +195,18 @@ app.post('/login', async (req, res, next) => {
 
 
 
-app.post('/logout', (req, res) => {
+app.post('/logout', async (req, res,next) => {
   try {
+    const {user_id,token}=req.body;
     res.clearCookie('accessToken', {
       httpOnly: true,
       secure: true,
       sameSite: 'None',
       path: '/',
     });
-    console.log(req.cookies)
+console.log(user_id)
+    const result=await Dtoken.deleteOne({user_id,token})
+    console.log(result);
     return res.json({ message: "Logout successfully" });
   } catch (error) {
     next(error);
@@ -355,44 +378,61 @@ app.post('/complaint', async (req, res, next) => {
     const result = await Complaint.create({ from, issue, category, des, image_array: arr, level, current_status: "progress" })
     const time = await Timeline.create({ complaint_id: result._id, status: "progress" })
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'messmonetering@gmail.com',
-        pass: process.env.EMAIL_APPCODE
-      }
-    });
 
-    let emails = [];
+    let user_ids = [];
 
     if (level == 1) {
 
       const representatives = await User.find({ role: "coordinator" })
-      emails = representatives.map((each) => { return each.email })
+      user_ids = representatives.map((each) => { return each._id })
     }
     else {
       const representatives = await User.find({ role: "admin" })
-      emails = representatives.map((each) => { return each.email })
+      user_ids = representatives.map((each) => { return each._id })
     }
 
-    const mailOptions = {
-      from: 'messmonetering@gmail.com',
-      to: emails.join(','),
-      subject: 'Notification',
-      text: "you have a new Complaint Check Mess App Once\n" + "issue:\n" + issue + "\nDescription\n" + des
-    };
+ console.log(user_ids);
+const device_tokens =await Promise.all(user_ids.map(async (each)=>{
 
-    await transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+const token=await Dtoken.find({user_id:each})
+return token;
+
+}))
+
+const flated_device_tokens=device_tokens.flat(Infinity);
+
+const responses=await Promise.all(flated_device_tokens.map(async (each)=>{
 
 
+if(each){
+  
+  const message =arr.length>0? {
+    notification: {
+      title: issue,
+      body: des.substring(0,10),
+      imageUrl:arr[0]
+    },
+    token:each.token, // FCM device token
+  }:
+  {
+    notification: {
+      title: issue,
+      body: des.substring(0,10),
+    },
+    token:each.token, // FCM device token
+  }
+  ;
+  const response = await admin.messaging().send(message);
+  return response;
+} 
+}))
 
-    res.json({ result, time });
+console.log(responses)
+
+
+res.json('hi')
+
+    // res.json({ result, time,notify });
 
 
   }
@@ -584,7 +624,86 @@ app.put('/complaint', async (req, res, next) => {
       )
 
       const update = await Complaint.findByIdAndUpdate(complaint_id, { resolved_by: user_id, current_status: status, res_des: des, res_array: arr }, { new: true })
-      console.log(update)
+      const result =await Dtoken.find({user_id:update.from})
+
+      const user_ids=result.map(each=>each._id)
+      const device_tokens =await Promise.all(user_ids.map(async (each)=>{
+
+       const token=await Dtoken.find({user_id:each})
+       return token;
+       
+       }))
+       
+       const flated_device_tokens=device_tokens.flat(Infinity);
+       
+       const responses=await Promise.all(flated_device_tokens.map(async (each)=>{
+       
+       
+       if(each){
+         
+         const message =arr.length>0? {
+           notification: {
+             title: "Your Complaint Resolved",
+             body: des.substring(0,10),
+             imageUrl:arr[0]
+           },
+           token:each.token, // FCM device token
+         }:
+         {
+           notification: {
+             title: "Your Complaint is Resolved",
+             body: des.substring(0,10),
+           },
+           token:each.token, // FCM device token
+         }
+         ;
+         const response = await admin.messaging().send(message);
+         return response;
+       } 
+       }))
+       
+
+    }
+    else{
+
+         const result =await Dtoken.find({user_id:update1.from})
+
+         const user_ids=result.map(each=>each._id)
+         const device_tokens =await Promise.all(user_ids.map(async (each)=>{
+
+          const token=await Dtoken.find({user_id:each})
+          return token;
+          
+          }))
+          
+          const flated_device_tokens=device_tokens.flat(Infinity);
+          
+          const responses=await Promise.all(flated_device_tokens.map(async (each)=>{
+          
+          if(each){
+            
+            const message =update1.image_array.length>0? {
+              notification: {
+                title: "Your Complaint is Acknowledged",
+                body: update1.issue,
+                imageUrl:update1.image_array[0]
+              },
+              token:each.token, // FCM device token
+            }:
+            {
+              notification: {
+                title: "Your Complaint is Acknowledged",
+                body: update1.issue,
+              },
+              token:each.token, // FCM device token
+            }
+            ;
+            const response = await admin.messaging().send(message);
+            return response;
+          } 
+          }))
+          
+
     }
 
     res.json({ result, update1 })

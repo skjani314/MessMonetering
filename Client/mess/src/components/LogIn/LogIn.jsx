@@ -60,8 +60,6 @@ const handleLogData=(e)=>
     {
       e.preventDefault();
       setLoading(true);
-      success(device_token);
-      setLogdata(prev=>({...prev,token:device_token}))
        try{
         
 
@@ -78,7 +76,6 @@ form_data.append('token',device_token);
         setUser(result.data);
         setLoading(false);
         success("Logged In successfully");
-        success(device_token);
         if(result.data.role=='student'){
           navigate('/student')
         }
@@ -102,12 +99,13 @@ form_data.append('token',device_token);
 const handleLogout=async ()=>{
   setLoading(true);
   try{
-  
-    await axios.post(import.meta.env.VITE_API_URL+'/logout',{},{ withCredentials: true, })
+  const u_data=new FormData();
+  u_data.append('user_id',user._id);
+  u_data.append('token',device_token);
+    await axios.post(import.meta.env.VITE_API_URL+'/logout',u_data,{ withCredentials: true, })
      success("logged out successfully");
      setUser(null);
      setLoading(false);
-     success(device_token)
 
   
   }

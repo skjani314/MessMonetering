@@ -20,7 +20,6 @@ const Home = () => {
 
 
   window.receiveData = (data) => {
-    success(data);
     localStorage.setItem("userToken", data);
   };
 
@@ -113,7 +112,7 @@ const Home = () => {
                 <Text style={{ fontSize: 20 }}>
                   <b>Analytics</b>
                 </Text>
-                <Text>{device_token}</Text>
+                <Text>It have a Bargraph showing monthly wise raised complaints and a piechart showing category wise complaints of current month</Text>
               </div>
             </Card>
             <Card hoverable style={{ background: "#FFF9CC", margin: "3%" }}>
