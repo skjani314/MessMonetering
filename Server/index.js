@@ -431,7 +431,7 @@ console.log(responses)
 
 
 
-    res.json({ result, time,notify });
+    res.json({ result, time });
 
 
   }
