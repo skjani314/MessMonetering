@@ -111,7 +111,23 @@ const CoordinatorHistory = props => {
                             <Sidebar />
                         </div>
                         <div className="main-content">
-                            <h1 >Student Complaints</h1>
+                        <h2
+                        style={{
+                            fontFamily: "'Roboto', sans-serif",
+                            fontSize: "24px",
+                            fontWeight: "600",
+                            color: "#003366",
+                            textAlign: "center",
+                            textTransform: "capitalize",
+                            margin: "10px 0 20px 0",
+                            paddingBottom: "10px",
+                            borderBottom: "2px solid #0066cc",
+                            letterSpacing: "1px",
+                            lineHeight: "1.5",
+                        }}
+                        >
+                            Student Complaints
+                        </h2>
 
                                 <Text>Filter</Text>
                             <Flex wrap gap={10} justify="inline" className="my-3">

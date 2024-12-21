@@ -176,7 +176,7 @@ fun()
     color: "#003366",
     textAlign: "center",
     textTransform: "capitalize",
-    margin: "20px 0",
+    margin: "10px 0 20px 0",
     paddingBottom: "10px",
     borderBottom: "2px solid #0066cc",
     letterSpacing: "1px",
