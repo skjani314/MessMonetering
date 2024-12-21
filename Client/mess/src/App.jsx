@@ -45,6 +45,7 @@ function App() {
   };
 
   window.receiveData = (data) => {
+    alert("welcome to mess")
     localStorage.setItem("userToken", data);
   };
   const changeActiveTab = (tabId) => {
