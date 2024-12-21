@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 function LogIn() {
 
-  const {loading,setLoading,success,error,contextHolder,user,setUser, device_token}=useContext(Context);
+  const {loading,setLoading,success,error,contextHolder,user,setUser, device_token,setDeviceToken}=useContext(Context);
 
 const [isVisible, setIsVisible] = useState(false);  
 const [LogData,setLogdata]=useState({email:'',password:'',token:""});
@@ -62,7 +62,10 @@ const handleLogData=(e)=>
       setLoading(true);
        try{
         
-
+        const storedToken = localStorage.getItem("userToken");
+        if (storedToken) {
+          setDeviceToken(storedToken);
+        } 
 const form_data=new FormData();
 form_data.append('email',LogData.email)
 form_data.append('password',LogData.password)

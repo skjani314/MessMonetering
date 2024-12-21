@@ -19,8 +19,9 @@ const Home = () => {
   const { loading, setLoading, success, error, contextHolder, changeActiveTab,setDeviceToken ,device_token} = useContext(Context);
 
 
-  window.receiveData = (data) => {
+  window.receiveDataHome = (data) => {
     localStorage.setItem("userToken", data);
+    success(data)
   };
 
   useEffect(() => {

@@ -655,8 +655,9 @@ app.put('/complaint', async (req, res, next) => {
     }
     else{
 
+      console.log(update1)
          const result =await Dtoken.find({user_id:update1.from})
-          
+          console.log(result)
           const responses=await Promise.all(result.map(async (each)=>{
           
           if(each){

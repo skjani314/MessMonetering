@@ -4,7 +4,33 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>rgukt mess</title>
+    <script>
+      // Function to receive token from Android
+      window.receiveDataFromAndroid = function (fcmToken) {
+          try {
+              alert("Received FCM token:", fcmToken);
+              // Store the token in localStorage
+              localStorage.setItem("fcmToken", fcmToken);
+              // Optionally, display the token on the page
+              const tokenDisplayElement = document.getElementById("tokenDisplay");
+              if (tokenDisplayElement) {
+                  tokenDisplayElement.textContent = `Stored FCM Token: ${fcmToken}`;
+              }
+          } catch (error) {
+              console.error("Error storing FCM token:", error);
+          }
+      };
+
+      // On page load, display the stored token
+      window.onload = function () {
+          const storedToken = localStorage.getItem("fcmToken");
+          const tokenDisplayElement = document.getElementById("tokenDisplay");
+          if (storedToken && tokenDisplayElement) {
+              tokenDisplayElement.textContent = `Stored FCM Token: ${storedToken}`;
+          }
+      };
+  </script>
   </head>
   <body>
     <div id="root"></div>

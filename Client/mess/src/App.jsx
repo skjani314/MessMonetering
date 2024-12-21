@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import Context from './context/Context';
-import { message,Spin } from 'antd';
+import { message } from 'antd';
 import Home from './components/Home/Home';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminStudent from './pages/Admin/AdminStudent';
@@ -44,7 +44,10 @@ function App() {
     });
   };
 
-
+  window.receiveData = (data) => {
+    localStorage.setItem("userToken", data);
+    success(data)
+  };
   const changeActiveTab = (tabId) => {
     setActiveTab(tabId);
   }
@@ -72,6 +75,7 @@ const getuser=async ()=>{
 
 try{
 
+
 const result=await axios.post(import.meta.env.VITE_API_URL+'/get-user',{},{withCredentials:true})  
 
 setUser(result.data);
@@ -83,23 +87,28 @@ console.log(err)
 
 }
 
-setLoading(false)
+
 
 }
 
 
 getuser()
+setLoading(false)
 
 },[])
 
 
 
-
+  useEffect(() => {
+    const storedToken = localStorage.getItem("userToken");
+    if (storedToken) {
+      setDeviceToken(storedToken);
+    } 
+  }, [setDeviceToken]);
 
 
   return (
-    <Spin tip="Loading...." size='large' spinning={loading}>
-
+    
     <Context.Provider value={context_data}>
       
       <Routes>
@@ -118,7 +127,7 @@ getuser()
         <Route path="/student/profile" element={user && user.role=="student"?<StudentProfile />:<NotFoundPage/>} />
       </Routes>
     </Context.Provider>
-   </Spin> 
+    
   )
 }
 
