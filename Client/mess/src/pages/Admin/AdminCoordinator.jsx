@@ -116,7 +116,23 @@ const AdminCoordinator = props => {
                             <AdminSidebar />
                         </div>
                         <div className="main-content">
-                            <h1 className='mb-2'>Representatives Complaints</h1>
+                        <h2
+                                style={{
+                                    fontFamily: "'Roboto', sans-serif",
+                                    fontSize: "24px",
+                                    fontWeight: "600",
+                                    color: "#003366",
+                                    textAlign: "center",
+                                    textTransform: "capitalize",
+                                    margin: "10px 0 20px 0",
+                                    paddingBottom: "10px",
+                                    borderBottom: "2px solid #0066cc",
+                                    letterSpacing: "1px",
+                                    lineHeight: "1.5",
+                                }}
+                                >
+                                    Representative Complaints
+                                </h2>
                             <Text>Filter</Text>
                             <Flex wrap gap={10} justify="inline" className="my-3">
                                 <Dropdown menu={{ items: [{ key: "Service quality", label: "Service quality" }, { key: "Cleanliness", label: "Cleanliness" }, { key: "Food quality", label: "Food quality" }, { key: "Others", label: "Others" }], onClick: ({ key }) => { setStatusCat(prev => ({ ...prev, category: key })) } }}>
