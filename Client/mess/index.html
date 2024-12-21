@@ -7,20 +7,20 @@
     <title>rgukt mess</title>
     <script>
       // Function to receive token from Android
-      window.receiveDataFromAndroid = function (fcmToken) {
-          try {
-              alert("Received FCM token:"+fcmToken);
-              // Store the token in localStorage
-              localStorage.setItem("fcmToken", fcmToken);
-              // Optionally, display the token on the page
-              const tokenDisplayElement = document.getElementById("tokenDisplay");
-              if (tokenDisplayElement) {
-                  tokenDisplayElement.textContent = `Stored FCM Token: ${fcmToken}`;
-              }
-          } catch (error) {
-              console.error("Error storing FCM token:", error);
-          }
-      };
+      // window.receiveDataFromAndroid = function (fcmToken) {
+      //     try {
+      //         alert("Received FCM token:"+fcmToken);
+      //         // Store the token in localStorage
+      //         localStorage.setItem("fcmToken", fcmToken);
+      //         // Optionally, display the token on the page
+      //         const tokenDisplayElement = document.getElementById("tokenDisplay");
+      //         if (tokenDisplayElement) {
+      //             tokenDisplayElement.textContent = `Stored FCM Token: ${fcmToken}`;
+      //         }
+      //     } catch (error) {
+      //         console.error("Error storing FCM token:", error);
+      //     }
+      // };
 
       // On page load, display the stored token
 

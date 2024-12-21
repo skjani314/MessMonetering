@@ -46,7 +46,6 @@ function App() {
 
   window.receiveData = (data) => {
     localStorage.setItem("userToken", data);
-    success(data)
   };
   const changeActiveTab = (tabId) => {
     setActiveTab(tabId);
