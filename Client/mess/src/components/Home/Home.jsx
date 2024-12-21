@@ -19,17 +19,6 @@ const Home = () => {
   const { loading, setLoading, success, error, contextHolder, changeActiveTab,setDeviceToken ,device_token} = useContext(Context);
 
 
-  window.receiveDataHome = (data) => {
-    localStorage.setItem("userToken", data);
-    success(data)
-  };
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem("userToken");
-    if (storedToken) {
-      setDeviceToken(storedToken);
-    } 
-  }, [setDeviceToken]);
 
   const headingStyle = {
     fontFamily: "'Poppins', 'Roboto', sans-serif",
