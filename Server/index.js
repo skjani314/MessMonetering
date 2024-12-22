@@ -651,6 +651,11 @@ app.put('/complaint', async (req, res, next) => {
              body: des.substring(0,10),
              imageUrl:arr[0]
            },
+           data: {
+            title: "Your Complaint Resolved",
+            body: des.substring(0,10),
+            imageUrl:arr[0]
+          },
            token:each.token, // FCM device token
          }:
          {
@@ -658,6 +663,10 @@ app.put('/complaint', async (req, res, next) => {
              title: "Your Complaint is Resolved",
              body: des.substring(0,10),
            },
+           data: {
+            title: "Your Complaint Resolved",
+            body: des.substring(0,10),
+          },
            token:each.token, // FCM device token
          }
          ;
@@ -691,10 +700,19 @@ app.put('/complaint', async (req, res, next) => {
                 body: update1.issue,
                 imageUrl:update1.image_array[0]
               },
+              data: {
+                title: "Your Complaint is Acknowledged",
+                body: update1.issue,
+                imageUrl:update1.image_array[0]
+              },
               token:each.token, // FCM device token
             }:
             {
               notification: {
+                title: "Your Complaint is Acknowledged",
+                body: update1.issue,
+              },
+              data: {
                 title: "Your Complaint is Acknowledged",
                 body: update1.issue,
               },
