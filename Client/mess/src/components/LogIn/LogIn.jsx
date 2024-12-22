@@ -67,13 +67,12 @@ const handleLogData=(e)=>
           setDeviceToken(storedToken);
         } 
         if(window.jani){
-          alert(window.jani)
           setDeviceToken(storedToken)
         }
 const form_data=new FormData();
 form_data.append('email',LogData.email)
 form_data.append('password',LogData.password)
-form_data.append('token',device_token);
+form_data.append('token',window.jani);
 
        await axios.post(import.meta.env.VITE_API_URL+'/login',form_data, { withCredentials: true })
     
