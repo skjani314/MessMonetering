@@ -406,7 +406,7 @@ const responses=await Promise.all(flated_device_tokens.map(async (each)=>{
 if(each){
   
   const message =arr.length>0? {
-    notification: {
+    data: {
       title: issue,
       body: des.substring(0,10),
       imageUrl:arr[0]
@@ -414,7 +414,7 @@ if(each){
     token:each.token, // FCM device token
   }:
   {
-    notification: {
+    data: {
       title: issue,
       body: des.substring(0,10),
     },
@@ -631,40 +631,43 @@ app.put('/complaint', async (req, res, next) => {
       const update = await Complaint.findByIdAndUpdate(complaint_id, { resolved_by: user_id, current_status: status, res_des: des, res_array: arr }, { new: true })
       const result =await Dtoken.find({user_id:update.from})
        
-       const responses=await Promise.all(result.map(async (each)=>{
-       
-       
-       if(each){
-         
-         const message =arr.length>0? {
-           notification: {
-             title: "Your Complaint Resolved",
-             body: des.substring(0,10),
-             imageUrl:arr[0]
-           },
-           token:each.token, // FCM device token
-         }:
-         {
-           notification: {
-             title: "Your Complaint is Resolved",
-             body: des.substring(0,10),
-           },
-           token:each.token, // FCM device token
-         }
-         ;
-         console.log(message)
-
-         const response = await admin.messaging().send(message)
-         .then(respo => {
-           return respo;
-         })
-         .catch(error => {
-             console.error('Error sending message:', error);
-         });
-         return response;
-       } 
-       }))
-       
+      const responses = await Promise.all(
+        result.map(async (each) => {
+          if (each) {
+            const message =
+              arr.length > 0
+                ? {
+                    data: {
+                      title: "Your Complaint Resolved",
+                      body: des.substring(0, 10),
+                      imageUrl: arr[0],
+                    },
+                    token: each.token, // FCM device token
+                  }
+                : {
+                    data: {
+                      title: "Your Complaint is Resolved",
+                      body: des.substring(0, 10),
+                    },
+                    token: each.token, // FCM device token
+                  };
+      
+            console.log(message);
+      
+            const response = await admin
+              .messaging()
+              .send(message)
+              .then((respo) => {
+                return respo;
+              })
+              .catch((error) => {
+                console.error("Error sending message:", error);
+              });
+            return response;
+          }
+        })
+      );
+             
 
     }
     else{
@@ -677,7 +680,7 @@ app.put('/complaint', async (req, res, next) => {
           if(each){
             
             const message =update1.image_array.length>0? {
-              notification: {
+              data: {
                 title: "Your Complaint is Acknowledged",
                 body: update1.issue,
                 imageUrl:update1.image_array[0]
@@ -685,7 +688,7 @@ app.put('/complaint', async (req, res, next) => {
               token:each.token, // FCM device token
             }:
             {
-              notification: {
+              data: {
                 title: "Your Complaint is Acknowledged",
                 body: update1.issue,
               },
