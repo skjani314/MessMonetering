@@ -411,12 +411,10 @@ if(each){
       body: des.substring(0,10),
       imageUrl:arr[0]
     },
-    data:{
       data: {
         click_action: "OPEN_ACTIVITY",
         imageUrl: arr[0] ,
       },
-    },
     token:each.token, 
   }:
   {
@@ -424,11 +422,9 @@ if(each){
       title: issue,
       body: des.substring(0,10),
     },
-    data:{
       data: {
         click_action: "OPEN_ACTIVITY",
       },
-    },
     token:each.token, // FCM device token
   }
   ;
