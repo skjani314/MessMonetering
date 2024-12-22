@@ -72,7 +72,7 @@ const handleLogData=(e)=>
 const form_data=new FormData();
 form_data.append('email',LogData.email)
 form_data.append('password',LogData.password)
-form_data.append('token',window.jani);
+form_data.append('token',localStorage.getItem("userToken"));
 
        await axios.post(import.meta.env.VITE_API_URL+'/login',form_data, { withCredentials: true })
     
