@@ -403,7 +403,6 @@ const flated_device_tokens=device_tokens.flat(Infinity);
 
 const responses=await Promise.all(flated_device_tokens.map(async (each)=>{
 
-
 if(each){
   
   const message =arr.length>0? {
@@ -422,7 +421,14 @@ if(each){
     token:each.token, // FCM device token
   }
   ;
-  const response = await admin.messaging().send(message);
+  console.log(message)
+  const response = await admin.messaging().send(message)
+  .then(respo => {
+    return respo;
+  })
+  .catch(error => {
+      console.error('Error sending message:', error);
+  });
   return response;
 } 
 }))
@@ -646,6 +652,8 @@ app.put('/complaint', async (req, res, next) => {
            token:each.token, // FCM device token
          }
          ;
+         console.log(message)
+
          const response = await admin.messaging().send(message)
          .then(respo => {
            return respo;
@@ -684,6 +692,8 @@ app.put('/complaint', async (req, res, next) => {
               token:each.token, // FCM device token
             }
             ;
+            console.log(message)
+
             const response = await admin.messaging().send(message)
             .then(respo => {
               return respo;
