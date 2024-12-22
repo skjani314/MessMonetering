@@ -28,7 +28,6 @@ function App() {
   const [activeTab, setActiveTab] = useState('DASHBOARD');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [device_token,setDeviceToken]=useState("");
 
   const [messageApi, contextHolder] = message.useMessage();
   const success = (msg) => {
@@ -45,7 +44,6 @@ function App() {
   };
 
   window.receiveData = (data) => {
-  window.jani=data;
     localStorage.setItem("userToken", data);
   };
   const changeActiveTab = (tabId) => {
@@ -61,8 +59,7 @@ function App() {
     setUser,
     loading,
     setLoading,
-    device_token,
-    setDeviceToken
+
 
   }
 
@@ -96,15 +93,6 @@ getuser()
 setLoading(false)
 
 },[])
-
-
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem("userToken");
-    if (storedToken) {
-      setDeviceToken(storedToken);
-    } 
-  }, [setDeviceToken]);
 
 
   return (

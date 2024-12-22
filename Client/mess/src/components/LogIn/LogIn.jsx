@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 function LogIn() {
 
-  const {loading,setLoading,success,error,contextHolder,user,setUser, device_token,setDeviceToken}=useContext(Context);
+  const {loading,setLoading,success,error,contextHolder,user,setUser}=useContext(Context);
 
 const [isVisible, setIsVisible] = useState(false);  
 const [LogData,setLogdata]=useState({email:'',password:'',token:""});
@@ -61,14 +61,7 @@ const handleLogData=(e)=>
       e.preventDefault();
       setLoading(true);
        try{
-        
-        const storedToken = localStorage.getItem("userToken");
-        if (storedToken) {
-          setDeviceToken(storedToken);
-        } 
-        if(window.jani){
-          setDeviceToken(storedToken)
-        }
+      
 const form_data=new FormData();
 form_data.append('email',LogData.email)
 form_data.append('password',LogData.password)
@@ -107,7 +100,7 @@ const handleLogout=async ()=>{
   try{
   const u_data=new FormData();
   u_data.append('user_id',user._id);
-  u_data.append('token',device_token);
+  u_data.append('token',localStorage.getItem("userToken"));
     await axios.post(import.meta.env.VITE_API_URL+'/logout',u_data,{ withCredentials: true, })
      success("logged out successfully");
      setUser(null);
