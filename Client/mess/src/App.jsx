@@ -45,7 +45,7 @@ function App() {
   };
 
   window.receiveData = (data) => {
-    alert(data);
+  window.jani=data;
     localStorage.setItem("userToken", data);
   };
   const changeActiveTab = (tabId) => {

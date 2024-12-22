@@ -66,6 +66,10 @@ const handleLogData=(e)=>
         if (storedToken) {
           setDeviceToken(storedToken);
         } 
+        if(window.jani){
+          alert(window.jani)
+          setDeviceToken(storedToken)
+        }
 const form_data=new FormData();
 form_data.append('email',LogData.email)
 form_data.append('password',LogData.password)
