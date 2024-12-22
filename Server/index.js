@@ -646,7 +646,13 @@ app.put('/complaint', async (req, res, next) => {
            token:each.token, // FCM device token
          }
          ;
-         const response = await admin.messaging().send(message);
+         const response = await admin.messaging().send(message)
+         .then(respo => {
+           return respo;
+         })
+         .catch(error => {
+             console.error('Error sending message:', error);
+         });
          return response;
        } 
        }))
@@ -678,7 +684,13 @@ app.put('/complaint', async (req, res, next) => {
               token:each.token, // FCM device token
             }
             ;
-            const response = await admin.messaging().send(message);
+            const response = await admin.messaging().send(message)
+            .then(respo => {
+              return respo;
+            })
+            .catch(error => {
+                console.error('Error sending message:', error);
+            });
             return response;
           } 
           }))
