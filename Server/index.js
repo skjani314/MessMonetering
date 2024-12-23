@@ -922,10 +922,17 @@ app.get('/user', async (req, res, next) => {
 
 
   try {
-    const { id } = req.query;
-    console.log(id);
+    const { id,stu_id } = req.query;
+    if(id){
+ 
     const data = await User.findOne({ _id: id })
     res.json(data)
+    }
+    else if(stu_id){
+      const data = await User.findOne({ user_id: stu_id })
+      res.json(data)
+
+    }
 
   }
   catch (err) {
@@ -1016,6 +1023,19 @@ app.delete('/student', async (req, res, next) => {
 
 })
 
+app.get('/student', async (req, res, next) => {
+
+  try {
+    const { user_id } = req.query;
+
+    const response = await User.find({ user_id: { $regex: new RegExp(user_id, 'i') } });
+    console.log(response)
+    res.json(response);
+  }
+  catch (err) {
+    next(err);
+  }
+})
 
 
 const Adminauthenticate = async (req, res, next) => {

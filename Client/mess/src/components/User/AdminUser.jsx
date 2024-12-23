@@ -1,21 +1,28 @@
 import React from 'react';
 import { useEffect, useContext, useState } from 'react';
-import { Button, Row, Flex, Modal, Upload, Spin, DatePicker, Avatar, Typography } from 'antd';
+import { Table, Button, Modal, Form, Input, Select, Dropdown,Space,Spin, Flex, Upload, DatePicker,Typography } from "antd";
 import { FaPlus, FaTrash, FaUpload } from 'react-icons/fa';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import xlDemo from './student.png';
 import Context from '../../context/Context';
 import ViewTable from '../Tables/ViewTable';
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { MdOutlineClear } from "react-icons/md";
 
+
+const {Text}=Typography;
 const AdminUser = props => {
     const [student_form, setStudentForm] = useState({ bulk: false, single: false });
-    const { loading, setLoading, success, error, changeActiveTab, } = useContext(Context);
+    const { loading, setLoading, success, error, changeActiveTab,user } = useContext(Context);
     const [fileList, setFileList] = useState([]);
     const [formdata, setFormData] = useState({ user_id: '', name: '', email: '', role: '', designation: '' });
     const [deleteForm, setDeleteForm] = useState({ batch: '', flag: false });
-
-
+  const [data, setData] = useState([]);
+  const [tabledata, setTabledata] = useState([]);
+ const [datseRange, setdatesrange] = useState({ start: '', end: '' });
+  const [status_cat,setStatusCat]=useState({status:"Select a status",category:"Select a category"});
+  const [stu_details,setStudetails]=useState({});
     const handleUploadChange = ({ fileList }) => {
         setFileList(fileList);
     };
@@ -75,6 +82,86 @@ const AdminUser = props => {
         setLoading(false);
     }
 
+    const handleDatessubmit = async () => {
+        setLoading(true)
+    
+        try {
+      
+              const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param+'&status='+status_cat.status+"&category="+status_cat.category+"&start="+datseRange.start+"&end="+datseRange.end)
+              console.log(result)
+              const data = result.data.map((each) => {
+                const { time, _doc } = each;
+      
+                return { time, ..._doc }
+      
+              })
+              setData(data);
+      
+              const tabledata = data.map((each) => {
+      
+                const { _id, category, time, des } = each;
+      
+      
+                return { category, date: time[0].date.split('T')[0], complaint: des.slice(0, 50), status: time[0].status, id: _id }
+      
+              })
+              console.log(tabledata)
+              setTabledata(tabledata)
+        }
+        catch (err) {
+          console.log(err);
+          error("something went wrong")
+        }
+        setLoading(false)
+    
+    
+      }
+
+    useEffect(() => {
+
+
+        const fun = async () => {
+
+
+            try {
+                const stu=await axios.get(import.meta.env.VITE_API_URL+'/user?id='+props.param)
+                setStudetails(stu.data)
+                const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end)
+                const data = result.data.map((each) => {
+                    const { time, _doc } = each;
+
+                    return { time, ..._doc }
+
+                })
+                setData(data);
+
+                const tabledata = data.map((each) => {
+
+                    const { _id, category, time, des } = each;
+
+
+                    return { category, date: time[0].date.split('T')[0], complaint: des.slice(0, 50), status: time[0].status, id: _id }
+
+                })
+                console.log(tabledata)
+                setTabledata(tabledata)
+
+            }
+            catch (err) {
+                console.log(err);
+            }
+
+
+        }
+
+
+if(props.param){
+    fun();
+}
+
+
+
+    }, [props.param])
 
     return (
         <div>
@@ -84,8 +171,45 @@ const AdminUser = props => {
                 <Button onClick={() => { setDeleteForm((prev) => ({ ...prev, flag: true })) }}><FaTrash></FaTrash> Delete</Button>
             </Flex>
 
-            {props.search_result && props.search_result.length > 0 ?
-                <><h2>Search Result for {props.student.name}({props.student.stu_id})</h2>
+            {props.param?
+                <><h2>Search Result for {stu_details.name}({stu_details.user_id})</h2>
+
+                    <Text><b>Filter</b></Text>
+                    <Flex style={{ overflowX: "scroll" }} gap={10} justify="inline" className="mt-2 my-3 ">
+                        <Dropdown menu={{ items: [{ key: "Service quality", label: "Service quality" }, { key: "Cleanliness", label: "Cleanliness" }, { key: "Food quality", label: "Food quality" }, { key: "Others", label: "Others" }], onClick: ({ key }) => { setStatusCat(prev => ({ ...prev, category: key })) } }}>
+                            <Button>
+                                <Space>
+                                    {
+                                        status_cat.category == "Select a category" ?
+                                            <Text disabled>{status_cat.category}
+                                                <DownOutlined /></Text>
+                                            :
+                                            <Text >{status_cat.category}
+                                                <MdOutlineClear className="mx-2" onClick={() => setStatusCat(prev => ({ ...prev, category: "Select a category" }))} />
+                                            </Text>
+                                    }
+                                </Space>
+                            </Button>
+                        </Dropdown>
+                        <Dropdown menu={{ items: [{ key: "progress", label: "Progress" }, { key: "acknowledged", label: "Acknowledged" }, { key: "resolved", label: "Resolved" }], onClick: ({ key }) => { setStatusCat(prev => ({ ...prev, status: key })) } }}>
+                            <Button>
+                                <Space>
+                                    {
+                                        status_cat.status == "Select a status" ?
+                                            <Text disabled>{status_cat.status}
+                                                <DownOutlined /></Text>
+                                            :
+                                            <Text >{status_cat.status}
+                                                <MdOutlineClear className="mx-2" onClick={() => setStatusCat(prev => ({ ...prev, status: "Select a status" }))} /></Text>
+                                    }
+                                </Space>
+                            </Button>
+                        </Dropdown>
+                        <DatePicker placeholder="select Start Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, start: s })) }} />
+                        <DatePicker placeholder="select End Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, end: s })) }} />
+                        <Button onClick={handleDatessubmit} type="primary">Submit</Button>
+                    </Flex>
+                    <ViewTable admin rowsData={tabledata} data={data} />
 
                 </>
 

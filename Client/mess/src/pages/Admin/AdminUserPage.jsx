@@ -7,11 +7,19 @@ import AdminSidebar from '../../components/sidebar/AdminSidebar';
 import axios from 'axios';
 const { Option } = Select;
 import AdminUser from '../../components/User/AdminUser';
+import { useLocation } from 'react-router-dom';
 
 const AdminUserPage = props => {
     const { loading, setLoading, success, error, contextHolder, changeActiveTab, user } = useContext(Context);
     const [search_value, setSearchValue] = useState("");
-    const [search_result,setSearachResult]=useState([]);
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+   const param=searchParams.get('id')
+
+
+
+
+
     return (
         <>
             {contextHolder}
@@ -21,14 +29,13 @@ const AdminUserPage = props => {
                     <Header
                             search_value={search_value}
                             setSearchValue={setSearchValue}
-                            page={true}
-                            setSearachResult={setSearachResult}
+                            placeHolder={"Search Student"}
                         />                    
                     </div>
 
                     <div className="header-down">
                         <div className="sidebar-container">
-                            <AdminSidebar />
+                            <AdminSidebar  />
                         </div>
                         <div className="main-content">
                             <h2
@@ -50,7 +57,7 @@ const AdminUserPage = props => {
                             </h2>
 
 
-                            <AdminUser search_result={search_result.slice(1)} student={search_result[0]} />
+                            <AdminUser param={param}  />
                         </div>
                     </div>
 

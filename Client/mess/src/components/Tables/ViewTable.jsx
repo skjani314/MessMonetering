@@ -161,7 +161,9 @@ const ViewTable = props => {
                     <TableHead >
                         <TableRow >
                             <TableCell align="center" ><b> DATE </b></TableCell>
-                            <TableCell align="center" ><b> FROM </b></TableCell>
+{!props.admin?
+                            <TableCell align="center" ><b> FROM </b></TableCell>:null
+}
                             <TableCell align="center" ><b> CATEGORY</b> </TableCell>
                             <TableCell align="center" ><b> COMPLAINT</b> </TableCell>
                             <TableCell align="center" ><b> STATUS</b> </TableCell>
@@ -174,7 +176,9 @@ const ViewTable = props => {
                                     <TableCell align="center"
                                         component="th"
                                         scope="row" ><b> {row.date} </b></TableCell>
-                                    <TableCell align="center" > {row.user_details.name} </TableCell>
+{!props.admin?
+                                    <TableCell align="center" > {row.user_details.name} </TableCell>:null
+}
                                     <TableCell align="center" > {row.category} </TableCell>
                                     <TableCell align="center" > {row.complaint} </TableCell>
                                     <TableCell align="center" >
