@@ -4,16 +4,16 @@ import { Button, Row, Flex, Modal, Upload, Spin, DatePicker, Avatar, Typography 
 import { FaPlus, FaTrash, FaUpload } from 'react-icons/fa';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-// import xlDemo from './student.png';
+import xlDemo from './student.png';
 import Context from '../../context/Context';
-import ViewTable from '../../components/Tables/ViewTable';
+import ViewTable from '../Tables/ViewTable';
 
 const AdminUser = props => {
     const [student_form, setStudentForm] = useState({ bulk: false, single: false });
-    const { loading, setLoading, success, error, changeActiveTab,} = useContext(Context);
+    const { loading, setLoading, success, error, changeActiveTab, } = useContext(Context);
     const [fileList, setFileList] = useState([]);
-    const [formdata, setFormData] = useState({ user_id: '', name: '', email: '', role: '',designation:'' });
-    const [deleteForm,setDeleteForm]=useState({batch:'',flag:false});
+    const [formdata, setFormData] = useState({ user_id: '', name: '', email: '', role: '', designation: '' });
+    const [deleteForm, setDeleteForm] = useState({ batch: '', flag: false });
 
 
     const handleUploadChange = ({ fileList }) => {
@@ -37,15 +37,15 @@ const AdminUser = props => {
             form_Data.append('name', formdata.name);
             form_Data.append('email', formdata.email);
             form_Data.append('role', formdata.role);
-            form_Data.append('designation',formdata.designation)
+            form_Data.append('designation', formdata.designation)
         }
         try {
 
 
-            const result = await axios.post(import.meta.env.VITE_API_URL+'/student', form_Data, { withCredentials: true });
-            console.log(result);
+            const result = await axios.post(import.meta.env.VITE_API_URL + '/student', form_Data, { withCredentials: true });
+            console.log(formdata);
             success("Student Added Successfully");
-            setFormData((prev) => ({ user_id: '', name: '', email: '', role: '',designation:'' }))
+            setFormData((prev) => ({ user_id: '', name: '', email: '', role: '', designation: '' }))
             setFileList([]);
             setStudentForm((prev) => ({ bulk: false, single: false }))
         }
@@ -59,39 +59,37 @@ const AdminUser = props => {
 
 
     }
-const handleDelete=async ()=>{
+    const handleDelete = async () => {
 
- setLoading(true);
- try{   
-    
+        setLoading(true);
+        try {
 
-const response=await axios.delete(import.meta.env.VITE_API_URL+'/student?flag=false&batch='+deleteForm.batch,{},{ withCredentials: true, });
-console.log(response);
-success("Batch Details are Deleted successfully");
- }catch(err)
- {
-error("something went wrong");
-console.log(err);
- }
- setLoading(false);
-}
+
+            const response = await axios.delete(import.meta.env.VITE_API_URL + '/student?flag=false&batch=' + deleteForm.batch, {}, { withCredentials: true, });
+            console.log(response);
+            success("Batch Details are Deleted successfully");
+        } catch (err) {
+            error("something went wrong");
+            console.log(err);
+        }
+        setLoading(false);
+    }
 
 
     return (
         <div>
-            <h1 className="p-3">Students</h1>
             <Flex gap={10} justify='end' className='mb-2' wrap>
-                <Button  onClick={() => { setStudentForm((prev) => ({ ...prev, single: true })) }} ><FaPlus /> Add Student</Button>
-                <Button  onClick={() => { setStudentForm((prev) => ({ ...prev, bulk: true })) }}><FaUpload /> Upload</Button>
-                <Button onClick={()=>{setDeleteForm((prev)=>({...prev,flag:true}))}}><FaTrash></FaTrash> Delete</Button>
+                <Button onClick={() => { setStudentForm((prev) => ({ ...prev, single: true })) }} ><FaPlus /> Add Student</Button>
+                <Button onClick={() => { setStudentForm((prev) => ({ ...prev, bulk: true })) }}><FaUpload /> Upload</Button>
+                <Button onClick={() => { setDeleteForm((prev) => ({ ...prev, flag: true })) }}><FaTrash></FaTrash> Delete</Button>
             </Flex>
 
-{props.search_result && props.search_result.length>0?
-<><h2>Search Result for {props.student.name}({props.student.stu_id})</h2>
+            {props.search_result && props.search_result.length > 0 ?
+                <><h2>Search Result for {props.student.name}({props.student.stu_id})</h2>
 
-</>
+                </>
 
-:<Flex justify='center'><img className='p-2 m-2 img-fluid' src="https://thumbs.dreamstime.com/b/no-found-symbol-unsuccessful-search-vecotr-upset-magnifying-glass-cute-not-zoom-icon-suitable-results-oops-page-failure-122786031.jpg"></img></Flex>}
+                : <Flex justify='center'><img className='p-2 m-2 img-fluid' src="https://thumbs.dreamstime.com/b/no-found-symbol-unsuccessful-search-vecotr-upset-magnifying-glass-cute-not-zoom-icon-suitable-results-oops-page-failure-122786031.jpg"></img></Flex>}
 
             <Modal open={student_form.single} footer={null} onCancel={() => { setStudentForm((prev) => ({ ...prev, single: false })) }}>
                 <Spin tip="Loading...." size='large' spinning={loading}>
@@ -131,12 +129,13 @@ console.log(err);
                 </Spin>
             </Modal>
             <Modal open={deleteForm.flag} footer={null} onCancel={() => { setDeleteForm((prev) => ({ ...prev, flag: false })) }}>
-            <Spin tip="Loading...." size='large' spinning={loading}>
-                <TextField label="Batch" className='w-100 m-1 mt-5' placeholder='Enter Batch' variant='outlined' value={deleteForm.batch}  onChange={(e)=>{setDeleteForm((prev)=>({...prev,batch:e.target.value}))}}></TextField>
-                <Flex justify='end'>
+                <Spin tip="Loading...." size='large' spinning={loading}>
+                    <h1>Delete Batch</h1>
+                    <TextField label="Batch" className='w-100 m-1 mt-5' placeholder='Enter Batch' variant='outlined' value={deleteForm.batch} onChange={(e) => { setDeleteForm((prev) => ({ ...prev, batch: e.target.value })) }}></TextField>
+                    <Flex justify='end'>
                         <Button className='mt-1' type='primary' onClick={handleDelete}>Submit</Button>
                     </Flex>
-</Spin>
+                </Spin>
             </Modal>
         </div>
     );

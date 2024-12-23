@@ -17,7 +17,7 @@ import { userInfo } from 'os';
 import Dtoken from './models/Dtokens.js';
 import admin from 'firebase-admin';
 import { fileURLToPath } from 'url';
-
+import xlsx from 'xlsx'
 
 
 
@@ -935,6 +935,87 @@ app.get('/user', async (req, res, next) => {
 
 
 })
+
+
+app.post('/student', async (req, res, next) => {
+
+
+  try {
+
+
+    const files = req.files;
+    const { user_id, name, email, role,designation } = req.body;
+
+    if (files.length<=0) {
+
+      if (user_id && name && email && role && designation) {
+        const hashpassword = await bcrypt.hash('skjani314@A', 10);
+
+        const result = await User.create({ user_id, name, email, designation,role,password:hashpassword });
+        return res.json(result);
+      }
+      else {
+        next(new Error("no file or data found to upload"));
+      }
+    } else {
+      const workbook = xlsx.readFile(files[0].path);
+      const hashpassword = await bcrypt.hash('skjani314@A', 10);
+
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const data = xlsx.utils.sheet_to_json(worksheet);
+      fs.unlinkSync(files[0].path);
+      const stu_data=data.map(each=>{return {...each,password:hashpassword}})
+console.log(stu_data)
+      const response = await User.insertMany(stu_data);
+      console.log(response)
+      res.json("success");
+    }
+  }
+  catch (err) {
+    next(err);
+  }
+
+
+
+})
+
+
+app.delete('/student', async (req, res, next) => {
+
+  try {
+
+    const { batch, id, flag } = req.query;
+    if (flag == 'true') {
+
+      const result = await User.deleteOne({ _id:id });
+      await Complaint.deleteMany({ from:id });
+
+      res.json(result);
+
+    }
+    else {
+      if (!batch || batch.length < 4 || batch[0] != 'O') next(new Error("batch is empty"));
+      else {
+
+        const studentsToDelete = await User.find({ user_id: { $regex: new RegExp(`^.*${batch}.*$`, 'i') } });
+        console.log(batch)
+
+        const studentIds = studentsToDelete.map(student => student._id);
+        const stu_ro_ids = studentsToDelete.map(student => student.user_id);
+        const trans_res = await Complaint.deleteMany({ user_id: { $in: stu_ro_ids } });
+
+        const stu_res = await User.deleteMany({ _id: { $in: studentIds } });
+        res.json({ stu_res, trans_res });
+      }
+    }
+  }
+  catch (err) {
+    next(err);
+  }
+
+})
+
 
 
 const Adminauthenticate = async (req, res, next) => {
