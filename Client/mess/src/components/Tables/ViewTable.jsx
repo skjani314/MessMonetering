@@ -216,6 +216,8 @@ const ViewTable = props => {
                 }</>
                 :null
             }
+            {!props.admin?
+            <>
                 <h3><br></br><b>User Details</b></h3>
                 <Flex vertical>
                 <img src={des.user_details.img} className='img-fluid' style={{ height: '150px', width: '200px' }}></img>
@@ -223,8 +225,8 @@ const ViewTable = props => {
                     <Text ><b>Name: </b>{des.user_details.name}</Text>
                     <Text><b>Email: </b>{des.user_details.email}</Text>
                     <Text ><b>Designation: </b>{des.user_details.designation}</Text>
-                </Flex>
-
+                </Flex></>:null
+}
                 {des.resolved_by ?
 <>
                     <div className='my-3'>
