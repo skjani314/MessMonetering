@@ -19,6 +19,7 @@ import axios from 'axios';
 import NotFoundPage from './components/NotFound/NotFound';
 import StudentComplaint from './pages/Student/StudentComplaint';
 import StudentProfile from './pages/Student/StudentProfile';
+import AdminUser from './pages/Admin/AdminUser';
 
 function App() {
 
@@ -104,6 +105,7 @@ setLoading(false)
         <Route path='/forgot/:token' element={<Forgotpass/>} />
         <Route path='/admin/dashboard' element={user && user.role=="admin"?<AdminDashboard />:<NotFoundPage/>} />
         <Route path='/admin/student' element={user && user.role=="admin"?<AdminStudent />:<NotFoundPage/>} />
+        <Route path='/admin/users' element={user && user.role=="admin"?<AdminUser />:<NotFoundPage/>} />
         <Route path='/admin/coordinator' element={user && user.role=="admin"?<AdminCoordinator />:<NotFoundPage/>} />
         <Route path='/admin/profile' element={user && user.role=="admin"?<AdminProfile />:<NotFoundPage/>} />
         <Route path='/coordinator/dashboard' element={user && user.role=="coordinator"?<CoordinatorDashboard />:<NotFoundPage/>} />

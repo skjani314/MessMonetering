@@ -16,7 +16,7 @@ const { Text } = Typography;
 
 const Home = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const { loading, setLoading, success, error, contextHolder, changeActiveTab,setDeviceToken ,device_token} = useContext(Context);
+  const { loading, setLoading, success, error, contextHolder, changeActiveTab,} = useContext(Context);
 
 
 

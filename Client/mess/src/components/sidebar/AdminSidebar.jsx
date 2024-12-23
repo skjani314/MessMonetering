@@ -1,7 +1,7 @@
 import { MdDashboard } from "react-icons/md";
 import Context from "../../context/Context";
 import pharmacyImage from './logo-rgukt.png'
-import { FaHandsHelping } from "react-icons/fa";
+import { FaHandsHelping, FaUserCog } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 
 import { CgProfile } from "react-icons/cg";
@@ -34,6 +34,12 @@ const sidebarItems=[
         displayText:'Profile',
         icon:<CgProfile className="mb-2"/>,
         path:'/admin/profile',
+    },
+    {
+        id:"USER",
+        displayText:'User',
+        icon:<FaUserCog className="mb-2"/>,
+        path:'/admin/users',
     }
 ]
 
