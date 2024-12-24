@@ -1,5 +1,5 @@
 import React from 'react';
-import logorgukt from './logo-rgukt.png';
+import logorgukt from './icon.jpeg';
 import { IoIosNotifications, IoMdSearch } from "react-icons/io";
 import './Header.css'
 import { useContext ,useState} from "react"
@@ -15,8 +15,8 @@ const {Text}=Typography;
 const Header = (props) => {
 
     const { success,setLoading, error ,user,setUser,loading}=useContext(Context);
-      const [data, setData] = useState([]);
-      const [tabledata, setTabledata] = useState([]);
+    const [data, setData] = useState([]);
+    const [tabledata, setTabledata] = useState([]);
 const navigate=useNavigate();
     const [showSearch, setSearch] = useState(false);
     const {search_value,setSearchValue}=props;
@@ -65,7 +65,7 @@ navigate('/admin/users?id='+id)
         <div className='header-main-container' style={{ zIndex: 1000 }}>
             <div className='header-container'  >
                 <div>
-                    <img src={logorgukt} className="styling-logo" alt="logo" /> <b style={{fontSize:18}} className='my-3'>RGUKT</b>
+                    <img src={logorgukt} className="styling-logo" alt="logo" /> 
                 
                 </div>
                 <div className="logout-container">
