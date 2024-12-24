@@ -15,7 +15,7 @@ import { IoMdAnalytics } from "react-icons/io";
 const { Text } = Typography;
 
 const Home = () => {
-  const [isHovered, setIsHovered] = useState(false);
+
   const { loading, setLoading, success, error, contextHolder, changeActiveTab,} = useContext(Context);
 
 
@@ -25,20 +25,9 @@ const Home = () => {
     fontSize: "2.5rem",
     fontWeight: 700,
     letterSpacing: "1px",
-    textTransform: "capitalize",
     textAlign: "center",
-    color: isHovered ? "#b22222" : "#b22222", // Dynamic color on hover
-    background: "linear-gradient(to right,rgb(220, 20, 20),rgb(228, 21, 21))", // Gradient text
-    WebkitBackgroundClip: "text", // Clipping background to text
-    WebkitTextFillColor: "transparent", // Makes gradient visible
-    margin: "5px 0 5px 0",
-    padding: "10px 20px 0 20px",
-    transition: "all 0.3s ease-in-out", // Smooth transitions
-    textShadow: isHovered
-      ? "2px 2px 10px rgba(255, 109, 109, 0.5)" // Larger shadow on hover
-      : "1px 1px 5px rgba(0, 0, 0, 0.2)", // Subtle shadow by default
-    transform: isHovered ? "scale(1.05)" : "scale(1)", // Slight scaling on hover
-    cursor: "pointer", // Pointer cursor for interactivity
+    color: "black",
+    margin: "20px 0 0 10px",    
 };
   
   
@@ -48,11 +37,10 @@ const Home = () => {
       <Spin tip="Loading...." size="large" spinning={loading}>
         <Header />
         <h1
-          style={headingStyle}
-          onMouseEnter={() => setIsHovered(true)} // Set hover state to true
-          onMouseLeave={() => setIsHovered(false)}
+          style={headingStyle }
+          
         >
-          Welcome to <b>RGUKT MESS</b>
+          Welcome To <b style={{color:"#b22222"}}>RGUKT MESS</b>
         </h1>
 
         <Carousel
