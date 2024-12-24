@@ -15,7 +15,7 @@ const {Text}=Typography
 const ComplaintsTable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const { loading, setLoading, success, error, contextHolder, user, setUser } = useContext(Context);
+  const { loading, setLoading, success, error, contextHolder,socket, user, setUser } = useContext(Context);
   const [datseRange, setdatesrange] = useState({ start: '', end: '' });
   const [status_cat,setStatusCat]=useState({status:"Select a status",category:"Select a category"});
 
@@ -163,6 +163,17 @@ const ComplaintsTable = () => {
     if (user) {
       fun()
     }
+
+
+    socket.on('dataChanged', () => {
+      console.log('Data changed, re-fetching...');
+      fun(); // Re-fetch data when an update occurs
+    });
+
+    return () => {
+      socket.off('dataChanged');
+    };
+
   }, [user])
 
 

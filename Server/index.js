@@ -18,7 +18,8 @@ import Dtoken from './models/Dtokens.js';
 import admin from 'firebase-admin';
 import { fileURLToPath } from 'url';
 import xlsx from 'xlsx'
-
+import http from 'http'
+import { Server } from 'socket.io';
 
 
 
@@ -102,7 +103,20 @@ cloudinary.config({
 });
 
 
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173", // Replace with your frontend URL
+  },
+});
+io.on('connection', (socket) => {
+  console.log('A user connected:', socket.id);
 
+  // Disconnect event
+  socket.on('disconnect', () => {
+    console.log('A user disconnected:', socket.id);
+  });
+})
 
 
 
@@ -736,6 +750,8 @@ app.put('/complaint', async (req, res, next) => {
     }
 
     res.json({ result, update1 })
+    io.emit('dataChanged'); 
+
 
   }
   catch (err) {
@@ -1171,4 +1187,4 @@ app.use((err, req, res, next) => {
 
 
 
-app.listen(process.env.PORT, () => { console.log("server is running") });
+server.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
