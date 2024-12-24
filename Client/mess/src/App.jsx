@@ -20,7 +20,12 @@ import NotFoundPage from './components/NotFound/NotFound';
 import StudentComplaint from './pages/Student/StudentComplaint';
 import StudentProfile from './pages/Student/StudentProfile';
 import AdminUserPage from './pages/Admin/AdminUserPage';
+import {io} from 'socket.io-client'
 
+
+
+
+const socket = io('http://localhost:3400');
 function App() {
 
 
@@ -60,7 +65,7 @@ function App() {
     setUser,
     loading,
     setLoading,
-
+socket
 
   }
 
