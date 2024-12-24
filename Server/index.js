@@ -1039,7 +1039,7 @@ console.log(req.body)
   if(id && role && role!="Select a Role"){
 
 const result=await User.findOneAndUpdate({_id:id},{role},{new:true})
-
+console.log(result)
 res.json(result)
   }
   else{
