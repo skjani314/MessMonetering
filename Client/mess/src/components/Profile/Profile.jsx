@@ -45,7 +45,7 @@ const {user}=useContext(Context)
         </Col>
 
         <Col xs={24} lg={16}>
-          <Space direction="vertical" style={{ width: "100%" }}>
+          <Space direction="vertical" style={{ width: "100%" ,}}>
               <Card   
                 key={user._id}
                 title={user.name}

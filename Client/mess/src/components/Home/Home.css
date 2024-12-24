@@ -57,8 +57,9 @@
   .footer {
     text-align: center;
     padding: 10px;
-    background-color: #f1f1f1;
-    color: #555;
+    font-size: small;
+    background-color: #b22222;
+    color: #FFFFFF;
   }
   
   /* Responsive Styles */
@@ -132,3 +133,27 @@ align-self: center;
   padding: 2%;
   border-radius: 10px;
 } */
+
+.scrolling-banner {
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+   /* Optional for emphasis */
+}
+
+.scrolling-banner span {
+  display: inline-block;
+  font-size: 20px;
+  
+  color: grey; /* Dark text for contrast */
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

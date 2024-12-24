@@ -94,23 +94,12 @@ const MenuTable = () => {
   const [isHovered, setIsHovered] = useState(false);
   const headingStyle = {
     fontFamily: "'Poppins', 'Roboto', sans-serif",
-    fontSize: "2rem",
+    fontSize: "1.8rem",
     fontWeight: 700,
     letterSpacing: "1px",
     textTransform: "capitalize",
     textAlign: "left",
-    color: isHovered ? "#ff758c" : "#333", // Dynamic color on hover
-    background: "linear-gradient(90deg, #ff7eb3, #ff758c)", // Gradient text
-    WebkitBackgroundClip: "text", // Clipping background to text
-    WebkitTextFillColor: "transparent", // Makes gradient visible
-    margin: "0px 0 10px 0",
-    padding: "0px 20px 0 0px",
-    transition: "all 0.3s ease-in-out", // Smooth transitions
-    textShadow: isHovered
-      ? "2px 2px 10px rgba(255, 117, 140, 0.5)" // Larger shadow on hover
-      : "1px 1px 5px rgba(0, 0, 0, 0.2)", // Subtle shadow by default
-    transform: isHovered ? "scale(1.05)" : "scale(1)", // Slight scaling on hover
-    cursor: "pointer", // Pointer cursor for interactivity
+    color:"black",
   };
 
   return (
@@ -119,8 +108,7 @@ const MenuTable = () => {
 <div>
       
 <h2 style={headingStyle}
-      onMouseEnter={() => setIsHovered(true)} // Set hover state to true
-      onMouseLeave={() => setIsHovered(false)}>Hi Welcome, {user.name}</h2>
+      >Hi Welcome,<span style={{color:"#b22222", fontSize:"2rem"}}> {user.name}</span></h2>
 
 
       </div>

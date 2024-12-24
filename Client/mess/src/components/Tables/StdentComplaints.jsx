@@ -78,7 +78,7 @@ const StudentComplaints = props => {
         <Spin tip="Loading...."
             size='large'
             spinning={loading} >
-            <TableContainer component={Paper} >
+            <TableContainer component={Paper} style={{boxShadow:" 0 4px 8px rgba(0, 0, 0, 0.2)"}}>
                 <Table
                     size="small"
                     aria-label="a dense table" >

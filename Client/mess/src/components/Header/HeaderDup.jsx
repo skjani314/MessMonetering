@@ -1,5 +1,5 @@
 import React from 'react';
-import logorgukt from './logo-rgukt.png';
+import logorgukt from './icon.jpeg';
 import { IoIosNotifications } from "react-icons/io";
 import './Header.css'
 // import { useContext } from "react"

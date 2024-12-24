@@ -15,49 +15,43 @@ import { IoMdAnalytics } from "react-icons/io";
 const { Text } = Typography;
 
 const Home = () => {
-  const [isHovered, setIsHovered] = useState(false);
+
   const { loading, setLoading, success, error, contextHolder, changeActiveTab,} = useContext(Context);
 
 
-
+  
   const headingStyle = {
-    fontFamily: "'Poppins', 'Roboto', sans-serif",
-    fontSize: "2.5rem",
+    fontFamily: 'Times New Roman, Times, serif',
+    fontSize: "2.2rem",
     fontWeight: 700,
     letterSpacing: "1px",
-    textTransform: "capitalize",
     textAlign: "center",
-    color: isHovered ? "#ff758c" : "#333", // Dynamic color on hover
-    background: "linear-gradient(90deg, #ff7eb3, #ff758c)", // Gradient text
-    WebkitBackgroundClip: "text", // Clipping background to text
-    WebkitTextFillColor: "transparent", // Makes gradient visible
-    margin: "20px 0 0 0",
-    padding: "10px 20px 0 20px",
-    transition: "all 0.3s ease-in-out", // Smooth transitions
-    textShadow: isHovered
-      ? "2px 2px 10px rgba(255, 117, 140, 0.5)" // Larger shadow on hover
-      : "1px 1px 5px rgba(0, 0, 0, 0.2)", // Subtle shadow by default
-    transform: isHovered ? "scale(1.05)" : "scale(1)", // Slight scaling on hover
-    cursor: "pointer", // Pointer cursor for interactivity
-  };
+    color: "black",
+    margin: "20px 0 0 10px",    
+};
+  
+  
 
   return (
     <div>
       <Spin tip="Loading...." size="large" spinning={loading}>
         <Header />
         <h1
-          style={headingStyle}
-          onMouseEnter={() => setIsHovered(true)} // Set hover state to true
-          onMouseLeave={() => setIsHovered(false)}
+          style={headingStyle }
+          
         >
-          Welcome to <b>RGUKT MESS</b>
+          Welcome To <br/><b style={{color:"#b22222", fontSize:"2.5rem"}}>RGUKT MESS</b>
         </h1>
+
+        <div className="scrolling-banner">
+  <span>Your Voice Matters: Share Your Feedback.</span>
+</div>
 
         <Carousel
           infinite
           autoplay
           arrows
-          className="my-4 mb-5"
+          className="my-2 mb-5"
           centerMode={true}
           dots={false}
           nextArrow={<MdArrowForwardIos color="red" size="large" />}
@@ -76,52 +70,56 @@ const Home = () => {
             <img src={c4} className="mx-3" alt="Carousel 4" />
           </div>
         </Carousel>
+        
 
         <div className="home-container">
           <h2
             style={{
-              fontFamily: "'Roboto', sans-serif",
+              fontFamily: "Georgia, serif",
               fontSize: "24px",
               fontWeight: "600",
-              color: "#003366",
+              color: "#000000",
               textAlign: "center",
               textTransform: "capitalize",
               margin: "20px 0",
               paddingBottom: "5px",
-              borderBottom: "2px solid #0066cc",
+              borderBottom: "1px solid rgb(168, 173, 178)",
               letterSpacing: "1px",
               lineHeight: "1.5",
             }}
           >
-            Mess Monitoring Application
+            Mess Monitoring System
           </h2>
           <div className="flex-container">
-            <Card hoverable style={{ background: "#E0F7FA", margin: "3%" }}>
+            <Card hoverable style={{ background: "linear-gradient(to right, #E0F7FA, #4DD0E1)",boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.25)", margin: "3%" ,marginBottom:"18px"}}>
               <div className="flex-column">
-                <IoMdAnalytics size={50} color="#9e2021" />
+                <IoMdAnalytics size={40} color="#b22222" style={{marginRight:"10px"}}/>
                 <Text style={{ fontSize: 20 }}>
                   <b>Analytics</b>
                 </Text>
+                <br/>
                 <Text>It have a Bargraph showing monthly wise raised complaints and a piechart showing category wise complaints of current month</Text>
               </div>
             </Card>
-            <Card hoverable style={{ background: "#FFF9CC", margin: "3%" }}>
+            <Card hoverable style={{ background: "linear-gradient(to right, #FFF9CC, #FFE77A)",boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.25)", margin: "3%", marginBottom:"18px" }}>
               <div className="flex-column">
-                <MdFeedback size={50} color="#9e2021" />
+                <MdFeedback size={40} color="#b22222" style={{marginRight:"10px"}} />
                 <Text style={{ fontSize: 20 }}>
                   <b>Complaints</b>
                 </Text>
+                <br/>
                 <Text>
-                  Any Student Can Raise Complaints at any time and can attach images also and every complaint is digitally recorded and retrieved when needed and help in making dashboard statistics.
+                  Any Student Can Raise Complaints at any time and can attach images also and every complaint is digitally recorded.
                 </Text>
               </div>
             </Card>
-            <Card hoverable style={{ background: "#FDE2E4", margin: "3%" }}>
+            <Card hoverable style={{ background: "linear-gradient(to right, #FDE2E4, #E8B1B4)",boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.25)", margin: "3%" }}>
               <div className="flex-column">
-                <MdTimeline size={50} color="#9e2021" />
+                <MdTimeline size={40} color="#b22222" style={{marginRight:"10px"}}/>
                 <Text style={{ fontSize: 20 }}>
                   <b>Timeline</b>
                 </Text>
+                <br/>
                 <Text>
                   Every complaint has Timeline to track when complaint is lodged and when complaint acknowledged and resolved.
                 </Text>
@@ -129,7 +127,7 @@ const Home = () => {
             </Card>
           </div>
 
-          <footer className="footer mt-3">
+          <footer className="footer mt-4 pb-1">
             <p>© 2024 RGUKT Mess Management System. All rights reserved.</p>
           </footer>
         </div>

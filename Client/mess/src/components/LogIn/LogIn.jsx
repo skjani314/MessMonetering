@@ -146,12 +146,12 @@ const handleLogout=async ()=>{
         <h1>Welcome back!</h1>
       </div>
       <input className="email" name='email' type="email" placeholder="Email Address*" required value={LogData.email} onChange={handleLogData}/>
-     <div style={{position:'relative'}}> <input  type={!psicon?'password':'text'} name='password' placeholder="Your password*" required value={LogData.password} onChange={handleLogData}/>{' '}{psicon?<FaEyeSlash className='passicon' onClick={()=>{setPsicon(!psicon);}} />:<FaEye className='passicon' onClick={()=>{setPsicon(!psicon)}} />}</div>
-     
+      <div style={{position:'relative'}}> <input  type={!psicon?'password':'text'} name='password' placeholder="Your password*" required value={LogData.password} onChange={handleLogData}/>{' '}{psicon?<FaEyeSlash className='passicon' onClick={()=>{setPsicon(!psicon);}} />:<FaEye className='passicon' onClick={()=>{setPsicon(!psicon)}} />}</div>
+    
       <div className="password" onClick={(e)=>{setForgetPass((prev)=>({...prev,flag:true}))}}>
-        Forgot Password?
+        <b>Forgot Password?</b>
       </div>
-      <button id="log-in-submit mb-6">Log in</button><br></br>
+      <button id="log-in-submit" style={{padding:"10px"}}>Log in</button><br></br>
       <center>Only Institution Members Are Authorized</center><br></br>
     </form>
 
