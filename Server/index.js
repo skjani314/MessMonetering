@@ -993,9 +993,12 @@ app.delete('/student', async (req, res, next) => {
   try {
 
     const { batch, id, flag } = req.query;
-    if (flag == 'true') {
-
+    if (flag) {
+console.log(id)
       const result = await User.deleteOne({ _id:id });
+      const com=await Complaint.find({from:id});
+      const comp_ids=com.map((each)=>{return each._id})
+      await Timeline.deleteMany({complaint_id:{$in:comp_ids}})
       await Complaint.deleteMany({ from:id });
 
       res.json(result);
@@ -1010,6 +1013,9 @@ app.delete('/student', async (req, res, next) => {
 
         const studentIds = studentsToDelete.map(student => student._id);
         const stu_ro_ids = studentsToDelete.map(student => student.user_id);
+        const com=await Complaint.find({from:{$in:studentIds}});
+        const comp_ids=com.map((each)=>{return each._id})
+        await Timeline.deleteMany({complaint_id:{$in:comp_ids}})
         const trans_res = await Complaint.deleteMany({ user_id: { $in: stu_ro_ids } });
 
         const stu_res = await User.deleteMany({ _id: { $in: studentIds } });
@@ -1022,6 +1028,33 @@ app.delete('/student', async (req, res, next) => {
   }
 
 })
+
+
+app.put('/student',async (req,res,next)=>{
+
+
+try{
+  const {id,role}=req.body;
+console.log(req.body)
+  if(id && role && role!="Select a Role"){
+
+const result=await User.findOneAndUpdate({_id:id},{role},{new:true})
+
+res.json(result)
+  }
+  else{
+    next(new Error("Unable to update"))
+  }
+
+}
+catch(err){
+
+  next(err)
+}
+
+
+})
+
 
 app.get('/student', async (req, res, next) => {
 
