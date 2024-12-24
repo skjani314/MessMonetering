@@ -19,14 +19,14 @@
         margin-bottom: 10px;
     }
     .icon-container-mobile svg{
-        width:20px;
-        height:20px;
+        width:15px;
+        height:15px;
         color:grey;
     }
     
     
     .active-tab-color{
-        background-color: #9e2021;
+        background-color: #b22222;
         border-radius: 8px;
         padding: 6px;
     }
@@ -61,7 +61,7 @@
     
     
     .active-tab-color{
-        background-color: #9e2021;
+        background-color: #b22222;
         border-radius: 8px;
         padding: 6px;
     }
@@ -103,7 +103,7 @@
     .sidebar-icon-container svg {
         width: 30px;
         height: 30px;
-        color:grey;
+        color:black;
       margin-right: 10px;
       
     }
@@ -120,11 +120,11 @@
     }
     
     .sidebar-icon-container.active-tab-color:hover{
-        background-color: #9e2021;
+        background-color: #b22222;
         
     }
     .active-tab-color{
-        background-color: #9e2021;
+        background-color: #b22222;
         border-radius: 8px;
         padding: 10px;
         
@@ -155,7 +155,7 @@
         display: block;
     }
     .active-tab-color{
-        background-color: #9e2021;
+        background-color: #b22222;
         border-radius: 8px;
        padding: 0px;
         
