@@ -22,7 +22,7 @@ const Home = () => {
   
   const headingStyle = {
     fontFamily: 'Times New Roman, Times, serif',
-    fontSize: "2.5rem",
+    fontSize: "2.2rem",
     fontWeight: 700,
     letterSpacing: "1px",
     textAlign: "center",
@@ -40,14 +40,18 @@ const Home = () => {
           style={headingStyle }
           
         >
-          Welcome To <b style={{color:"#b22222"}}>RGUKT MESS</b>
+          Welcome To <br/><b style={{color:"#b22222", fontSize:"2.5rem"}}>RGUKT MESS</b>
         </h1>
+
+        <div className="scrolling-banner">
+  <span>Your Voice Matters: Share Your Feedback.</span>
+</div>
 
         <Carousel
           infinite
           autoplay
           arrows
-          className="my-4 mb-5"
+          className="my-2 mb-5"
           centerMode={true}
           dots={false}
           nextArrow={<MdArrowForwardIos color="red" size="large" />}

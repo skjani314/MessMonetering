@@ -30,6 +30,7 @@
     padding-left: var(--bs-gutter-x, 0.75rem);
     margin-bottom: 10%;
     margin-top: 30px;
+    border-radius: 10px;
   }
   form p{
     color:red
@@ -54,10 +55,11 @@
   .fcontainer input {
      width: 100%;     
     padding: 12px;
-    border: solid 1px #b22222;
+    border: solid 1px #aaa7a7;
     margin-top: 10px;
     font-family: inherit;
     font-size: large;
+    border-radius: 10px;
   }
   .first-name, .last-name {
     width: 49.4%;
@@ -71,16 +73,18 @@
   }
   .email {
     margin-top: -5px;
+    border-radius: 10px;
   }
  .fcontainer  button {
     width: 100%;
     margin-top: 10px;
     padding: 20px;
-    border: solid 2px #b22222;
+    border: solid 1px #b22222;
     background-color: #b22222;
     color: #fff;
     font-size: 1.4em;
     text-transform: uppercase;
+    border-radius: 10px;
   }
  .fcontainer button:hover {
     box-shadow: 5px 5px 10px #d2d2d2;
@@ -93,7 +97,8 @@
   .password {
     float: right;
     font-style: italic;
-    margin-top: 9px
+    margin-top: 9px;
+    border-radius: 10px;
   }
   .password:hover {
     font-weight: bold;
