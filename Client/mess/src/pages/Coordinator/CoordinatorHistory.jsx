@@ -133,8 +133,8 @@ const CoordinatorHistory = props => {
                             Student Complaints
                         </h2>
 
-                                <Text>Filter</Text>
-                            <Flex wrap gap={10} justify="inline" className="my-3">
+                                <Text><b>Filter</b></Text>
+                            <Flex style={{overflowX:"scroll"}} gap={10} justify="inline" className="mb-3">
                                 <Dropdown menu={{ items: [{ key: "Service quality", label: "Service quality" }, { key: "Cleanliness", label: "Cleanliness" }, { key: "Food quality", label: "Food quality" }, { key: "Others", label: "Others" }], onClick: ({ key }) => { setStatusCat(prev => ({ ...prev, category: key })) } }}>
                                     <Button>
                                         <Space>

@@ -122,7 +122,7 @@ setLoading(false)
   error("Unable to Raise complaint")
 }
 
-   
+
   };
 
 
@@ -203,8 +203,8 @@ fun()
       </div>
 
 
-      <Text>Filter</Text>
-      <Flex wrap gap={10} justify="inline" className="my-3">
+      <Text><b>Filter</b></Text>
+      <Flex style={{overflowX:"scroll"}} gap={10} justify="inline" className="mb-4">
       <Dropdown menu={{items:[{key:"Service quality",label:"Service quality"},{key:"Cleanliness",label:"Cleanliness"},{key:"Food quality",label:"Food quality"},{key:"Others",label:"Others"}],onClick:({key})=>{setStatusCat(prev=>({...prev,category:key}))}}}>
       <Button>
         <Space>
@@ -240,7 +240,7 @@ fun()
       </Flex>
 
 
-
+      <p style={{marginBottom:"10px"}}><b >Recent Complaints</b></p>
 <StudentComplaints rowsData={tabledata} data={data}/>
 
       <Modal
