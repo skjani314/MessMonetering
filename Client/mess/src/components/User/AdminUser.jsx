@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useContext, useState } from 'react';
-import { Table, Button, Modal, Form, Input, Select, Dropdown,Space,Spin, Flex, Upload, DatePicker,Typography } from "antd";
-import { FaPlus, FaTrash, FaUpload } from 'react-icons/fa';
+import { Table, Button, Modal, Form, Card, Select, Dropdown, Space, Spin, Flex, Upload, DatePicker, Typography, Avatar } from "antd";
+import { FaEdit, FaPlus, FaTrash, FaUpload } from 'react-icons/fa';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import xlDemo from './student.png';
@@ -11,18 +11,19 @@ import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { MdOutlineClear } from "react-icons/md";
 
 
-const {Text}=Typography;
+const { Text } = Typography;
 const AdminUser = props => {
     const [student_form, setStudentForm] = useState({ bulk: false, single: false });
-    const { loading, setLoading, success, error, changeActiveTab,user } = useContext(Context);
+    const { loading, setLoading, success, error, changeActiveTab, user } = useContext(Context);
     const [fileList, setFileList] = useState([]);
     const [formdata, setFormData] = useState({ user_id: '', name: '', email: '', role: '', designation: '' });
     const [deleteForm, setDeleteForm] = useState({ batch: '', flag: false });
-  const [data, setData] = useState([]);
-  const [tabledata, setTabledata] = useState([]);
- const [datseRange, setdatesrange] = useState({ start: '', end: '' });
-  const [status_cat,setStatusCat]=useState({status:"Select a status",category:"Select a category"});
-  const [stu_details,setStudetails]=useState({});
+    const [data, setData] = useState([]);
+    const [tabledata, setTabledata] = useState([]);
+    const [datseRange, setdatesrange] = useState({ start: '', end: '' });
+    const [status_cat, setStatusCat] = useState({ status: "Select a status", category: "Select a category" });
+    const [stu_details, setStudetails] = useState(null);
+    const [roleUpdate, setRoleUpdate] = useState({ flag: false, role: "Select a Role" });
     const handleUploadChange = ({ fileList }) => {
         setFileList(fileList);
     };
@@ -84,38 +85,88 @@ const AdminUser = props => {
 
     const handleDatessubmit = async () => {
         setLoading(true)
-    
+
         try {
-      
-              const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param+'&status='+status_cat.status+"&category="+status_cat.category+"&start="+datseRange.start+"&end="+datseRange.end)
-              console.log(result)
-              const data = result.data.map((each) => {
+
+            const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end)
+            console.log(result)
+            const data = result.data.map((each) => {
                 const { time, _doc } = each;
-      
+
                 return { time, ..._doc }
-      
-              })
-              setData(data);
-      
-              const tabledata = data.map((each) => {
-      
+
+            })
+            setData(data);
+
+            const tabledata = data.map((each) => {
+
                 const { _id, category, time, des } = each;
-      
-      
+
+
                 return { category, date: time[0].date.split('T')[0], complaint: des.slice(0, 50), status: time[0].status, id: _id }
-      
-              })
-              console.log(tabledata)
-              setTabledata(tabledata)
+
+            })
+            console.log(tabledata)
+            setTabledata(tabledata)
         }
         catch (err) {
-          console.log(err);
-          error("something went wrong")
+            console.log(err);
+            error("something went wrong")
         }
         setLoading(false)
-    
-    
-      }
+
+
+    }
+
+
+    const handleupdateUser = async () => {
+        setLoading(true)
+        try {
+            if (roleUpdate.role == "Select a Role") {
+                error("Select  Valid Role")
+            }
+            else {
+
+                const form_data = new FormData();
+                form_data.append('id', props.param);
+                form_data.append('role', roleUpdate.role);
+                const result = await axios.put(import.meta.env.VITE_API_URL + '/student', form_data, { withCredentials: true })
+                console.log(result)
+                success("Updated Successfully")
+                setRoleUpdate({ flag: false, role: "Select a Role" })
+
+            }
+        } catch (err) {
+            console.log(err);
+            error("Unable to Update")
+        }
+        setLoading(false)
+    }
+
+
+    const handleDeleteUser = async () => {
+
+        try {
+
+            console.log(props.param)
+            const result = await axios.delete(import.meta.env.VITE_API_URL + '/student?flag=' + 'true&' + 'id=' + props.param)
+
+            console.log(result);
+            success("Deleted Successfully")
+
+        }
+        catch (err) {
+
+            console.log(err)
+            error("unable to Delete The user")
+        }
+
+
+
+
+    }
+
+
 
     useEffect(() => {
 
@@ -124,7 +175,7 @@ const AdminUser = props => {
 
 
             try {
-                const stu=await axios.get(import.meta.env.VITE_API_URL+'/user?id='+props.param)
+                const stu = await axios.get(import.meta.env.VITE_API_URL + '/user?id=' + props.param)
                 setStudetails(stu.data)
                 const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end)
                 const data = result.data.map((each) => {
@@ -155,9 +206,9 @@ const AdminUser = props => {
         }
 
 
-if(props.param){
-    fun();
-}
+        if (props.param) {
+            fun();
+        }
 
 
 
@@ -171,9 +222,29 @@ if(props.param){
                 <Button onClick={() => { setDeleteForm((prev) => ({ ...prev, flag: true })) }}><FaTrash></FaTrash> Delete</Button>
             </Flex>
 
-            {props.param?
+            {props.param && stu_details ?
                 <><h2>Search Result for {stu_details.name}({stu_details.user_id})</h2>
-
+                    <Card hoverable title="User Details">
+                        <Flex gap={10}>
+                            <Avatar size={150} shape="square" icon={<img src={stu_details.img ? stu_details.img : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu5GX1lkI6T4INseXlhyZhaGMtq07LNid9Tw&s"} />} />
+                            <Flex vertical gap={10}>
+                                <Text><b>Name:</b>{stu_details.name}</Text>
+                                {stu_details.user_id ?
+                                    <Text><b>Student Id:</b>{stu_details.user_id}</Text>
+                                    : null
+                                }
+                                <Text><b>email:</b> {stu_details.email}</Text>
+                                <Text><b>Role:</b> {stu_details.role}</Text>
+                                <Text><b>Designation:</b> {stu_details.designation}</Text>
+                            </Flex>
+                        </Flex>
+                        <br></br>
+                        <Flex gap={10}>
+                            <Button danger onClick={handleDeleteUser}  ><FaTrash></FaTrash> Delete</Button>
+                            <Button style={{ background: 'yellow' }} onClick={() => setRoleUpdate(prev => ({ ...prev, flag: true }))} ><FaEdit></FaEdit> Update</Button>
+                        </Flex>
+                    </Card>
+                    <br></br>
                     <Text><b>Filter</b></Text>
                     <Flex style={{ overflowX: "scroll" }} gap={10} justify="inline" className="mt-2 my-3 ">
                         <Dropdown menu={{ items: [{ key: "Service quality", label: "Service quality" }, { key: "Cleanliness", label: "Cleanliness" }, { key: "Food quality", label: "Food quality" }, { key: "Others", label: "Others" }], onClick: ({ key }) => { setStatusCat(prev => ({ ...prev, category: key })) } }}>
@@ -258,6 +329,28 @@ if(props.param){
                     <TextField label="Batch" className='w-100 m-1 mt-5' placeholder='Enter Batch' variant='outlined' value={deleteForm.batch} onChange={(e) => { setDeleteForm((prev) => ({ ...prev, batch: e.target.value })) }}></TextField>
                     <Flex justify='end'>
                         <Button className='mt-1' type='primary' onClick={handleDelete}>Submit</Button>
+                    </Flex>
+                </Spin>
+            </Modal>
+
+            <Modal open={roleUpdate.flag} footer={null} onCancel={() => { setRoleUpdate({ flag: false, role: '' }) }}>
+                <Spin tip="Loading...." size='large' spinning={loading}>
+                    <h2>Update Role</h2>
+                    <Dropdown menu={{ items: [{ key: "student", label: "Student" }, { key: "coordinator", label: "Co-Ordinator" }], onClick: ({ key }) => { setRoleUpdate(prev => ({ ...prev, role: key })) } }}>
+                        <Button>
+                            <Space>
+                                {
+                                    roleUpdate.role == "Select a Role" ?
+                                        <Text >{roleUpdate.role}
+                                            <DownOutlined /></Text>
+                                        :
+                                        <Text >{roleUpdate.role}
+                                            <MdOutlineClear className="mx-2" onClick={() => setRoleUpdate(prev => ({ ...prev, role: "Select a Role" }))} /></Text>
+                                }
+                            </Space>
+                        </Button>
+                    </Dropdown><Flex justify='end'>
+                        <Button type='primary' onClick={handleupdateUser}> Update</Button>
                     </Flex>
                 </Spin>
             </Modal>
