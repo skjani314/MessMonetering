@@ -23,6 +23,10 @@ import { Server } from 'socket.io';
 
 
 
+
+const userSocketMap = {};
+
+
 dotenv.config();
 
 
@@ -106,17 +110,51 @@ cloudinary.config({
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // Replace with your frontend URL
+    origin: "https://mess-monetering.vercel.app", // Replace with your frontend URL
   },
 });
-io.on('connection', (socket) => {
-  console.log('A user connected:', socket.id);
 
-  // Disconnect event
-  socket.on('disconnect', () => {
-    console.log('A user disconnected:', socket.id);
+app.set('socketio', io);
+
+
+io.on('connection', (socket) => {
+  console.log(`Client connected: ${socket.id}`);
+
+  socket.on('register', (userId) => {
+    if (userSocketMap[userId]) {
+      userSocketMap[userId].push(socket.id);
+    }
+    else {
+      userSocketMap[userId] = [socket.id]
+    }
+
+
+    console.log(`User registered: ${userId}, Socket ID: ${socket.id}`);
   });
-})
+
+  socket.on('unregister', (userId) => {
+    console.log(userSocketMap)
+
+    if (userSocketMap[userId] && userSocketMap[userId].length > 1) {
+      const updatedArr=userSocketMap[userId].filter((each)=>each!=socket.id)
+
+    userSocketMap[userId]=updatedArr
+     }
+    else {
+
+      delete userSocketMap[userId];
+    }
+    console.log(`User disconnected: ${userId}`);
+    console.log(userSocketMap)
+
+  })
+  socket.on('disconnect', () => {
+
+    console.log(`Client ${socket.id} disconnected`);
+
+  });
+});
+
 
 
 
@@ -164,7 +202,7 @@ app.post('/register', async (req, res, next) => {
 
 app.post('/login', async (req, res, next) => {
   try {
-    const { email, password ,token} = req.body;
+    const { email, password, token } = req.body;
 
 
     const user = await User.findOne({ email });
@@ -184,16 +222,17 @@ app.post('/login', async (req, res, next) => {
           secure: true,
           sameSite: 'None',
           path: '/',
-  
+
         });
-        console.log("device token: "+token);
-       if(token){
-         const record =await Dtoken.findOne({user_id:user._id,token:token})
-         if(!record){
-        const token_res=await Dtoken.create({user_id:user._id,token:token})
-        console.log(token_res);}
-        console.log(record)
-       }
+        console.log("device token: " + token);
+        if (token) {
+          const record = await Dtoken.findOne({ user_id: user._id, token: token })
+          if (!record) {
+            const token_res = await Dtoken.create({ user_id: user._id, token: token })
+            console.log(token_res);
+          }
+          console.log(record)
+        }
 
 
         return res.status(200).json("logged in sucessfully");
@@ -209,17 +248,17 @@ app.post('/login', async (req, res, next) => {
 
 
 
-app.post('/logout', async (req, res,next) => {
+app.post('/logout', async (req, res, next) => {
   try {
-    const {user_id,token}=req.body;
+    const { user_id, token } = req.body;
     res.clearCookie('accessToken', {
       httpOnly: true,
       secure: true,
       sameSite: 'None',
       path: '/',
     });
-console.log(user_id)
-    const result=await Dtoken.deleteOne({user_id,token})
+    console.log(user_id)
+    const result = await Dtoken.deleteOne({ user_id, token })
     console.log(result);
     return res.json({ message: "Logout successfully" });
   } catch (error) {
@@ -376,6 +415,7 @@ app.post('/complaint', async (req, res, next) => {
   try {
 
     const { from, issue, category, des, level } = req.body;
+    const io = req.app.get('socketio');
 
     const arr = await Promise.all(
       req.files.map(async (each) => {
@@ -405,58 +445,78 @@ app.post('/complaint', async (req, res, next) => {
       user_ids = representatives.map((each) => { return each._id })
     }
 
- console.log(user_ids);
-const device_tokens =await Promise.all(user_ids.map(async (each)=>{
 
-const token=await Dtoken.find({user_id:each})
-return token;
 
-}))
+const client_ids=user_ids.map(each=>{
 
-const flated_device_tokens=device_tokens.flat(Infinity);
+  if(userSocketMap[each]){
+  return userSocketMap[each];
+  }else{return [];}
 
-const responses=await Promise.all(flated_device_tokens.map(async (each)=>{
+})
+const flated_client_ids=client_ids.flat(Infinity)
 
-if(each){
-  
-  const message =arr.length>0? {
-    notification: {
-      title: issue,
-      body: des.substring(0,10),
-      imageUrl:arr[0]
-    },
-      data: {
-        title: issue,
-        body: des.substring(0,10),
-        imageUrl:arr[0]
-      },
-    token:each.token, 
-  }:
-  {
-    notification: {
-      title: issue,
-      body: des.substring(0,10),
-    },
-      data: {
-        title: issue,
-        body: des.substring(0,10),
-      },
-    token:each.token, // FCM device token
+
+flated_client_ids.map(each=>{
+  if(each){
+    io.to(each).emit('dataChanged')
+
   }
-  ;
-  console.log(message)
-  const response = await admin.messaging().send(message)
-  .then(respo => {
-    return respo;
-  })
-  .catch(error => {
-      console.error('Error sending message:', error);
-  });
-  return response;
-} 
-}))
+})
 
-console.log(responses)
+
+
+    const device_tokens = await Promise.all(user_ids.map(async (each) => {
+
+      const token = await Dtoken.find({ user_id: each })
+      return token;
+
+    }))
+
+    const flated_device_tokens = device_tokens.flat(Infinity);
+
+    const responses = await Promise.all(flated_device_tokens.map(async (each) => {
+
+      if (each) {
+
+        const message = arr.length > 0 ? {
+          notification: {
+            title: issue,
+            body: des.substring(0, 10),
+            imageUrl: arr[0]
+          },
+          data: {
+            title: issue,
+            body: des.substring(0, 10),
+            imageUrl: arr[0]
+          },
+          token: each.token,
+        } :
+          {
+            notification: {
+              title: issue,
+              body: des.substring(0, 10),
+            },
+            data: {
+              title: issue,
+              body: des.substring(0, 10),
+            },
+            token: each.token, // FCM device token
+          }
+          ;
+        console.log(message)
+        const response = await admin.messaging().send(message)
+          .then(respo => {
+            return respo;
+          })
+          .catch(error => {
+            console.error('Error sending message:', error);
+          });
+        return response;
+      }
+    }))
+
+    console.log(responses)
 
 
 
@@ -634,6 +694,8 @@ app.put('/complaint', async (req, res, next) => {
     const { complaint_id, status, user_id, des } = req.body
     const result = await Timeline.create({ complaint_id, status, date: new Date() })
     const update1 = await Complaint.findByIdAndUpdate(complaint_id, { current_status: status }, { new: true })
+    const io = req.app.get('socketio');
+    const socketId = userSocketMap[update1.from];
 
     if (status == "resolved") {
 
@@ -652,75 +714,75 @@ app.put('/complaint', async (req, res, next) => {
       )
 
       const update = await Complaint.findByIdAndUpdate(complaint_id, { resolved_by: user_id, current_status: status, res_des: des, res_array: arr }, { new: true })
-      const result =await Dtoken.find({user_id:update.from})
-       
-       const responses=await Promise.all(result.map(async (each)=>{
-       
-       
-       if(each){
-         
-         const message =arr.length>0? {
-           notification: {
-             title: "Your Complaint Resolved",
-             body: des.substring(0,10),
-             imageUrl:arr[0]
-           },
-           data: {
-            title: "Your Complaint Resolved",
-            body: des.substring(0,10),
-            imageUrl:arr[0]
-          },
-           token:each.token, // FCM device token
-         }:
-         {
-           notification: {
-             title: "Your Complaint is Resolved",
-             body: des.substring(0,10),
-           },
-           data: {
-            title: "Your Complaint Resolved",
-            body: des.substring(0,10),
-          },
-           token:each.token, // FCM device token
-         }
-         ;
-           console.log(message)
+      const result = await Dtoken.find({ user_id: update.from })
 
-         const response = await admin.messaging().send(message)
-         .then(respo => {
-           return respo;
-         })
-         .catch(error => {
-             console.error('Error sending message:', error);
-         });
-         return response;
-       } 
-       }))
-       
+      const responses = await Promise.all(result.map(async (each) => {
 
-    }
-    else{
 
-      console.log(update1)
-         const result =await Dtoken.find({user_id:update1.from})
-          console.log(result)
-          const responses=await Promise.all(result.map(async (each)=>{
-          
-          if(each){
-            
-            const message =update1.image_array.length>0? {
+        if (each) {
+
+          const message = arr.length > 0 ? {
+            notification: {
+              title: "Your Complaint Resolved",
+              body: des.substring(0, 10),
+              imageUrl: arr[0]
+            },
+            data: {
+              title: "Your Complaint Resolved",
+              body: des.substring(0, 10),
+              imageUrl: arr[0]
+            },
+            token: each.token, // FCM device token
+          } :
+            {
               notification: {
-                title: "Your Complaint is Acknowledged",
-                body: update1.issue,
-                imageUrl:update1.image_array[0]
+                title: "Your Complaint is Resolved",
+                body: des.substring(0, 10),
               },
               data: {
-                title: "Your Complaint is Acknowledged",
-                body: update1.issue,
-                imageUrl:update1.image_array[0]
+                title: "Your Complaint Resolved",
+                body: des.substring(0, 10),
               },
-              token:each.token, // FCM device token
-            }:
+              token: each.token, // FCM device token
+            }
+            ;
+          console.log(message)
+
+          const response = await admin.messaging().send(message)
+            .then(respo => {
+              return respo;
+            })
+            .catch(error => {
+              console.error('Error sending message:', error);
+            });
+          return response;
+        }
+      }))
+
+
+    }
+    else {
+
+      console.log(update1)
+      const result = await Dtoken.find({ user_id: update1.from })
+      console.log(result)
+      const responses = await Promise.all(result.map(async (each) => {
+
+        if (each) {
+
+          const message = update1.image_array.length > 0 ? {
+            notification: {
+              title: "Your Complaint is Acknowledged",
+              body: update1.issue,
+              imageUrl: update1.image_array[0]
+            },
+            data: {
+              title: "Your Complaint is Acknowledged",
+              body: update1.issue,
+              imageUrl: update1.image_array[0]
+            },
+            token: each.token, // FCM device token
+          } :
             {
               notification: {
                 title: "Your Complaint is Acknowledged",
@@ -730,27 +792,32 @@ app.put('/complaint', async (req, res, next) => {
                 title: "Your Complaint is Acknowledged",
                 body: update1.issue,
               },
-              token:each.token, // FCM device token
+              token: each.token, // FCM device token
             }
             ;
-            console.log(message)
+          console.log(message)
 
-            const response = await admin.messaging().send(message)
+          const response = await admin.messaging().send(message)
             .then(respo => {
               return respo;
             })
             .catch(error => {
-                console.error('Error sending message:', error);
+              console.error('Error sending message:', error);
             });
-            return response;
-          } 
-          }))
-          console.log(responses)
+          return response;
+        }
+      }))
+      console.log(responses)
 
     }
 
+    if (socketId) {
+      socketId.map((each)=>{
+        io.to(each).emit('dataChanged')
+      })
+    }
+
     res.json({ result, update1 })
-    io.emit('dataChanged'); 
 
 
   }
@@ -938,13 +1005,13 @@ app.get('/user', async (req, res, next) => {
 
 
   try {
-    const { id,stu_id } = req.query;
-    if(id){
- 
-    const data = await User.findOne({ _id: id })
-    res.json(data)
+    const { id, stu_id } = req.query;
+    if (id) {
+
+      const data = await User.findOne({ _id: id })
+      res.json(data)
     }
-    else if(stu_id){
+    else if (stu_id) {
       const data = await User.findOne({ user_id: stu_id })
       res.json(data)
 
@@ -967,14 +1034,14 @@ app.post('/student', async (req, res, next) => {
 
 
     const files = req.files;
-    const { user_id, name, email, role,designation } = req.body;
+    const { user_id, name, email, role, designation } = req.body;
 
-    if (files.length<=0) {
+    if (files.length <= 0) {
 
       if (user_id && name && email && role && designation) {
         const hashpassword = await bcrypt.hash('skjani314@A', 10);
 
-        const result = await User.create({ user_id, name, email, designation,role,password:hashpassword });
+        const result = await User.create({ user_id, name, email, designation, role, password: hashpassword });
         return res.json(result);
       }
       else {
@@ -988,8 +1055,8 @@ app.post('/student', async (req, res, next) => {
       const worksheet = workbook.Sheets[sheetName];
       const data = xlsx.utils.sheet_to_json(worksheet);
       fs.unlinkSync(files[0].path);
-      const stu_data=data.map(each=>{return {...each,password:hashpassword}})
-console.log(stu_data)
+      const stu_data = data.map(each => { return { ...each, password: hashpassword } })
+      console.log(stu_data)
       const response = await User.insertMany(stu_data);
       console.log(response)
       res.json("success");
@@ -1010,12 +1077,12 @@ app.delete('/student', async (req, res, next) => {
 
     const { batch, id, flag } = req.query;
     if (flag) {
-console.log(id)
-      const result = await User.deleteOne({ _id:id });
-      const com=await Complaint.find({from:id});
-      const comp_ids=com.map((each)=>{return each._id})
-      await Timeline.deleteMany({complaint_id:{$in:comp_ids}})
-      await Complaint.deleteMany({ from:id });
+      console.log(id)
+      const result = await User.deleteOne({ _id: id });
+      const com = await Complaint.find({ from: id });
+      const comp_ids = com.map((each) => { return each._id })
+      await Timeline.deleteMany({ complaint_id: { $in: comp_ids } })
+      await Complaint.deleteMany({ from: id });
 
       res.json(result);
 
@@ -1029,9 +1096,9 @@ console.log(id)
 
         const studentIds = studentsToDelete.map(student => student._id);
         const stu_ro_ids = studentsToDelete.map(student => student.user_id);
-        const com=await Complaint.find({from:{$in:studentIds}});
-        const comp_ids=com.map((each)=>{return each._id})
-        await Timeline.deleteMany({complaint_id:{$in:comp_ids}})
+        const com = await Complaint.find({ from: { $in: studentIds } });
+        const comp_ids = com.map((each) => { return each._id })
+        await Timeline.deleteMany({ complaint_id: { $in: comp_ids } })
         const trans_res = await Complaint.deleteMany({ user_id: { $in: stu_ro_ids } });
 
         const stu_res = await User.deleteMany({ _id: { $in: studentIds } });
@@ -1046,27 +1113,27 @@ console.log(id)
 })
 
 
-app.put('/student',async (req,res,next)=>{
+app.put('/student', async (req, res, next) => {
 
 
-try{
-  const {id,role}=req.body;
-console.log(req.body)
-  if(id && role && role!="Select a Role"){
+  try {
+    const { id, role } = req.body;
+    console.log(req.body)
+    if (id && role && role != "Select a Role") {
 
-const result=await User.findOneAndUpdate({_id:id},{role},{new:true})
-console.log(result)
-res.json(result)
+      const result = await User.findOneAndUpdate({ _id: id }, { role }, { new: true })
+      console.log(result)
+      res.json(result)
+    }
+    else {
+      next(new Error("Unable to update"))
+    }
+
   }
-  else{
-    next(new Error("Unable to update"))
+  catch (err) {
+
+    next(err)
   }
-
-}
-catch(err){
-
-  next(err)
-}
 
 
 })
@@ -1157,16 +1224,16 @@ async function updateComplaintLevels() {
       date: { $gte: startOfDay, $lte: endOfDay }
     });
     console.log(unresolvedComplaints)
-   
-    const update=await Promise.all(unresolvedComplaints.map(async (each)=>{
+
+    const update = await Promise.all(unresolvedComplaints.map(async (each) => {
 
 
-      const result =await Complaint.findByIdAndUpdate(each._id,{level:2},{new:true})
+      const result = await Complaint.findByIdAndUpdate(each._id, { level: 2 }, { new: true })
       return result;
 
     })
-  )
-  console.log(update)
+    )
+    console.log(update)
 
 
   } catch (err) {
@@ -1174,10 +1241,11 @@ async function updateComplaintLevels() {
   }
 }
 
-setInterval(updateComplaintLevels,  24 * 60 * 60 * 1000);
+setInterval(updateComplaintLevels, 24 * 60 * 60 * 1000);
 
 
-
+// setInterval(()=>{ io.emit('dataChanged'); 
+// },1000)
 
 
 app.use((err, req, res, next) => {

@@ -30,6 +30,7 @@ const ViewTable = props => {
         setFileList(fileList);
     };
     const handleClick = async (id) => {
+        setLoading(true)
 
         try {
             setModel(true)
@@ -68,13 +69,13 @@ const ViewTable = props => {
             }
 
             setDes(complaint); // Update the state with the complaint details
-            setLoading(false);
         }
         catch (err) {
             console.log(err);
             error("Unable to show Full Data")
         }
 
+        setLoading(false);
 
 
 
@@ -83,7 +84,7 @@ const ViewTable = props => {
 
 
     const resolvedClick = async () => {
-
+  setLoading(true)
         try {
 
 
@@ -111,14 +112,14 @@ const ViewTable = props => {
         }
 
 
-
+setLoading(false)
 
 
     }
 
     const handleStatusClick = async (id, status) => {
 
-
+setLoading(true)
         try {
             let update = "";
             if (status == 'progress') {
@@ -144,7 +145,7 @@ const ViewTable = props => {
             console.log(err);
         }
 
-
+setLoading(false)
 
     }
 
@@ -182,7 +183,7 @@ const ViewTable = props => {
                                     <TableCell align="center" > {row.category} </TableCell>
                                     <TableCell align="center" > {row.complaint} </TableCell>
                                     <TableCell align="center" >
-                                        < Button onClick={() => handleStatusClick(row.id, row.status)} className={row.status == 'progress' ? 'bg-danger' : row.status == 'acknowledged' ? 'bg-warning' : 'bg-success'} > {row.status} </Button>
+                                        < Button  loading={loading}   onClick={() => handleStatusClick(row.id, row.status)} className={row.status == 'progress' ? 'bg-danger' : row.status == 'acknowledged' ? 'bg-warning' : 'bg-success'} > {row.status} </Button>
                                     </TableCell>
                                     <TableCell align="center" ><Button type='primary' onClick={() => handleClick(row.id)}>View</Button> </TableCell>
 
@@ -268,7 +269,9 @@ const ViewTable = props => {
             </Modal>
 
             <Modal open={res_model} footer={null} onCancel={() => setresModel(false)} title="Response On Issue " >
-
+            <Spin tip="Loading...."
+            size='large'
+            spinning={loading} >
                 <Flex vertical gap={10}>
                     <h4>Your Response</h4>
                     <TextField label="Description" value={res_Des} onChange={(e) => setResDes(e.target.value)} placeholder='Respond on issue' multiline rows={4} />
@@ -287,7 +290,7 @@ const ViewTable = props => {
                     </Flex>
                 </Flex>
 
-
+</Spin>
             </Modal>
 
 

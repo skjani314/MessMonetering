@@ -14,7 +14,7 @@ import { MdOutlineClear } from "react-icons/md";
 const { Text } = Typography;
 const AdminUser = props => {
     const [student_form, setStudentForm] = useState({ bulk: false, single: false });
-    const { loading, setLoading, success, error, changeActiveTab, user } = useContext(Context);
+    const { loading, setLoading, success, error, changeActiveTab, user,socket } = useContext(Context);
     const [fileList, setFileList] = useState([]);
     const [formdata, setFormData] = useState({ user_id: '', name: '', email: '', role: '', designation: '' });
     const [deleteForm, setDeleteForm] = useState({ batch: '', flag: false });
@@ -24,6 +24,10 @@ const AdminUser = props => {
     const [status_cat, setStatusCat] = useState({ status: "Select a status", category: "Select a category" });
     const [stu_details, setStudetails] = useState(null);
     const [roleUpdate, setRoleUpdate] = useState({ flag: false, role: "Select a Role" });
+
+
+
+
     const handleUploadChange = ({ fileList }) => {
         setFileList(fileList);
     };
@@ -210,7 +214,14 @@ const AdminUser = props => {
             fun();
         }
 
-
+        socket.on('dataChanged', () => {
+            console.log('Data changed, re-fetching...');
+            fun(); // Re-fetch data when an update occurs
+          });
+      
+          return () => {
+            socket.off('dataChanged');
+          };
 
     }, [props.param])
 

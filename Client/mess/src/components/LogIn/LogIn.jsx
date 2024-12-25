@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 function LogIn() {
 
-  const {loading,setLoading,success,error,contextHolder,user,setUser}=useContext(Context);
+  const {loading,setLoading,success,error,contextHolder,user,setUser,socket}=useContext(Context);
 
 const [isVisible, setIsVisible] = useState(false);  
 const [LogData,setLogdata]=useState({email:'',password:'',token:""});
@@ -75,6 +75,8 @@ form_data.append('token',localStorage.getItem("userToken"));
         setUser(result.data);
         setLoading(false);
         success("Logged In successfully");
+        socket.emit('register', result.data._id);
+
         if(result.data.role=='student'){
           navigate('/student')
         }
@@ -103,11 +105,10 @@ const handleLogout=async ()=>{
   u_data.append('token',localStorage.getItem("userToken"));
     await axios.post(import.meta.env.VITE_API_URL+'/logout',u_data,{ withCredentials: true, })
      success("logged out successfully");
+     socket.emit('unregister',user._id)
      setUser(null);
      setLoading(false);
-
-  
-  }
+   }
   catch{
   error("something went wrong")
   setLoading(false);

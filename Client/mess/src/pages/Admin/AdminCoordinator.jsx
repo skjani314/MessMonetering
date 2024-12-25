@@ -16,7 +16,7 @@ const { Text } = Typography
 const AdminCoordinator = props => {
 
 
-    const { loading, setLoading, success, error, contextHolder, changeActiveTab, user } = useContext(Context);
+    const { loading, setLoading, success, error, contextHolder, changeActiveTab, user ,socket} = useContext(Context);
     const [data, setData] = useState([])
     const [datseRange, setdatesrange] = useState({ start: '', end: '' });
     const [status_cat, setStatusCat] = useState({ status: "Select a status", category: "Select a category" });
@@ -97,7 +97,20 @@ setLoading(true)
         setLoading(false)
         }
 
-        if (user) fun();
+        if (user) {
+            fun();
+        }
+
+
+        socket.on('dataChanged', () => {
+            console.log('Data changed, re-fetching...');
+            fun(); // Re-fetch data when an update occurs
+          });
+      
+          return () => {
+            socket.off('dataChanged');
+          };
+
 
     }, [user])
 

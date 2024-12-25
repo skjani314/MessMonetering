@@ -25,7 +25,7 @@ import {io} from 'socket.io-client'
 
 
 
-const socket = io('http://localhost:3400');
+const socket = io(import.meta.env.VITE_API_URL);
 function App() {
 
 
@@ -93,7 +93,6 @@ console.log(err)
 
 
 }
-
 
 getuser()
 setLoading(false)

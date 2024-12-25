@@ -15,7 +15,7 @@ const {Text}=Typography;
 const CoordinatorHistory = props => {
 
 
-    const { loading, setLoading, success, error, contextHolder, user, changeActiveTab } = useContext(Context);
+    const { loading, setLoading, success, error, contextHolder, user, changeActiveTab,socket } = useContext(Context);
     const [data, setData] = useState([])
     const [datseRange, setdatesrange] = useState({ start: '', end: '' });
     const [status_cat, setStatusCat] = useState({ status: "Select a status", category: "Select a category" });
@@ -99,6 +99,15 @@ const CoordinatorHistory = props => {
         if (user) {
             fun()
         }
+        socket.on('dataChanged', () => {
+            console.log('Data changed, re-fetching...');
+            fun(); // Re-fetch data when an update occurs
+          });
+
+        return () => {
+            socket.off('dataChanged');
+          };
+
     }, [user])
 
 
