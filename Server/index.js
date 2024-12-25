@@ -696,6 +696,11 @@ app.put('/complaint', async (req, res, next) => {
     const update1 = await Complaint.findByIdAndUpdate(complaint_id, { current_status: status }, { new: true })
     const io = req.app.get('socketio');
     const socketId = userSocketMap[update1.from];
+    if (socketId) {
+      socketId.map((each)=>{
+        io.to(each).emit('dataChanged')
+      })
+    }
 
     if (status == "resolved") {
 
@@ -811,11 +816,7 @@ app.put('/complaint', async (req, res, next) => {
 
     }
 
-    if (socketId) {
-      socketId.map((each)=>{
-        io.to(each).emit('dataChanged')
-      })
-    }
+   
 
     res.json({ result, update1 })
 
