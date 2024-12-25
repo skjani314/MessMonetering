@@ -93,7 +93,7 @@ const MenuTable = () => {
 
   const [isHovered, setIsHovered] = useState(false);
   const headingStyle = {
-    fontFamily: "'Poppins', 'Roboto', sans-serif",
+    fontFamily: "Times New Roman, Times, serif",
     fontSize: "1.8rem",
     fontWeight: 700,
     letterSpacing: "1px",
@@ -107,8 +107,7 @@ const MenuTable = () => {
 
 <div>
       
-<h2 style={headingStyle}
-      >Hi Welcome,<span style={{color:"#b22222", fontSize:"2rem"}}> {user.name}</span></h2>
+<h2 style={headingStyle}>Hello,<span style={{color:"#b22222", fontSize:"2rem"}}> {user.name}</span></h2>
 
 
       </div>

@@ -12,26 +12,15 @@ import InventoryChart from '../../components/graphs/Inventory';
 
 const { Text } = Typography;
 const CoordinatorDashboard = props => {
-    const [isHovered, setIsHovered] = useState(false);
+    
     const headingStyle = {
-        fontFamily: "'Poppins', 'Roboto', sans-serif",
-        fontSize: "2.5rem",
+        fontFamily: 'Times New Roman, Times, serif',
+        fontSize: "2.2rem",
         fontWeight: 700,
         letterSpacing: "1px",
-        textTransform: "capitalize",
         textAlign: "center",
-        color: isHovered ? "#ff758c" : "#333", // Dynamic color on hover
-        background: "linear-gradient(90deg, #ff7eb3, #ff758c)", // Gradient text
-        WebkitBackgroundClip: "text", // Clipping background to text
-        WebkitTextFillColor: "transparent", // Makes gradient visible
-        margin: "5px 0 5px 0",
-        padding: "10px 20px 0 20px",
-        transition: "all 0.3s ease-in-out", // Smooth transitions
-        textShadow: isHovered
-          ? "2px 2px 10px rgba(255, 117, 140, 0.5)" // Larger shadow on hover
-          : "1px 1px 5px rgba(0, 0, 0, 0.2)", // Subtle shadow by default
-        transform: isHovered ? "scale(1.05)" : "scale(1)", // Slight scaling on hover
-        cursor: "pointer", // Pointer cursor for interactivity
+        color: "#b22222",
+        margin: "20px 0 0 10px",    
     };
     const { loading, setLoading, success, error, contextHolder, changeActiveTab, user } = useContext(Context);
 
@@ -84,8 +73,7 @@ setLoading(true)
                         <div className="main-content">
                         <h1
                         style={headingStyle}
-                        onMouseEnter={() => setIsHovered(true)} // Set hover state to true
-                        onMouseLeave={() => setIsHovered(false)}
+                        
                         >
                         Dashboard
                         </h1>
