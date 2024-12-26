@@ -1078,7 +1078,25 @@ app.get('/user', async (req, res, next) => {
 
 })
 
-app.use(Adminauthenticate)
+const Adminauthenticate = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(accessToken, process.env.KEY);
+
+    const user_details = await User.findOne({ email: decoded });
+    if (user_details.role == 'admin') {
+      next();
+    }
+    else {
+      next(new Error("unauthorized"))
+    }
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Token" });
+  }
+};
+
+
 
 app.post('/student', async (req, res, next) => {
 
@@ -1207,23 +1225,6 @@ app.get('/student', async (req, res, next) => {
 })
 
 
-const Adminauthenticate = async (req, res, next) => {
-  const accessToken = req.cookies.accessToken;
-  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
-  try {
-    const decoded = jwt.verify(accessToken, process.env.KEY);
-
-    const user_details = await User.findOne({ email: decoded });
-    if (user_details.role == 'admin') {
-      next();
-    }
-    else {
-      next(new Error("unauthorized"))
-    }
-  } catch (err) {
-    res.status(401).json({ message: "Invalid Token" });
-  }
-};
 
 
 const Coordinatorauthenticate = async (req, res, next) => {

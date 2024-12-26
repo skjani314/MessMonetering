@@ -110,8 +110,8 @@ navigate('/admin/users?id='+id)
                         />
                         <div className='mt-2' style={{ position: 'fixed', top: '125px', background: 'whitesmoke',width:'100%' }}>
                         {
-                                    search_result.map((each)=>(
-                                        <Flex vertical className='m-1 p-2 search-suggestion' style={{background:"white",width:"100%"}} onClick={()=>handleSearchResultClick(each._id)}>
+                                    search_result.map((each,index)=>(
+                                        <Flex vertical key={index} className='m-1 p-2 search-suggestion' style={{background:"white",width:"100%"}} onClick={()=>handleSearchResultClick(each._id)}>
                                         <Text>{each.user_id}</Text>
                                         <Text style={{fontSize:11}}>{each.name}</Text>
                                         </Flex>
