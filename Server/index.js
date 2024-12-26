@@ -110,7 +110,7 @@ cloudinary.config({
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://mess-monetering.vercel.app", // Replace with your frontend URL
+    origin: process.env.FRONT_END_URL, // Replace with your frontend URL
   },
 });
 
@@ -119,17 +119,20 @@ app.set('socketio', io);
 
 io.on('connection', (socket) => {
   console.log(`Client connected: ${socket.id}`);
-
   socket.on('register', (userId) => {
+    
+    if(!socket.userId){
+      socket.userId=userId;
     if (userSocketMap[userId]) {
       userSocketMap[userId].push(socket.id);
     }
     else {
       userSocketMap[userId] = [socket.id]
     }
-
-
     console.log(`User registered: ${userId}, Socket ID: ${socket.id}`);
+
+  }
+
   });
 
   socket.on('unregister', (userId) => {
@@ -150,8 +153,20 @@ io.on('connection', (socket) => {
   })
   socket.on('disconnect', () => {
 
-    console.log(`Client ${socket.id} disconnected`);
+    console.log(userSocketMap)
+ 
+    const userId=socket.userId;
+    if (userSocketMap[userId] && userSocketMap[userId].length > 1) {
+      const updatedArr=userSocketMap[userId].filter((each)=>each!=socket.id)
 
+    userSocketMap[userId]=updatedArr
+     }
+    else {
+
+      delete userSocketMap[userId];
+    }
+    console.log(`User disconnected: ${userId}`);
+    console.log(userSocketMap)
   });
 });
 

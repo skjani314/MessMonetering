@@ -80,7 +80,7 @@ try{
 
 
 const result=await axios.post(import.meta.env.VITE_API_URL+'/get-user',{},{withCredentials:true})  
-
+socket.emit('register', result.data._id);
 setUser(result.data);
 console.log(result)
 
