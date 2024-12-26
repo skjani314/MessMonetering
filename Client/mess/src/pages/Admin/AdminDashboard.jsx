@@ -172,8 +172,16 @@ if(user){fun()}
                                     >
                                     Reccurent Complaints
                                     </h2>
-                                    <ViewTable rowsData={tabledata} data={data} />
+                                    {
+                                tabledata.length>0?
+                            <ViewTable rowsData={tabledata} data={data} />
+                            :  <div style={{ minHeight: 300, width: "100%" }} className='mt-5' >
+                            <h1 className='text-center'>
+                              No Reccurent Complaints are There
+                            </h1>
+                          </div>
 
+                            }
 
                         </div>
                     </div>
