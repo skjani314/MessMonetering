@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Header from "../Header/Header";
-import { Spin, Card, Typography } from "antd";
+import { Spin, Card, Typography, Button, Flex } from "antd";
 import Context from "../../context/Context";
 import { useContext } from "react";
 import { MdArrowForwardIos, MdArrowBackIos, MdFeedback, MdTimeline } from "react-icons/md";
@@ -11,12 +11,13 @@ import c2 from "./girlsmess.jpeg";
 import c3 from "./meals.jpg";
 import c4 from "./servers.jpg";
 import { IoMdAnalytics } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const { Text } = Typography;
 
 const Home = () => {
 
-  const { loading, setLoading, success, error, contextHolder, changeActiveTab,} = useContext(Context);
+  const { loading, setLoading, success, error, contextHolder, changeActiveTab,user} = useContext(Context);
 
 
   
@@ -47,6 +48,25 @@ const Home = () => {
         <div className="scrolling-banner">
   <span>Your Voice Matters: Share Your Feedback.</span>
 </div>
+
+
+{
+user?
+
+<Card style={{background:'#FFF8E7'}}>
+  <Flex justify="center">
+  <Link className='Link' style={{color:'black'}} to={user.role=='student'?'/student':user.role=="admin"?'/admin/dashboard':"/coordinator/dashboard"}>
+  <Button type="primary" style={{background:'',color:''}} size="large">Go To Dashboard</Button>
+  </Link>
+  </Flex>
+</Card>
+
+
+
+:null
+
+}
+
 
         <Carousel
           infinite

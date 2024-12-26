@@ -31,7 +31,7 @@ const CoordinatorHistory = props => {
 
         try {
 
-            const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?level=' + 1 + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end)
+            const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?level=' + 1 + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end, {withCredentials: true,})
             console.log(result)
             const data = result.data.map((each) => {
                 const { time, _doc, user_details } = each;
@@ -69,7 +69,7 @@ const CoordinatorHistory = props => {
 
             try {
 
-                const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?level=' + 1 + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end)
+                const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?level=' + 1 + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end,{withCredentials: true,})
                 console.log(result);
                 const data = result.data.map((each) => {
                     const { time, _doc, user_details } = each;

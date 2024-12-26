@@ -28,7 +28,7 @@ const Forgotpass = props => {
             try {
 
                 setLoading(true);
-                const result = await axios.post(import.meta.env.VITE_API_URL + '/forget/verify', { token: token })
+                const result = await axios.post(import.meta.env.VITE_API_URL + '/forget/verify', { token: token },{withCredentials:true})
                 setLoading(false);
                 success("Link Verified SuccessFully");
                 setverified(true);

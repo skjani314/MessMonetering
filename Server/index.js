@@ -1078,6 +1078,7 @@ app.get('/user', async (req, res, next) => {
 
 })
 
+app.use(Adminauthenticate)
 
 app.post('/student', async (req, res, next) => {
 
