@@ -912,8 +912,44 @@ app.get('/dashboard', async (req, res, next) => {
     ]);
 
 
+    const repeatedComplaints = await Complaint.aggregate([
+      {
+        $match: {
+          date: { $gte: currentMonthStart, $lte: currentMonthEnd }, // Filter by current month
+        },
+      },
+      {
+        $group: {
+          _id: "$issue", // Group by issue
+          count: { $sum: 1 }, // Count the number of occurrences
+          anyComplaint: { $first: "$$ROOT" }, // Capture any one complaint
+        },
+      },
+      {
+        $match: {
+          count: { $gt: 10 }, // Filter issues repeated more than 10 times
+        },
+      },
+      {
+        $project: {
+          _id: 0, // Exclude the group ID
+          issue: "$_id", // Rename _id to issue
+          complaint: "$anyComplaint", // Include the captured complaint
+        },
+      },
+    ]);
+ 
+    const data = await Promise.all(repeatedComplaints.map(async (each) => {
 
-    res.json({ monthlyRaisedCounts, categoryWiseCounts })
+      const { _id } = each.complaint;
+     
+      const time = await Timeline.find({ complaint_id: _id }).sort({ date: -1 });
+      const user_details=await User.findOne({_id:each.complaint.from})
+      return { ...each.complaint, time ,user_details}
+
+    }))
+  
+    res.json({ monthlyRaisedCounts, categoryWiseCounts,data })
 
 
 
