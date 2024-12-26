@@ -48,7 +48,7 @@ const CoordinatorProfile = props => {
                         lineHeight: "1.5",
                     }}
                     >
-                        My Complaints
+                        Personal Profile
                     </h2>
                         
                         <Profile />

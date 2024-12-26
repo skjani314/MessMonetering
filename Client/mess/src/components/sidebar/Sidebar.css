@@ -199,6 +199,7 @@
   text-decoration: none;
 }
 .sidebar-container-mobile{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px -3px 8px;
 
 }
 .Link{
