@@ -1273,7 +1273,8 @@ async function updateComplaintLevels() {
 
     const unresolvedComplaints = await Complaint.find({
       current_status: { $ne: 'resolved' },
-      date: { $gte: startOfDay, $lte: endOfDay }
+      date: { $gte: startOfDay, $lte: endOfDay },
+      level:1,
     });
     console.log(unresolvedComplaints)
 
