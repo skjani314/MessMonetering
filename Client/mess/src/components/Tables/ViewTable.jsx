@@ -16,6 +16,8 @@ import { MdSettingsBackupRestore } from 'react-icons/md';
 import { UploadOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
+
+
 const ViewTable = props => {
 
 
@@ -155,7 +157,7 @@ setLoading(false)
         <Spin tip="Loading...."
             size='large'
             spinning={loading} >
-            <TableContainer component={Paper} >
+            <TableContainer component={Paper} style={{boxShadow: "0 6px 10px rgba(0, 0, 0, 0.15)"}} >
                 <Table
                     size="small"
                     aria-label="a dense table" >

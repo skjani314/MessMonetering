@@ -127,7 +127,7 @@ const Home = () => {
             </Card>
           </div>
 
-          <footer className="footer mt-4 pb-1">
+          <footer className="footer mt-4 pt-3 pb-1">
             <p>© 2024 RGUKT Mess Management System. All rights reserved.</p>
           </footer>
         </div>
