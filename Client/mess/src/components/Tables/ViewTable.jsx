@@ -197,6 +197,9 @@ setLoading(false)
             </TableContainer>
 
             <Modal open={isModel} footer={null} onCancel={() => setModel(false)}>
+            <Spin tip="Loading...."
+            size='large'
+            spinning={loading} >
                 <h3>
                     <b>
                         Complaint Details:</b>
@@ -268,6 +271,7 @@ setLoading(false)
                         <Timeline items={items} />
                     </h3>
                 </h3>
+                </Spin>
             </Modal>
 
             <Modal open={res_model} footer={null} onCancel={() => setresModel(false)} title="Response On Issue " >

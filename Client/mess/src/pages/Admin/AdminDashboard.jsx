@@ -9,13 +9,15 @@ import BarGraph from '../../components/graphs/BarGraph';
 import InventoryChart from '../../components/graphs/Inventory';
 import AdminSidebar from '../../components/sidebar/AdminSidebar';
 import "./dashboard.css"
+import ViewTable from '../../components/Tables/ViewTable';
 
 const { Text } = Typography;
 const AdminDashBoard = props => {
 
 
     const { loading, setLoading, success, error, contextHolder, changeActiveTab ,user} = useContext(Context);
-
+    const [data, setData] = useState([])
+    const [tabledata, setTabledata] = useState([]);
     const headingStyle = {
         fontFamily: 'Times New Roman, Times, serif',
         fontSize: "2.2rem",
@@ -43,6 +45,25 @@ const result=await axios.get(import.meta.env.VITE_API_URL+'/dashboard',{withCred
 console.log(result)
 setGraph(result.data.monthlyRaisedCounts)
 setPieData(result.data.categoryWiseCounts)
+console.log(result.data.data)
+                const data = result.data.data.map((each) => {
+                    const { time, user_details } = each;
+
+                    return { time, ...each, user_details }
+
+                })
+                setData(data);
+
+                const tabledata = data.map((each) => {
+
+                    const { _id, category, time, des, user_details } = each;
+
+
+                    return { category, date: time[0].date.split('T')[0], complaint: des.slice(0, 50), status: time[0].status, id: _id, user_details }
+
+                })
+                console.log(tabledata)
+                setTabledata(tabledata)
 
 }
 catch(err){
@@ -133,7 +154,24 @@ if(user){fun()}
                                     </Flex>
                                 </Col>
                             </Row>
-
+<h2
+                                    style={{
+                                        fontFamily: "'Roboto', sans-serif",
+                                        fontSize: "24px",
+                                        fontWeight: "600",
+                                        color: "#003366",
+                                        textAlign: "center",
+                                        textTransform: "capitalize",
+                                        margin: "10px 0 20px 0",
+                                        paddingBottom: "10px",
+                                        borderBottom: "2px solid #0066cc",
+                                        letterSpacing: "1px",
+                                        lineHeight: "1.5",
+                                    }}
+                                    >
+                                    Reccurent Complaints
+                                    </h2>
+                                    <ViewTable rowsData={tabledata} data={data} />
 
 
                         </div>
