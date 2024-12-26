@@ -246,6 +246,7 @@ const ComplaintsTable = () => {
       <DatePicker  placeholder="select End Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, end: s })) }} />
       <Button onClick={handleDatessubmit} type="primary">Submit</Button>
       </Flex>
+      <p style={{marginBottom:"10px"}}><b >Recent Complaints</b></p>
       <StudentComplaints rowsData={tabledata} data={data} />
       <Modal
         title="Raise a Complaint"

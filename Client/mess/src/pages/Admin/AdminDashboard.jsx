@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useContext } from "react"
 import { Spin, Row, Col, Flex, Typography } from "antd";
 import Header from '../../components/Header/Header';
-import Sidebar from '../../components/sidebar/SideBar';
 import Context from '../../context/Context';
-import { FaPills, FaSquareFull } from 'react-icons/fa';
+import {  FaSquareFull } from 'react-icons/fa';
 import axios from 'axios';
-import { GiConsoleController } from 'react-icons/gi';
 import BarGraph from '../../components/graphs/BarGraph';
 import InventoryChart from '../../components/graphs/Inventory';
 import AdminSidebar from '../../components/sidebar/AdminSidebar';
+import "./dashboard.css"
 
 const { Text } = Typography;
 const AdminDashBoard = props => {
@@ -122,9 +121,9 @@ if(user){fun()}
                                     Complaints by Category
                                 </h2>
 
-                                    <Flex vertical gap={10}  >
+                                    <Flex vertical gap={1} >
                                         <InventoryChart data={pie_data} />
-                                        <Flex wrap gap={10}>
+                                        <Flex wrap gap={1}>
                                             <Text><FaSquareFull color='#FFBB28' /> <b>Service Quality</b></Text>
                                             <Text><FaSquareFull color='#0088FE' /> <b>Food Quality</b></Text>
                                             <Text><FaSquareFull color='#00C49F' /> <b>Cleanliness</b></Text>

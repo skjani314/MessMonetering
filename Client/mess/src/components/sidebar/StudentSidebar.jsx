@@ -2,7 +2,6 @@ import { RxDashboard } from "react-icons/rx";
 import Context from "../../context/Context";
 import pharmacyImage from './logo-rgukt.png'
 import { PiStudentBold } from "react-icons/pi";
-import { CiCirclePlus } from "react-icons/ci";
 import { TbReport } from "react-icons/tb";
 import { TbReportMedical } from "react-icons/tb";
 
@@ -22,7 +21,7 @@ const sidebarItems=[
     {
         id:'COMPLAINT',
         displayText:'Report',
-        icon:<TbReportMedical className="mb-2"/>,
+        icon:<TbReport className="mb-2"/>,
         path:'/student/complaint',
     },
     

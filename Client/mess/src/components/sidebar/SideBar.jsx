@@ -3,11 +3,7 @@ import Context from "../../context/Context";
 import pharmacyImage from './logo-rgukt.png'
 import { TbReport } from "react-icons/tb";
 import { TbReportAnalytics } from "react-icons/tb";
-import { PiStudentBold } from "react-icons/pi";
-
-
-import { GrTransaction } from "react-icons/gr";
-
+import { CgProfile } from "react-icons/cg";
 import './Sidebar.css'
 import {Link} from 'react-router-dom'
 
@@ -34,7 +30,7 @@ const sidebarItems=[
     {
         id:"PROFILE",
         displayText:'Profile',
-        icon:<PiStudentBold className="mb-2"/>,
+        icon:<CgProfile className="mb-2"/>,
         path:'/coordinator/profile',
     },
     

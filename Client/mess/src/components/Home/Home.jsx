@@ -36,6 +36,7 @@ const Home = () => {
     <div>
       <Spin tip="Loading...." size="large" spinning={loading}>
         <Header />
+        <div className="home-container">
         <h1
           style={headingStyle }
           
@@ -72,7 +73,7 @@ const Home = () => {
         </Carousel>
         
 
-        <div className="home-container">
+        
           <h2
             style={{
               fontFamily: "Georgia, serif",
@@ -127,7 +128,7 @@ const Home = () => {
             </Card>
           </div>
 
-          <footer className="footer mt-4 pb-1">
+          <footer className="footer mt-4 pt-3 pb-1">
             <p>© 2024 RGUKT Mess Management System. All rights reserved.</p>
           </footer>
         </div>

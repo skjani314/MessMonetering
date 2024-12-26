@@ -1,0 +1,71 @@
+/* General Reset for Margins, Paddings, and Borders */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Set default font size, color, and family */
+  body {
+    font-family: 'Arial', sans-serif; /* Change as per your design */
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333; /* Default text color */
+    background-color: #f9f9f9; /* Default background color */
+    overflow-x: hidden; /* Prevent horizontal scrolls */
+  }
+  
+  /* Default styles for anchor tags */
+  a {
+    text-decoration: none;
+    color: inherit; /* Use the current color */
+  }
+  
+  /* Default styles for buttons */
+  button {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    background: none;
+  }
+  
+  /* Utility class for images */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Styling lists */
+  ul, ol {
+    list-style: none;
+  }
+  
+  /* Input and text areas */
+  input, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  input:focus, textarea:focus {
+    border-color: #007bff; /* Add focus border */
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Flexbox utility */
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Grid utility */
+  .grid-center {
+    display: grid;
+    place-items: center;
+  }
+  
