@@ -36,6 +36,7 @@ const Home = () => {
     <div>
       <Spin tip="Loading...." size="large" spinning={loading}>
         <Header />
+        <div className="home-container">
         <h1
           style={headingStyle }
           
@@ -72,7 +73,7 @@ const Home = () => {
         </Carousel>
         
 
-        <div className="home-container">
+        
           <h2
             style={{
               fontFamily: "Georgia, serif",
