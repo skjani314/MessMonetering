@@ -155,27 +155,7 @@ const CoordinatorDashboard = props => {
                                     </Flex>
                                 </Col>
 
-                                <Col md={{ span: 12 }} sm={{ span: 24 }} xs={{ span: 24 }}>
-
-                                    <h2
-                                        style={{
-                                            fontFamily: "'Roboto', sans-serif",
-                                            fontSize: "24px",
-                                            fontWeight: "600",
-                                            color: "#003366",
-                                            textAlign: "center",
-                                            textTransform: "capitalize",
-                                            margin: "10px 0 20px 0",
-                                            paddingBottom: "10px",
-                                            borderBottom: "2px solid #0066cc",
-                                            letterSpacing: "1px",
-                                            lineHeight: "1.5",
-                                        }}
-                                    >
-                                        Reccurent Complaints
-                                    </h2>
-
-                                </Col>
+            
 
                             </Row>
 
@@ -196,9 +176,16 @@ const CoordinatorDashboard = props => {
                             >
                                 Reccurent Complaints
                             </h2>
+                            {
+                                tabledata.length>0?
                             <ViewTable rowsData={tabledata} data={data} />
+                            :  <div style={{ minHeight: 300, width: "100%" }} className='mt-5' >
+                            <h1 className='text-center'>
+                              No Reccurent Complaints are There
+                            </h1>
+                          </div>
 
-
+                            }
 
                         </div>
                     </div>

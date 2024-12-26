@@ -231,6 +231,10 @@ setLoading(false)
                     <Text ><b>Name: </b>{des.user_details.name}</Text>
                     <Text><b>Email: </b>{des.user_details.email}</Text>
                     <Text ><b>Designation: </b>{des.user_details.designation}</Text>
+                    {des.user_details.user_id?
+                    <Text ><b>ID: </b>{des.user_details.user_id}</Text>
+                    :null
+                    }
                 </Flex></>:null
 }
                 {des.resolved_by ?

@@ -173,8 +173,8 @@ const CoordinatorHistory = props => {
                                         </Space>
                                     </Button>
                                 </Dropdown>
-                                <DatePicker placeholder="select Start Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, start: s })) }} />
-                                <DatePicker placeholder="select End Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, end: s })) }} />
+                                <DatePicker style={{ minWidth: '150px' }} placeholder="select Start Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, start: s })) }} />
+                                <DatePicker style={{ minWidth: '150px' }} placeholder="select End Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, end: s })) }} />
                                 <Button onClick={handleDatessubmit} type="primary">Submit</Button>
                             </Flex>
 

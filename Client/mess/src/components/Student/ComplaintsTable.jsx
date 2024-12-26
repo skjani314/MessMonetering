@@ -212,7 +212,7 @@ const ComplaintsTable = () => {
         </Button>
       </div>
       <Text><b>Filter</b></Text>
-      <Flex style={{overflowX:"scroll" }} gap={10} justify="inline" className="mt-2 my-3 ">
+      <Flex gap={10} style={{overflowX:'auto',whiteSpace:'nowrap'}} className="mt-2 my-3 ">
       <Dropdown menu={{items:[{key:"Service quality",label:"Service quality"},{key:"Cleanliness",label:"Cleanliness"},{key:"Food quality",label:"Food quality"},{key:"Others",label:"Others"}],onClick:({key})=>{setStatusCat(prev=>({...prev,category:key}))}}}>
       <Button>
         <Space>
@@ -242,10 +242,11 @@ const ComplaintsTable = () => {
         </Space>
       </Button>
     </Dropdown>
-      <DatePicker  placeholder="select Start Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, start: s })) }} />
-      <DatePicker  placeholder="select End Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, end: s })) }} />
+      <DatePicker style={{ minWidth: '150px' }} placeholder="select Start Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, start: s })) }} />
+      <DatePicker style={{ minWidth: '150px' }} placeholder="select End Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, end: s })) }} />
       <Button onClick={handleDatessubmit} type="primary">Submit</Button>
       </Flex>
+
       <p style={{marginBottom:"10px"}}><b >Recent Complaints</b></p>
       <StudentComplaints rowsData={tabledata} data={data} />
       <Modal
