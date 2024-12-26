@@ -154,7 +154,8 @@ if(user){fun()}
                                     </Flex>
                                 </Col>
                             </Row>
-<h2
+                        
+                            <h2
                                     style={{
                                         fontFamily: "'Roboto', sans-serif",
                                         fontSize: "24px",
@@ -178,6 +179,10 @@ if(user){fun()}
                     </div>
 
                 </div>
+
+
+
+
             </Spin>
         </>
 

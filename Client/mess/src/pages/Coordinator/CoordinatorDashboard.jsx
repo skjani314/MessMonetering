@@ -14,7 +14,7 @@ import ViewTable from '../../components/Tables/ViewTable';
 
 const { Text } = Typography;
 const CoordinatorDashboard = props => {
-    
+
     const headingStyle = {
         fontFamily: 'Times New Roman, Times, serif',
         fontSize: "2.2rem",
@@ -22,7 +22,7 @@ const CoordinatorDashboard = props => {
         letterSpacing: "1px",
         textAlign: "center",
         color: "#b22222",
-        margin: "20px 0 0 10px",    
+        margin: "20px 0 0 10px",
     };
     const { loading, setLoading, success, error, contextHolder, changeActiveTab, user } = useContext(Context);
     const [data, setData] = useState([])
@@ -37,14 +37,14 @@ const CoordinatorDashboard = props => {
     useEffect(() => {
 
         const fun = async () => {
-setLoading(true)
+            setLoading(true)
             try {
 
                 const result = await axios.get(import.meta.env.VITE_API_URL + '/dashboard', { withCredentials: true });
                 console.log(result)
                 setGraph(result.data.monthlyRaisedCounts)
                 setPieData(result.data.categoryWiseCounts)
-console.log(result.data.data)
+                console.log(result.data.data)
                 const data = result.data.data.map((each) => {
                     const { time, user_details } = each;
 
@@ -95,29 +95,29 @@ console.log(result.data.data)
                             <Sidebar />
                         </div>
                         <div className="main-content">
-                        <h1
-                        style={headingStyle}
-                        
-                        >
-                        Dashboard
-                        </h1>
+                            <h1
+                                style={headingStyle}
+
+                            >
+                                Dashboard
+                            </h1>
                             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                 <Col md={{ span: 12 }} sm={{ span: 24 }} xs={{ span: 24 }}>
-                                
-                                <h2
-                                    style={{
-                                        fontFamily: "'Roboto', sans-serif",
-                                        fontSize: "24px",
-                                        fontWeight: "600",
-                                        color: "#003366",
-                                        textAlign: "center",
-                                        textTransform: "capitalize",
-                                        margin: "10px 0 20px 0",
-                                        paddingBottom: "10px",
-                                        borderBottom: "2px solid #0066cc",
-                                        letterSpacing: "1px",
-                                        lineHeight: "1.5",
-                                    }}
+
+                                    <h2
+                                        style={{
+                                            fontFamily: "'Roboto', sans-serif",
+                                            fontSize: "24px",
+                                            fontWeight: "600",
+                                            color: "#003366",
+                                            textAlign: "center",
+                                            textTransform: "capitalize",
+                                            margin: "10px 0 20px 0",
+                                            paddingBottom: "10px",
+                                            borderBottom: "2px solid #0066cc",
+                                            letterSpacing: "1px",
+                                            lineHeight: "1.5",
+                                        }}
                                     >
                                         Monthlywise Complaints
                                     </h2>
@@ -125,21 +125,21 @@ console.log(result.data.data)
                                     <BarGraph data={graph_data} />
                                 </Col>
                                 <Col md={{ span: 12 }} sm={{ span: 24 }} xs={{ span: 24 }}>
-                                
-                                <h2
-                                    style={{
-                                        fontFamily: "'Roboto', sans-serif",
-                                        fontSize: "24px",
-                                        fontWeight: "600",
-                                        color: "#003366",
-                                        textAlign: "center",
-                                        textTransform: "capitalize",
-                                        margin: "10px 0 20px 0",
-                                        paddingBottom: "10px",
-                                        borderBottom: "2px solid #0066cc",
-                                        letterSpacing: "1px",
-                                        lineHeight: "1.5",
-                                    }}
+
+                                    <h2
+                                        style={{
+                                            fontFamily: "'Roboto', sans-serif",
+                                            fontSize: "24px",
+                                            fontWeight: "600",
+                                            color: "#003366",
+                                            textAlign: "center",
+                                            textTransform: "capitalize",
+                                            margin: "10px 0 20px 0",
+                                            paddingBottom: "10px",
+                                            borderBottom: "2px solid #0066cc",
+                                            letterSpacing: "1px",
+                                            lineHeight: "1.5",
+                                        }}
                                     >
                                         Complaints by Category
                                     </h2>
@@ -156,33 +156,49 @@ console.log(result.data.data)
                                 </Col>
 
                                 <Col md={{ span: 12 }} sm={{ span: 24 }} xs={{ span: 24 }}>
-                                
-                                <h2
-                                    style={{
-                                        fontFamily: "'Roboto', sans-serif",
-                                        fontSize: "24px",
-                                        fontWeight: "600",
-                                        color: "#003366",
-                                        textAlign: "center",
-                                        textTransform: "capitalize",
-                                        margin: "10px 0 20px 0",
-                                        paddingBottom: "10px",
-                                        borderBottom: "2px solid #0066cc",
-                                        letterSpacing: "1px",
-                                        lineHeight: "1.5",
-                                    }}
+
+                                    <h2
+                                        style={{
+                                            fontFamily: "'Roboto', sans-serif",
+                                            fontSize: "24px",
+                                            fontWeight: "600",
+                                            color: "#003366",
+                                            textAlign: "center",
+                                            textTransform: "capitalize",
+                                            margin: "10px 0 20px 0",
+                                            paddingBottom: "10px",
+                                            borderBottom: "2px solid #0066cc",
+                                            letterSpacing: "1px",
+                                            lineHeight: "1.5",
+                                        }}
                                     >
-                                    Reccurent Complaints
+                                        Reccurent Complaints
                                     </h2>
 
-                                    </Col>
+                                </Col>
 
                             </Row>
 
-<Row>
-<ViewTable rowsData={tabledata} data={data} />
+                            <h2
+                                style={{
+                                    fontFamily: "'Roboto', sans-serif",
+                                    fontSize: "24px",
+                                    fontWeight: "600",
+                                    color: "#003366",
+                                    textAlign: "center",
+                                    textTransform: "capitalize",
+                                    margin: "10px 0 20px 0",
+                                    paddingBottom: "10px",
+                                    borderBottom: "2px solid #0066cc",
+                                    letterSpacing: "1px",
+                                    lineHeight: "1.5",
+                                }}
+                            >
+                                Reccurent Complaints
+                            </h2>
+                            <ViewTable rowsData={tabledata} data={data} />
 
-</Row>
+
 
                         </div>
                     </div>
