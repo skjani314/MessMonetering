@@ -173,8 +173,8 @@ io.on('connection', (socket) => {
 
 
 
-app.get('/', (ree, res, next) => {
-  res.json("Beackend working");
+app.get('/', (req, res, next) => {
+  res.json("Backend working");
 })
 
 app.post('/register', async (req, res, next) => {
@@ -187,7 +187,7 @@ app.post('/register', async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (user) {
-      next(new Error("user Already Found"));
+      next(new Error("user Already Exits"));
     }
     else {
       const hashpassword = await bcrypt.hash(password, 10);
