@@ -170,14 +170,14 @@ if(user){fun()}
                                         lineHeight: "1.5",
                                     }}
                                     >
-                                    Reccurent Complaints
+                                    Recurrent Complaints
                                     </h2>
                                     {
                                 tabledata.length>0?
                             <ViewTable rowsData={tabledata} data={data} />
                             :  <div style={{ minHeight: 300, width: "100%" }} className='mt-5' >
                             <h1 className='text-center'>
-                              No Reccurent Complaints are There
+                              No Recurrent Complaints are There
                             </h1>
                           </div>
 

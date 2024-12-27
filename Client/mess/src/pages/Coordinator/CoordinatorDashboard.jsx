@@ -174,7 +174,7 @@ const CoordinatorDashboard = props => {
                                     lineHeight: "1.5",
                                 }}
                             >
-                                Reccurent Complaints
+                                Recurrent Complaints
                             </h2>
                             {
                                 tabledata.length>0?

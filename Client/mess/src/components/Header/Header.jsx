@@ -6,6 +6,7 @@ import { useContext ,useState} from "react"
 import Context from "../../context/Context"
 import LogIn from '../LogIn/LogIn';
 import HeaderDup from './HeaderDup';
+import {Link} from 'react-router-dom'
 import { CgProfile } from "react-icons/cg";
 import { Spin, Input, Flex ,Typography} from 'antd';
 import axios from 'axios';
@@ -65,8 +66,9 @@ navigate('/admin/users?id='+id)
         <div className='header-main-container' style={{ zIndex: 1000 }}>
             <div className='header-container'  >
                 <div>
+                <Link className='Link' to={'/'}>
                     <img src={logorgukt} className="styling-logo" alt="logo" /> 
-                
+                </Link>
                 </div>
                 <div className="logout-container">
                 <div className={`search-container ${searchBar}`}  >

@@ -53,10 +53,10 @@ const Home = () => {
 {
 user?
 
-<Card style={{background:'#FFF8E7'}}>
+<Card style={{background:'#f5f5f5', border: 'none'}}>
   <Flex justify="center">
   <Link className='Link' style={{color:'black'}} to={user.role=='student'?'/student':user.role=="admin"?'/admin/dashboard':"/coordinator/dashboard"}>
-  <Button type="primary" style={{background:'',color:''}} size="large">Go To Dashboard</Button>
+  <Button className="GotoDash">Go To Dashboard</Button>
   </Link>
   </Flex>
 </Card>
