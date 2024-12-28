@@ -187,7 +187,7 @@ app.post('/register', async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (user) {
-      next(new Error("user Already Exits"));
+      next(new Error("user Already Exists"));
     }
     else {
       const hashpassword = await bcrypt.hash(password, 10);
