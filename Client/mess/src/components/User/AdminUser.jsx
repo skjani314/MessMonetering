@@ -180,9 +180,7 @@ const AdminUser = props => {
 
             try {
                 const stu = await axios.get(import.meta.env.VITE_API_URL + '/user?id=' + props.param,{withCredentials:true})
-                const stu = await axios.get(import.meta.env.VITE_API_URL + '/user?id=' + props.param, { withCredentials: true, })
                 setStudetails(stu.data)
-                const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end,{withCredentials:true})
                 const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end, { withCredentials: true, })
                 const data = result.data.map((each) => {
                     const { time, _doc } = each;
