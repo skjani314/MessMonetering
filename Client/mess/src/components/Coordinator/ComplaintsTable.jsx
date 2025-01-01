@@ -32,7 +32,7 @@ const ComplaintsTable = () => {
 
   try {
 
-        const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + user._id+'&status='+status_cat.status+"&category="+status_cat.category+"&start="+datseRange.start+"&end="+datseRange.end)
+        const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + user._id+'&status='+status_cat.status+"&category="+status_cat.category+"&start="+datseRange.start+"&end="+datseRange.end,{withCredentials:true})
         console.log(result)
         const data=result.data.map((each)=>{
           const {time,_doc}=each;
@@ -137,7 +137,7 @@ const fun=async ()=>{
 
 try{
 
-  const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + user._id+'&status='+status_cat.status+"&category="+status_cat.category+"&start="+datseRange.start+"&end="+datseRange.end)
+  const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + user._id+'&status='+status_cat.status+"&category="+status_cat.category+"&start="+datseRange.start+"&end="+datseRange.end,{withCredentials:true})
   const data=result.data.map((each)=>{
 const {time,_doc}=each;
 

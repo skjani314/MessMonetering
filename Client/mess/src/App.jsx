@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import Context from './context/Context';
-import { message } from 'antd';
+import { message,Spin } from 'antd';
 import Home from './components/Home/Home';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminStudent from './pages/Admin/AdminStudent';
@@ -101,7 +101,8 @@ setLoading(false)
 
 
   return (
-    
+    <Spin tip="Loading...." size='large' spinning={loading}>
+
     <Context.Provider value={context_data}>
       
       <Routes>
@@ -121,6 +122,7 @@ setLoading(false)
         <Route path="/student/profile" element={user && user.role=="student"?<StudentProfile />:<NotFoundPage/>} />
       </Routes>
     </Context.Provider>
+    </Spin>
     
   )
 }

@@ -77,7 +77,7 @@ const AdminUser = props => {
         try {
 
 
-            const response = await axios.delete(import.meta.env.VITE_API_URL + '/student?flag=false&batch=' + deleteForm.batch, {}, { withCredentials: true, });
+            const response = await axios.delete(import.meta.env.VITE_API_URL + '/student?flag=false&batch=' + deleteForm.batch, { withCredentials: true, });
             console.log(response);
             success("Batch Details are Deleted successfully");
         } catch (err) {
@@ -92,7 +92,7 @@ const AdminUser = props => {
 
         try {
 
-            const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end)
+            const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end,{withCredentials:true})
             console.log(result)
             const data = result.data.map((each) => {
                 const { time, _doc } = each;
@@ -153,7 +153,7 @@ const AdminUser = props => {
         try {
 
             console.log(props.param)
-            const result = await axios.delete(import.meta.env.VITE_API_URL + '/student?flag=' + 'true&' + 'id=' + props.param)
+            const result = await axios.delete(import.meta.env.VITE_API_URL + '/student?flag=' + 'true&' + 'id=' + props.param,{withCredentials:true})
 
             console.log(result);
             success("Deleted Successfully")
@@ -179,9 +179,9 @@ const AdminUser = props => {
 
 
             try {
-                const stu = await axios.get(import.meta.env.VITE_API_URL + '/user?id=' + props.param)
+                const stu = await axios.get(import.meta.env.VITE_API_URL + '/user?id=' + props.param,{withCredentials:true})
                 setStudetails(stu.data)
-                const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end)
+                const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end,{withCredentials:true})
                 const data = result.data.map((each) => {
                     const { time, _doc } = each;
 

@@ -20,6 +20,7 @@ import { fileURLToPath } from 'url';
 import xlsx from 'xlsx'
 import http from 'http'
 import { Server } from 'socket.io';
+import schedule from 'node-schedule';
 
 
 
@@ -49,7 +50,7 @@ const storage = multer.diskStorage({
     cb(null, '/tmp/');
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(null,file.originalname);
   }
 
 });
@@ -177,41 +178,41 @@ app.get('/', (ree, res, next) => {
   res.json("Beackend working");
 })
 
-app.post('/register', async (req, res, next) => {
+// app.post('/register', async (req, res, next) => {
 
 
-  try {
+//   try {
 
-    const { email, password, role, img, designation, user_id, name } = req.body;
+//     const { email, password, role, img, designation, user_id, name } = req.body;
 
-    const user = await User.findOne({ email });
+//     const user = await User.findOne({ email });
 
-    if (user) {
-      next(new Error("user Already Found"));
-    }
-    else {
-      const hashpassword = await bcrypt.hash(password, 10);
+//     if (user) {
+//       next(new Error("user Already Found"));
+//     }
+//     else {
+//       const hashpassword = await bcrypt.hash(password, 10);
 
-      const imgresult = await cloudinary.uploader.upload(req.files[0].path, {
-        folder: 'users',
-        public_id: name,
-      });
+//       const imgresult = await cloudinary.uploader.upload(req.files[0].path, {
+//         folder: 'users',
+//         public_id: name,
+//       });
 
-      fs.unlinkSync(req.files[0].path);
+//       fs.unlinkSync(req.files[0].path);
 
-      const result = await User.create({ name: name, email, password: hashpassword, role, designation, user_id, img: imgresult.secure_url })
-      res.json(result)
+//       const result = await User.create({ name: name, email, password: hashpassword, role, designation, user_id, img: imgresult.secure_url })
+//       res.json(result)
 
-    }
+//     }
 
-  }
-  catch (err) {
-    next(err);
-  }
+//   }
+//   catch (err) {
+//     next(err);
+//   }
 
 
 
-});
+// });
 
 
 
@@ -423,8 +424,122 @@ app.post('/passchange', async (req, res, next) => {
 })
 
 
+const Studentauthenticate = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(accessToken, process.env.KEY);
 
-app.post('/complaint', async (req, res, next) => {
+    const user_details = await User.findOne({ email: decoded.email });
+    if (user_details.role == 'student') {
+      next();
+    }
+    else {
+      next(new Error("unauthorized"))
+    }
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Token" });
+  }
+};
+
+
+
+const StudentCoordinatorauthenticate = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(accessToken, process.env.KEY);
+
+    const user_details = await User.findOne({ email: decoded.email });
+    if (user_details.role == 'student' || user_details.role=='coordinator') {
+      next();
+    }
+    else {
+      next(new Error("unauthorized"))
+    }
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Token" });
+  }
+};
+
+
+const Adminauthenticate = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(accessToken, process.env.KEY);
+
+    const user_details = await User.findOne({ email: decoded.email });
+    if (user_details.role == 'admin') {
+      next();
+    }
+    else {
+      next(new Error("unauthorized"))
+    }
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Token" });
+  }
+};
+
+
+const Coordinatorauthenticate = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(accessToken, process.env.KEY);
+
+    const user_details = await User.findOne({ email: decoded.email });
+    if (user_details.role == 'coordinator') {
+      next();
+    }
+    else {
+      next(new Error("unauthorized"))
+    }
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Token" });
+  }
+};
+
+const CoordinatorAdminauthenticate = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(accessToken, process.env.KEY);
+
+    const user_details = await User.findOne({ email: decoded.email });
+    if (user_details.role == 'coordinator' || user_details.role=='admin') {
+      next();
+    }
+    else {
+      next(new Error("unauthorized"))
+    }
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Token" });
+  }
+};
+
+const Userauthenticate = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+
+  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(accessToken, process.env.KEY);
+
+    const user_details = await User.findOne({ email: decoded.email });
+    if (user_details.role == 'student' || user_details.role=='coordinator' || user_details.role=='admin') {
+      next();
+    }
+    else {
+      next(new Error("unauthorized"))
+    }
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Token" });
+  }
+};
+
+
+
+app.post('/complaint', StudentCoordinatorauthenticate,async (req, res, next) => {
 
 
   try {
@@ -548,7 +663,7 @@ flated_client_ids.map(each=>{
 
 
 
-app.get('/complaint', async (req, res, next) => {
+app.get('/complaint', Userauthenticate,async (req, res, next) => {
 
 
   try {
@@ -701,7 +816,7 @@ app.get('/complaint', async (req, res, next) => {
 })
 
 
-app.put('/complaint', async (req, res, next) => {
+app.put('/complaint',CoordinatorAdminauthenticate,async (req, res, next) => {
 
 
   try {
@@ -847,7 +962,7 @@ app.put('/complaint', async (req, res, next) => {
 
 
 
-app.get('/dashboard', async (req, res, next) => {
+app.get('/dashboard', CoordinatorAdminauthenticate,async (req, res, next) => {
 
 
   try {
@@ -964,7 +1079,7 @@ app.get('/dashboard', async (req, res, next) => {
 
 
 
-app.get('/admin-complaints', async (req, res, next) => {
+app.get('/admin-complaints', Adminauthenticate,async (req, res, next) => {
 
 
   try {
@@ -1053,7 +1168,7 @@ app.get('/admin-complaints', async (req, res, next) => {
 })
 
 
-app.get('/user', async (req, res, next) => {
+app.get('/user', Userauthenticate,async (req, res, next) => {
 
 
   try {
@@ -1079,7 +1194,7 @@ app.get('/user', async (req, res, next) => {
 })
 
 
-app.post('/student', async (req, res, next) => {
+app.post('/student', Adminauthenticate,async (req, res, next) => {
 
 
   try {
@@ -1123,7 +1238,7 @@ app.post('/student', async (req, res, next) => {
 })
 
 
-app.delete('/student', async (req, res, next) => {
+app.delete('/student', Adminauthenticate,async (req, res, next) => {
 
   try {
 
@@ -1165,7 +1280,7 @@ app.delete('/student', async (req, res, next) => {
 })
 
 
-app.put('/student', async (req, res, next) => {
+app.put('/student',Adminauthenticate, async (req, res, next) => {
 
 
   try {
@@ -1191,7 +1306,7 @@ app.put('/student', async (req, res, next) => {
 })
 
 
-app.get('/student', async (req, res, next) => {
+app.get('/student', Adminauthenticate,async (req, res, next) => {
 
   try {
     const { user_id } = req.query;
@@ -1206,61 +1321,11 @@ app.get('/student', async (req, res, next) => {
 })
 
 
-const Adminauthenticate = async (req, res, next) => {
-  const accessToken = req.cookies.accessToken;
-  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
-  try {
-    const decoded = jwt.verify(accessToken, process.env.KEY);
-
-    const user_details = await User.findOne({ email: decoded });
-    if (user_details.role == 'admin') {
-      next();
-    }
-    else {
-      next(new Error("unauthorized"))
-    }
-  } catch (err) {
-    res.status(401).json({ message: "Invalid Token" });
-  }
-};
 
 
-const Coordinatorauthenticate = async (req, res, next) => {
-  const accessToken = req.cookies.accessToken;
-  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
-  try {
-    const decoded = jwt.verify(accessToken, process.env.KEY);
-
-    const user_details = await User.findOne({ email: decoded });
-    if (user_details.role == 'coordinator') {
-      next();
-    }
-    else {
-      next(new Error("unauthorized"))
-    }
-  } catch (err) {
-    res.status(401).json({ message: "Invalid Token" });
-  }
-};
 
 
-const Studentauthenticate = async (req, res, next) => {
-  const accessToken = req.cookies.accessToken;
-  if (!accessToken) return res.status(401).json({ message: "Unauthorized" });
-  try {
-    const decoded = jwt.verify(accessToken, process.env.KEY);
 
-    const user_details = await User.findOne({ email: decoded });
-    if (user_details.role == 'student') {
-      next();
-    }
-    else {
-      next(new Error("unauthorized"))
-    }
-  } catch (err) {
-    res.status(401).json({ message: "Invalid Token" });
-  }
-};
 
 async function updateComplaintLevels() {
   try {
@@ -1293,11 +1358,11 @@ async function updateComplaintLevels() {
   }
 }
 
-setInterval(updateComplaintLevels, 24 * 60 * 60 * 1000);
+// setInterval(updateComplaintLevels, 24 * 60 * 60 * 1000);
+
+const job = schedule.scheduleJob('0 0 * * *',{tz: 'Asia/Kolkata'}, updateComplaintLevels);
 
 
-// setInterval(()=>{ io.emit('dataChanged'); 
-// },1000)
 
 
 app.use((err, req, res, next) => {
