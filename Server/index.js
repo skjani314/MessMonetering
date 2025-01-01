@@ -34,11 +34,9 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Decode the service account JSON from the environment variable
 const serviceAccountJson = Buffer.from(process.env.SERVICE_ACCOUNT_JSON, 'base64').toString('utf-8');
 const serviceAccount = JSON.parse(serviceAccountJson);
 
-// Initialize Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -66,7 +64,7 @@ app.use(cookieParser());
 
 app.use(cors({
   origin: (origin, callback) => {
-    const allowedOrigins = ['https://mess-monetering.vercel.app', 'http://localhost:5173'];
+    const allowedOrigins = ['https://mess-monetering.vercel.app'];
     if (origin && (allowedOrigins.includes(origin))) {
       callback(null, true);
     } else {
@@ -1244,7 +1242,7 @@ app.delete('/student', Adminauthenticate,async (req, res, next) => {
 
     const { batch, id, flag } = req.query;
     if (flag) {
-      console.log(id)
+      console.log(flag)
       const result = await User.deleteOne({ _id: id });
       const com = await Complaint.find({ from: id });
       const comp_ids = com.map((each) => { return each._id })
@@ -1260,7 +1258,7 @@ app.delete('/student', Adminauthenticate,async (req, res, next) => {
 
         const studentsToDelete = await User.find({ user_id: { $regex: new RegExp(`^.*${batch}.*$`, 'i') } });
         console.log(batch)
-
+console.log(studentsToDelete)
         const studentIds = studentsToDelete.map(student => student._id);
         const stu_ro_ids = studentsToDelete.map(student => student.user_id);
         const com = await Complaint.find({ from: { $in: studentIds } });
@@ -1312,7 +1310,6 @@ app.get('/student', Adminauthenticate,async (req, res, next) => {
     const { user_id } = req.query;
 
     const response = await User.find({ user_id: { $regex: new RegExp(user_id, 'i') } });
-    console.log(response)
     res.json(response);
   }
   catch (err) {
@@ -1364,6 +1361,8 @@ async function updateComplaintLevels() {
 const job = schedule.scheduleJob('0 0 * * *',{tz: 'Asia/Kolkata'}, updateComplaintLevels);
 
 
+
+// const job2=schedule.scheduleJob('55 21 * * *',{tz: 'Asia/Kolkata'},()=>{console.log('9:55')});
 
 
 app.use((err, req, res, next) => {

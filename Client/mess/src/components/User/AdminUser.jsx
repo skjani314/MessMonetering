@@ -77,14 +77,16 @@ const AdminUser = props => {
         try {
 
 
-            const response = await axios.delete(import.meta.env.VITE_API_URL + '/student?flag=false&batch=' + deleteForm.batch, { withCredentials: true, });
+            const response = await axios.delete(import.meta.env.VITE_API_URL + '/student?batch=' + deleteForm.batch, { withCredentials: true, });
             console.log(response);
-            success("Batch Details are Deleted successfully");
+            success(deleteForm.batch+" Batch Details are Deleted successfully");
+            setDeleteForm({ batch: '', flag: false })
         } catch (err) {
             error("something went wrong");
             console.log(err);
         }
         setLoading(false);
+        
     }
 
     const handleDatessubmit = async () => {
