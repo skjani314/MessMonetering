@@ -14,9 +14,9 @@ import { MdOutlineClear } from "react-icons/md";
 const { Text } = Typography;
 const AdminUser = props => {
     const [student_form, setStudentForm] = useState({ bulk: false, single: false });
-    const { loading, setLoading, success, error, changeActiveTab, user,socket } = useContext(Context);
+    const { loading, setLoading, success, error, changeActiveTab, user, socket } = useContext(Context);
     const [fileList, setFileList] = useState([]);
-    const [formdata, setFormData] = useState({ user_id: '', name: '', email: '', role: '', designation: '' });
+    const [formdata, setFormData] = useState({ user_id: '', name: '', email: '', role: 'select a role', designation: '' });
     const [deleteForm, setDeleteForm] = useState({ batch: '', flag: false });
     const [data, setData] = useState([]);
     const [tabledata, setTabledata] = useState([]);
@@ -92,7 +92,7 @@ const AdminUser = props => {
 
         try {
 
-            const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end,{withCredentials:true})
+            const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end, { withCredentials: true, })
             console.log(result)
             const data = result.data.map((each) => {
                 const { time, _doc } = each;
@@ -153,7 +153,7 @@ const AdminUser = props => {
         try {
 
             console.log(props.param)
-            const result = await axios.delete(import.meta.env.VITE_API_URL + '/student?flag=' + 'true&' + 'id=' + props.param,{withCredentials:true})
+            const result = await axios.delete(import.meta.env.VITE_API_URL + '/student?flag=' + 'true&' + 'id=' + props.param, { withCredentials: true })
 
             console.log(result);
             success("Deleted Successfully")
@@ -180,8 +180,10 @@ const AdminUser = props => {
 
             try {
                 const stu = await axios.get(import.meta.env.VITE_API_URL + '/user?id=' + props.param,{withCredentials:true})
+                const stu = await axios.get(import.meta.env.VITE_API_URL + '/user?id=' + props.param, { withCredentials: true, })
                 setStudetails(stu.data)
                 const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end,{withCredentials:true})
+                const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?from=' + props.param + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end, { withCredentials: true, })
                 const data = result.data.map((each) => {
                     const { time, _doc } = each;
 
@@ -217,11 +219,11 @@ const AdminUser = props => {
         socket.on('dataChanged', () => {
             console.log('Data changed, re-fetching...');
             fun(); // Re-fetch data when an update occurs
-          });
-      
-          return () => {
+        });
+
+        return () => {
             socket.off('dataChanged');
-          };
+        };
 
     }, [props.param])
 
@@ -303,8 +305,20 @@ const AdminUser = props => {
                     <TextField className='w-100 m-1' label="Student Id" variant='outlined' value={formdata.user_id} onChange={(e) => { setFormData((prev) => ({ ...prev, user_id: e.target.value })) }} />
                     <TextField className='w-100 m-1' label="Name" variant='outlined' value={formdata.name} onChange={(e) => { setFormData((prev) => ({ ...prev, name: e.target.value })) }} />
                     <TextField className='w-100 m-1' label="Email" variant='outlined' value={formdata.email} onChange={(e) => { setFormData((prev) => ({ ...prev, email: e.target.value })) }} />
-                    <TextField className='w-100 m-1' label="Role" variant='outlined' value={formdata.role} onChange={(e) => { setFormData((prev) => ({ ...prev, role: e.target.value })) }} />
-                    <TextField className='w-100 m-1' label="designation" variant='outlined' value={formdata.designation} onChange={(e) => { setFormData((prev) => ({ ...prev, designation: e.target.value })) }} />
+                    <Dropdown menu={{ items: [{ key: "student", label: "Student" }, { key: "coordinator", label: "Representative" }, { key: "admin", label: "Admin" }], onClick: ({ key }) => { setFormData(prev => ({ ...prev, role: key })) } }}>
+                        <Button>
+                            <Space>
+                                {
+                                    formdata.role == "select a role" ?
+                                        <Text disabled>{formdata.role}
+                                            <DownOutlined /></Text>
+                                        :
+                                        <Text >{formdata.role}
+                                            <MdOutlineClear className="mx-2" onClick={() => setFormData(prev => ({ ...prev, role: "select a role" }))} /></Text>
+                                }
+                            </Space>
+                        </Button>
+                    </Dropdown>                    <TextField className='w-100 m-1' label="designation" variant='outlined' value={formdata.designation} onChange={(e) => { setFormData((prev) => ({ ...prev, designation: e.target.value })) }} />
 
                     <Flex justify='end'>
                         <Button onClick={handleFormUpload} type='primary'>Submit</Button>

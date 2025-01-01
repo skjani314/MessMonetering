@@ -32,7 +32,7 @@ const showModal = () => {
     setLoading(true);
   
    try{
-  const result=await axios.post(import.meta.env.VITE_API_URL+'/forget',{email:forgetpass.email})
+  const result=await axios.post(import.meta.env.VITE_API_URL+'/forget',{email:forgetpass.email},{withCredentials:true})
   console.log(result);
   success("Reset Link sent to Mail Successfully");
   setLoading(false);

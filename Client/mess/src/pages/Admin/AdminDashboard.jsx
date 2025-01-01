@@ -154,7 +154,8 @@ if(user){fun()}
                                     </Flex>
                                 </Col>
                             </Row>
-<h2
+                        
+                            <h2
                                     style={{
                                         fontFamily: "'Roboto', sans-serif",
                                         fontSize: "24px",
@@ -169,15 +170,27 @@ if(user){fun()}
                                         lineHeight: "1.5",
                                     }}
                                     >
-                                    Reccurent Complaints
+                                    Recurrent Complaints
                                     </h2>
-                                    <ViewTable rowsData={tabledata} data={data} />
+                                    {
+                                tabledata.length>0?
+                            <ViewTable rowsData={tabledata} data={data} />
+                            :  <div style={{ minHeight: 300, width: "100%" }} className='mt-5' >
+                            <h1 className='text-center'>
+                              No Recurrent Complaints are There
+                            </h1>
+                          </div>
 
+                            }
 
                         </div>
                     </div>
 
                 </div>
+
+
+
+
             </Spin>
         </>
 

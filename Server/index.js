@@ -174,8 +174,8 @@ io.on('connection', (socket) => {
 
 
 
-app.get('/', (ree, res, next) => {
-  res.json("Beackend working");
+app.get('/', (req, res, next) => {
+  res.json("Backend working");
 })
 
 // app.post('/register', async (req, res, next) => {
@@ -1338,7 +1338,8 @@ async function updateComplaintLevels() {
 
     const unresolvedComplaints = await Complaint.find({
       current_status: { $ne: 'resolved' },
-      date: { $gte: startOfDay, $lte: endOfDay }
+      date: { $gte: startOfDay, $lte: endOfDay },
+      level:1,
     });
     console.log(unresolvedComplaints)
 

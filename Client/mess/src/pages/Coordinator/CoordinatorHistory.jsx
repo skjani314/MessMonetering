@@ -31,7 +31,7 @@ const CoordinatorHistory = props => {
 
         try {
 
-            const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?level=' + 1 + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end,{withCredentials:true})
+            const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?level=' + 1 + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end, {withCredentials: true,})
             console.log(result)
             const data = result.data.map((each) => {
                 const { time, _doc, user_details } = each;
@@ -69,7 +69,7 @@ const CoordinatorHistory = props => {
 
             try {
 
-                const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?level=' + 1 + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end,{withCredentials:true})
+                const result = await axios.get(import.meta.env.VITE_API_URL + '/complaint?level=' + 1 + '&status=' + status_cat.status + "&category=" + status_cat.category + "&start=" + datseRange.start + "&end=" + datseRange.end,{withCredentials: true,})
                 console.log(result);
                 const data = result.data.map((each) => {
                     const { time, _doc, user_details } = each;
@@ -173,8 +173,8 @@ const CoordinatorHistory = props => {
                                         </Space>
                                     </Button>
                                 </Dropdown>
-                                <DatePicker placeholder="select Start Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, start: s })) }} />
-                                <DatePicker placeholder="select End Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, end: s })) }} />
+                                <DatePicker style={{ minWidth: '150px' }} placeholder="select Start Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, start: s })) }} />
+                                <DatePicker style={{ minWidth: '150px' }} placeholder="select End Date" onChange={(e, s) => { setdatesrange((prev) => ({ ...prev, end: s })) }} />
                                 <Button onClick={handleDatessubmit} type="primary">Submit</Button>
                             </Flex>
 

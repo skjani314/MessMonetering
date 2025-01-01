@@ -60,6 +60,18 @@
     background-color: #b22222;
     color: #FFFFFF;
   }
+  .GotoDash{
+    background-color: #007BFF; /* Primary blue color */
+    color: white; /* Text color */
+    font-size: 16px; /* Text size */
+    font-weight: bold; /* Bold text */
+    height: 50px;
+    padding: 10px 20px; /* Spacing inside the button */
+    border: none; /* Remove default border */
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+ 
   
   /* Responsive Styles */
   @media (max-width: 1024px) {
