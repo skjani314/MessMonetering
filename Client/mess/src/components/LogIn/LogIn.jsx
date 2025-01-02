@@ -119,15 +119,14 @@ const handleLogout=async ()=>{
 
   return (
     <>
-            <Spin tip="Loading...." size='large' spinning={loading}>
     {contextHolder}
     {!user?
-     <AntButton type="primary"  onClick={showModal}>
+     <AntButton type="primary"  onClick={showModal} loading={loading}>
    Sign in
     </AntButton>
     :<>
    <Link className='Link' style={{color:'black'}} to={user.role=='student'?'/student':user.role=="admin"?'/admin/dashboard':"/coordinator/dashboard"}><FaUser size={14} className="styling-icon"/></Link>
-    <AntButton type='primary'  onClick={handleLogout}>
+    <AntButton type='primary'  onClick={handleLogout} loading={loading}>
      <Link className="Link" to="/">Log Out</Link> 
     </AntButton>
     </>
@@ -172,7 +171,7 @@ const handleLogout=async ()=>{
   }
 </Spin>
   </Modal>
-  </Spin>
+  
   </>
    );
 }

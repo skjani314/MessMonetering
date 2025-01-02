@@ -35,7 +35,6 @@ const Home = () => {
 
   return (
     <div>
-      <Spin tip="Loading...." size="large" spinning={loading}>
         <Header />
         <div className="home-container">
         <h1
@@ -152,7 +151,6 @@ user?
             <p>© 2024 RGUKT Mess Management System. All rights reserved.</p>
           </footer>
         </div>
-      </Spin>
     </div>
   );
 };
