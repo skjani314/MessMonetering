@@ -62,7 +62,6 @@ navigate('/admin/users?id='+id)
 
     return (
     <>
-        <Spin tip="Loading...." size='large' spinning={loading}>
 
         <HeaderDup />
         <div className='header-main-container' style={{ zIndex: 1000 }}>
@@ -129,7 +128,6 @@ navigate('/admin/users?id='+id)
 
 
         </div>
-        </Spin>
     </>
 
 

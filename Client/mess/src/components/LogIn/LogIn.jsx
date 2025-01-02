@@ -119,6 +119,7 @@ const handleLogout=async ()=>{
 
   return (
     <>
+            <Spin tip="Loading...." size='large' spinning={loading}>
     {contextHolder}
     {!user?
      <AntButton type="primary"  onClick={showModal}>
@@ -171,6 +172,7 @@ const handleLogout=async ()=>{
   }
 </Spin>
   </Modal>
+  </Spin>
   </>
    );
 }
