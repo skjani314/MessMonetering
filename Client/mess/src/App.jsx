@@ -71,10 +71,10 @@ socket
 
 useEffect(()=>{
 
-setLoading(true)
 const getuser=async ()=>{
 
 
+  setLoading(true)
 
 try{
 
@@ -90,12 +90,12 @@ console.log(err)
 
 }
 
+setLoading(false)
 
 
 }
 
 getuser()
-setLoading(false)
 
 },[])
 
