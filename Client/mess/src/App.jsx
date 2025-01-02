@@ -101,7 +101,6 @@ getuser()
 
 
   return (
-    <Spin tip="Loading...." size='large' spinning={loading}>
 
     <Context.Provider value={context_data}>
       
@@ -121,9 +120,7 @@ getuser()
         <Route path="/student/complaint" element={user && user.role=="student"?<StudentComplaint />:<NotFoundPage/>} />
         <Route path="/student/profile" element={user && user.role=="student"?<StudentProfile />:<NotFoundPage/>} />
       </Routes>
-    </Context.Provider>
-    </Spin>
-    
+    </Context.Provider>    
   )
 }
 
