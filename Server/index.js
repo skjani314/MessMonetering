@@ -1356,9 +1356,9 @@ async function updateComplaintLevels() {
   }
 }
 
-// setInterval(updateComplaintLevels, 24 * 60 * 60 * 1000);
+setInterval(updateComplaintLevels, 24 * 60 * 60 * 1000);
 
-const job = schedule.scheduleJob('0 0 * * *',{tz: 'Asia/Kolkata'}, updateComplaintLevels);
+// const job = schedule.scheduleJob('0 0 * * *',{tz: 'Asia/Kolkata'}, updateComplaintLevels);
 
 
 
